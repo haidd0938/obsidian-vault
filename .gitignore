@@ -1,0 +1,17 @@
+# Obsidian 工作区状态（避免跨设备冲突）
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 缓存/临时文件
+*.tmp
+*.swp
+*.swo
+*~
+
+# Obsidian 本地缓存
+.obsidian/cache/
+.obsidian/plugins/*/data.json
