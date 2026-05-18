@@ -3,5 +3,6 @@
   "templater-obsidian",
   "calendar",
   "obsidian42-brat",
-  "obsidian-git"
+  "obsidian-git",
+  "obsidian-pandoc"
 ]
