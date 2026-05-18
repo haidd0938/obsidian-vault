@@ -1,0 +1,1645 @@
+<!doctype html>
+<html>
+    <head>
+        <title>API中转站灰色生意实施方案</title>
+        <meta charset='utf-8'/>
+        <style>
+ .ͼ1.cm-focused {outline: 1px dotted #212121;}
+.ͼ1 {position: relative !important; box-sizing: border-box; display: flex !important; flex-direction: column;}
+.ͼ1 .cm-scroller {display: flex !important; align-items: flex-start !important; font-family: monospace; line-height: 1.4; height: 100%; overflow-x: auto; position: relative; z-index: 0; overflow-anchor: none;}
+.ͼ1 .cm-content[contenteditable=true] {-webkit-user-modify: read-write-plaintext-only;}
+.ͼ1 .cm-content {margin: 0; flex-grow: 2; flex-shrink: 0; display: block; white-space: pre; word-wrap: normal; box-sizing: border-box; min-height: 100%; padding: 4px 0; outline: none;}
+.ͼ1 .cm-lineWrapping {white-space: pre-wrap; white-space: break-spaces; word-break: break-word; overflow-wrap: anywhere; flex-shrink: 1;}
+.ͼ2 .cm-content {caret-color: black;}
+.ͼ3 .cm-content {caret-color: white;}
+.ͼ1 .cm-line {display: block; padding: 0 2px 0 6px;}
+.ͼ1 .cm-layer > * {position: absolute;}
+.ͼ1 .cm-layer {position: absolute; left: 0; top: 0; contain: size style;}
+.ͼ2 .cm-selectionBackground {background: #d9d9d9;}
+.ͼ3 .cm-selectionBackground {background: #222;}
+.ͼ2.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {background: #d7d4f0;}
+.ͼ3.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground {background: #233;}
+.ͼ1 .cm-cursorLayer {pointer-events: none;}
+.ͼ1.cm-focused > .cm-scroller > .cm-cursorLayer {animation: steps(1) cm-blink 1.2s infinite;}
+@keyframes cm-blink {50% {opacity: 0;}}
+@keyframes cm-blink2 {50% {opacity: 0;}}
+.ͼ1 .cm-cursor, .ͼ1 .cm-dropCursor {border-left: 1.2px solid black; margin-left: -0.6px; pointer-events: none;}
+.ͼ1 .cm-cursor {display: none;}
+.ͼ3 .cm-cursor {border-left-color: #ddd;}
+.ͼ1 .cm-dropCursor {position: absolute;}
+.ͼ1.cm-focused > .cm-scroller > .cm-cursorLayer .cm-cursor {display: block;}
+.ͼ1 .cm-iso {unicode-bidi: isolate;}
+.ͼ1 .cm-announced {position: fixed; top: -10000px;}
+@media print {.ͼ1 .cm-announced {display: none;}}
+.ͼ2 .cm-activeLine {background-color: #cceeff44;}
+.ͼ3 .cm-activeLine {background-color: #99eeff33;}
+.ͼ2 .cm-specialChar {color: red;}
+.ͼ3 .cm-specialChar {color: #f78;}
+.ͼ1 .cm-gutters {flex-shrink: 0; display: flex; height: 100%; box-sizing: border-box; z-index: 200;}
+.ͼ1 .cm-gutters-before {inset-inline-start: 0;}
+.ͼ1 .cm-gutters-after {inset-inline-end: 0;}
+.ͼ2 .cm-gutters.cm-gutters-before {border-right-width: 1px;}
+.ͼ2 .cm-gutters.cm-gutters-after {border-left-width: 1px;}
+.ͼ2 .cm-gutters {background-color: #f5f5f5; color: #6c6c6c; border: 0px solid #ddd;}
+.ͼ3 .cm-gutters {background-color: #333338; color: #ccc;}
+.ͼ1 .cm-gutter {display: flex !important; flex-direction: column; flex-shrink: 0; box-sizing: border-box; min-height: 100%; overflow: hidden;}
+.ͼ1 .cm-gutterElement {box-sizing: border-box;}
+.ͼ1 .cm-lineNumbers .cm-gutterElement {padding: 0 3px 0 5px; min-width: 20px; text-align: right; white-space: nowrap;}
+.ͼ2 .cm-activeLineGutter {background-color: #e2f2ff;}
+.ͼ3 .cm-activeLineGutter {background-color: #222227;}
+.ͼ1 .cm-panels {box-sizing: border-box; position: sticky; left: 0; right: 0; z-index: 300;}
+.ͼ2 .cm-panels {background-color: #f5f5f5; color: black;}
+.ͼ2 .cm-panels-top {border-bottom: 1px solid #ddd;}
+.ͼ2 .cm-panels-bottom {border-top: 1px solid #ddd;}
+.ͼ3 .cm-panels {background-color: #333338; color: white;}
+.ͼ1 .cm-dialog label {font-size: 80%;}
+.ͼ1 .cm-dialog {padding: 2px 19px 4px 6px; position: relative;}
+.ͼ1 .cm-dialog-close {position: absolute; top: 3px; right: 4px; background-color: inherit; border: none; font: inherit; font-size: 14px; padding: 0;}
+.ͼ1 .cm-tab {display: inline-block; overflow: hidden; vertical-align: bottom;}
+.ͼ1 .cm-widgetBuffer {vertical-align: text-top; height: 1em; width: 0; display: inline;}
+.ͼ1 .cm-placeholder {color: #888; display: inline-block; vertical-align: top; user-select: none;}
+.ͼ1 .cm-highlightSpace {background-image: radial-gradient(circle at 50% 55%, #aaa 20%, transparent 5%); background-position: center;}
+.ͼ1 .cm-highlightTab {background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="20"><path stroke="%23888" stroke-width="1" fill="none" d="M1 10H196L190 5M190 15L196 10M197 4L197 16"/></svg>'); background-size: auto 100%; background-position: right 90%; background-repeat: no-repeat;}
+.ͼ1 .cm-trailingSpace {background-color: #ff332255;}
+.ͼ1 .cm-button {vertical-align: middle; color: inherit; font-size: 70%; padding: .2em 1em; border-radius: 1px;}
+.ͼ2 .cm-button:active {background-image: linear-gradient(#b4b4b4, #d0d3d6);}
+.ͼ2 .cm-button {background-image: linear-gradient(#eff1f5, #d9d9df); border: 1px solid #888;}
+.ͼ3 .cm-button:active {background-image: linear-gradient(#111, #333);}
+.ͼ3 .cm-button {background-image: linear-gradient(#393939, #111); border: 1px solid #888;}
+.ͼ1 .cm-textfield {vertical-align: middle; color: inherit; font-size: 70%; border: 1px solid silver; padding: .2em .5em;}
+.ͼ2 .cm-textfield {background-color: white;}
+.ͼ3 .cm-textfield {border: 1px solid #555; background-color: inherit;}
+.ͼ1 .cm-foldPlaceholder {background-color: #eee; border: 1px solid #ddd; color: #888; border-radius: .2em; margin: 0 1px; padding: 0 1px; cursor: pointer;}
+.ͼ1 .cm-foldGutter span {padding: 0 1px; cursor: pointer;}
+ .block-language-dataview {
+    overflow-y: auto;
+}
+
+/*****************/
+/** Table Views **/
+/*****************/
+
+/* List View Default Styling; rendered internally as a table. */
+.table-view-table {
+    width: 100%;
+}
+
+.table-view-table > thead > tr, .table-view-table > tbody > tr {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.table-view-table > tbody > tr:hover {
+    background-color: var(--table-row-background-hover);
+}
+
+.table-view-table > thead > tr > th {
+    font-weight: 700;
+    font-size: larger;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid;
+
+    max-width: 100%;
+}
+
+.table-view-table > tbody > tr > td {
+    text-align: left;
+    border: none;
+    font-weight: 400;
+    max-width: 100%;
+}
+
+.table-view-table ul, .table-view-table ol {
+    margin-block-start: 0.2em !important;
+    margin-block-end: 0.2em !important;
+}
+
+/** Rendered value styling for any view. */
+.dataview-result-list-root-ul {
+    padding: 0em !important;
+    margin: 0em !important;
+}
+
+.dataview-result-list-ul {
+    margin-block-start: 0.2em !important;
+    margin-block-end: 0.2em !important;
+}
+
+/** Generic grouping styling. */
+.dataview.result-group {
+    padding-left: 8px;
+}
+
+/*******************/
+/** Inline Fields **/
+/*******************/
+
+.dataview.inline-field-key {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: var(--font-monospace);
+    background-color: var(--background-primary-alt);
+    color: var(--nav-item-color-selected);
+}
+
+.dataview.inline-field-value {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: var(--font-monospace);
+    background-color: var(--background-secondary-alt);
+    color: var(--nav-item-color-selected);
+}
+
+.dataview.inline-field-standalone-value {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-family: var(--font-monospace);
+    background-color: var(--background-secondary-alt);
+    color: var(--nav-item-color-selected);
+}
+
+/***************/
+/** Task View **/
+/***************/
+
+.dataview.task-list-item, .dataview.task-list-basic-item {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    transition: 0.4s;
+}
+
+.dataview.task-list-item:hover, .dataview.task-list-basic-item:hover {
+    background-color: var(--text-selection);
+    box-shadow: -40px 0 0 var(--text-selection);
+    cursor: pointer;
+}
+
+/*****************/
+/** Error Views **/
+/*****************/
+
+div.dataview-error-box {
+    width: 100%;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 4px dashed var(--background-secondary);
+}
+
+.dataview-error-message {
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/*************************/
+/** Additional Metadata **/
+/*************************/
+
+.dataview.small-text {
+    font-size: smaller;
+    color: var(--text-muted);
+    margin-left: 3px;
+}
+
+.dataview.small-text::before {
+	content: "(";
+}
+
+.dataview.small-text::after {
+	content: ")";
+}
+ .templater_search {
+    width: calc(100% - 20px);
+}
+
+.templater_div {
+    border-top: 1px solid var(--background-modifier-border);
+}
+
+.templater_div > .setting-item {
+    border-top: none !important;
+    align-self: center;
+}
+
+.templater_div > .setting-item > .setting-item-control {
+    justify-content: space-around;
+    padding: 0;
+    width: 100%;
+}
+
+.templater_div
+    > .setting-item
+    > .setting-item-control
+    > .setting-editor-extra-setting-button {
+    align-self: center;
+}
+
+.templater_donating {
+    margin: 10px;
+}
+
+.templater_title {
+    margin: 0;
+    padding: 0;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.templater_template {
+    align-self: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 70%;
+}
+
+.templater_cmd {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.templater_div2 > .setting-item {
+    align-content: center;
+    justify-content: center;
+}
+
+.templater-prompt-div,
+.templater-multisuggester-div {
+    display: flex;
+}
+
+.templater-prompt-form {
+    display: flex;
+    flex-grow: 1;
+}
+
+.templater-prompt-input,
+.templater-multisuggester-input {
+    flex-grow: 1;
+}
+
+.templater-button-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+textarea.templater-prompt-input {
+    height: 10rem;
+}
+
+textarea.templater-prompt-input:focus {
+    border-color: var(--interactive-accent);
+}
+
+.templater-multisuggester-list {
+    margin: 1.5em 0;
+}
+
+.cm-s-obsidian .templater-command-bg {
+    left: 0px;
+    right: 0px;
+    background-color: var(--background-primary-alt);
+}
+
+.cm-s-obsidian .cm-templater-command {
+    font-size: 0.85em;
+    font-family: var(--font-monospace);
+    line-height: 1.3;
+}
+
+.cm-s-obsidian .templater-inline .cm-templater-command {
+    background-color: var(--background-primary-alt);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-templater-opening-tag {
+    font-weight: bold;
+}
+
+.cm-s-obsidian .cm-templater-command.cm-templater-closing-tag {
+    font-weight: bold;
+}
+
+.cm-s-obsidian .cm-templater-command.cm-templater-interpolation-tag {
+    color: var(--code-property, #008bff);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-templater-execution-tag {
+    color: var(--code-function, #c0d700);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-keyword {
+    color: var(--code-keyword, #00a7aa);
+    font-weight: normal;
+}
+
+.cm-s-obsidian .cm-templater-command.cm-atom {
+    color: var(--code-normal, #f39b35);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-value,
+.cm-s-obsidian .cm-templater-command.cm-number,
+.cm-s-obsidian .cm-templater-command.cm-type {
+    color: var(--code-value, #a06fca);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-def,
+.cm-s-obsidian .cm-templater-command.cm-type.cm-def {
+    color: var(--code-normal, var(--text-normal));
+}
+
+.cm-s-obsidian .cm-templater-command.cm-property,
+.cm-s-obsidian .cm-templater-command.cm-property.cm-def,
+.cm-s-obsidian .cm-templater-command.cm-attribute {
+    color: var(--code-function, #98e342);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-variable,
+.cm-s-obsidian .cm-templater-command.cm-variable-2,
+.cm-s-obsidian .cm-templater-command.cm-variable-3,
+.cm-s-obsidian .cm-templater-command.cm-meta {
+    color: var(--code-property, #d4d4d4);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-callee,
+.cm-s-obsidian .cm-templater-command.cm-operator,
+.cm-s-obsidian .cm-templater-command.cm-qualifier,
+.cm-s-obsidian .cm-templater-command.cm-builtin {
+    color: var(--code-operator, #fc4384);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-tag {
+    color: var(--code-tag, #fc4384);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-comment,
+.cm-s-obsidian .cm-templater-command.cm-comment.cm-tag,
+.cm-s-obsidian .cm-templater-command.cm-comment.cm-attribute {
+    color: var(--code-comment, #696d70);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-string,
+.cm-s-obsidian .cm-templater-command.cm-string-2 {
+    color: var(--code-string, #e6db74);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-header,
+.cm-s-obsidian .cm-templater-command.cm-hr {
+    color: var(--code-keyword, #da7dae);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-link {
+    color: var(--code-normal, #696d70);
+}
+
+.cm-s-obsidian .cm-templater-command.cm-error {
+    border-bottom: 1px solid #c42412;
+}
+
+.CodeMirror-hints {
+    position: absolute;
+    z-index: 10;
+    overflow: hidden;
+    list-style: none;
+
+    margin: 0;
+    padding: 2px;
+
+    -webkit-box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    border: 1px solid silver;
+
+    background: white;
+    font-size: 90%;
+    font-family: monospace;
+
+    max-height: 20em;
+    overflow-y: auto;
+}
+
+.CodeMirror-hint {
+    margin: 0;
+    padding: 0 4px;
+    border-radius: 2px;
+    white-space: pre;
+    color: black;
+    cursor: pointer;
+}
+
+li.CodeMirror-hint-active {
+    background: #08f;
+    color: white;
+}
+ .brat-modal .modal-button-container {
+  margin-top: 5px;
+}
+
+.brat-modal .disabled-setting {
+  opacity: 0.5;
+}
+
+.brat-modal .disabled-setting:hover {
+  cursor: not-allowed;
+}
+
+/* Input validation styles */
+.brat-settings .valid-input,
+.brat-modal .valid-repository {
+  border-color: var(--color-green);
+}
+.brat-settings .invalid-input,
+.brat-modal .invalid-repository {
+  border-color: var(--color-red);
+}
+.brat-settings .validation-error,
+.brat-modal .validation-error {
+  border-color: var(--color-orange);
+}
+
+/* Version selector */
+.brat-version-selector {
+  width: 100%;
+  max-width: 400px;
+  justify-content: left;
+}
+
+.brat-token-input {
+  min-width: 33%;
+}
+
+/* Token info container styles */
+.brat-token-info {
+  margin-top: 8px;
+  font-size: 0.8em;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: var(--background-secondary);
+}
+
+/* Token status indicators */
+.brat-token-info.valid,
+.brat-token-status.valid {
+  color: var(--color-green);
+}
+
+.brat-token-info.invalid,
+.brat-token-status.invalid {
+  color: var(--color-red);
+}
+
+.brat-token-info.valid {
+  border-left: 3px solid var(--color-green);
+}
+
+.brat-token-info.invalid {
+  border-left: 3px solid var(--color-red);
+}
+
+/* Token details and status */
+.brat-token-status {
+  margin-bottom: 4px;
+}
+
+.brat-token-details {
+  margin-top: 4px;
+  color: var(--text-muted);
+}
+
+/* Token warnings */
+.brat-token-warning {
+  color: var(--color-orange);
+  margin-top: 4px;
+}
+
+/* Token additional info */
+.brat-token-scopes,
+.brat-token-rate {
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Flex break utility */
+.brat-modal .break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+/* Validation status */
+.brat-modal .validation-status-error {
+  color: var(--text-error);
+}
+
+.brat-modal .validation-status {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 0.8em;
+  text-align: left;
+}
+
+.confirm-modal .ok-button {
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+/* Hide filtered plugin items */
+.brat-plugin-item[hidden] {
+  display: none !important;
+}
+
+/* Hide filtered theme items */
+.brat-theme-item[hidden] {
+  display: none !important;
+}
+
+/* Filter and button layout */
+.brat-filter-and-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0.75em 0;
+}
+
+.brat-filter-input {
+  max-width: 300px;
+  padding: 4px 8px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background-color: var(--background-secondary);
+  color: var(--text-normal);
+}
+
+.brat-filter-input:focus {
+  outline: none;
+  border-color: var(--interactive-accent);
+}
+
+.brat-filter-and-button .setting-item {
+  border: none;
+  padding: 0;
+}
+
+.brat-filter-and-button .setting-item-control {
+  justify-content: flex-end;
+}
+ @keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.workspace-leaf-content[data-type="git-view"] .button-border {
+    border: 2px solid var(--interactive-accent);
+    border-radius: var(--radius-s);
+}
+
+.workspace-leaf-content[data-type="git-view"] .view-content {
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+}
+
+.workspace-leaf-content[data-type="git-history-view"] .view-content {
+    padding-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+}
+
+.loading {
+    overflow: hidden;
+}
+
+.loading > svg {
+    animation: 2s linear infinite loading;
+    transform-origin: 50% 50%;
+    display: inline-block;
+}
+
+.obsidian-git-center {
+    margin: auto;
+    text-align: center;
+    width: 50%;
+}
+
+.obsidian-git-textarea {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.obsidian-git-disabled {
+    opacity: 0.5;
+}
+
+.obsidian-git-center-button {
+    display: block;
+    margin: 20px auto;
+}
+
+.tooltip.mod-left {
+    overflow-wrap: break-word;
+}
+
+.tooltip.mod-right {
+    overflow-wrap: break-word;
+}
+
+/* Limits the scrollbar to the view body */
+.git-view {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+}
+
+/* Re-enable wrapping of nav buttns to prevent overflow on smaller screens #*/
+.workspace-drawer .git-view .nav-buttons-container {
+    flex-wrap: wrap;
+}
+
+.git-tools {
+    display: flex;
+    margin-left: auto;
+}
+.git-tools .type {
+    padding-left: var(--size-2-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 11px;
+}
+
+.git-tools .type[data-type="M"] {
+    color: orange;
+}
+.git-tools .type[data-type="D"] {
+    color: red;
+}
+.git-tools .buttons {
+    display: flex;
+}
+.git-tools .buttons > * {
+    padding: 0;
+    height: auto;
+}
+
+.workspace-leaf-content[data-type="git-view"] .tree-item-self,
+.workspace-leaf-content[data-type="git-history-view"] .tree-item-self {
+    align-items: center;
+}
+
+.workspace-leaf-content[data-type="git-view"]
+    .tree-item-self:hover
+    .clickable-icon,
+.workspace-leaf-content[data-type="git-history-view"]
+    .tree-item-self:hover
+    .clickable-icon {
+    color: var(--icon-color-hover);
+}
+
+/* Highlight an item as active if it's diff is currently opened */
+.is-active .git-tools .buttons > * {
+    color: var(--nav-item-color-active);
+}
+
+.git-author {
+    color: var(--text-accent);
+}
+
+.git-date {
+    color: var(--text-accent);
+}
+
+.git-ref {
+    color: var(--text-accent);
+}
+
+/* ====== diff2html ======
+The following styles are adapted from the obsidian-version-history plugin by
+@kometenstaub https://github.com/kometenstaub/obsidian-version-history-diff/blob/main/src/styles.scss
+which itself is adapted from the diff2html library with the following original license:
+
+   	https://github.com/rtfpessoa/diff2html/blob/master/LICENSE.md
+
+	Copyright 2014-2016 Rodrigo Fernandes https://rtfpessoa.github.io/
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+	documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+	rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
+	persons to whom the Software is furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+	Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+	WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+	COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+.theme-dark,
+.theme-light {
+    --git-delete-bg: #ff475040;
+    --git-delete-hl: #96050a75;
+    --git-insert-bg: #68d36840;
+    --git-insert-hl: #23c02350;
+    --git-change-bg: #ffd55840;
+    --git-selected: #3572b0;
+
+    --git-delete: #cc3333;
+    --git-insert: #399839;
+    --git-change: #d0b44c;
+    --git-move: #3572b0;
+}
+
+.git-diff {
+    .d2h-d-none {
+        display: none;
+    }
+    .d2h-wrapper {
+        text-align: left;
+        border-radius: 0.25em;
+        overflow: auto;
+    }
+    .d2h-file-header.d2h-file-header {
+        background-color: var(--background-secondary);
+        border-bottom: 1px solid var(--background-modifier-border);
+        font-family:
+            Source Sans Pro,
+            Helvetica Neue,
+            Helvetica,
+            Arial,
+            sans-serif;
+        height: 35px;
+        padding: 5px 10px;
+    }
+    .d2h-file-header,
+    .d2h-file-stats {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+    .d2h-file-header {
+        display: none;
+    }
+    .d2h-file-stats {
+        font-size: 14px;
+        margin-left: auto;
+    }
+    .d2h-lines-added {
+        border: 1px solid var(--color-green);
+        border-radius: 5px 0 0 5px;
+        color: var(--color-green);
+        padding: 2px;
+        text-align: right;
+        vertical-align: middle;
+    }
+    .d2h-lines-deleted {
+        border: 1px solid var(--color-red);
+        border-radius: 0 5px 5px 0;
+        color: var(--color-red);
+        margin-left: 1px;
+        padding: 2px;
+        text-align: left;
+        vertical-align: middle;
+    }
+    .d2h-file-name-wrapper {
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 15px;
+        width: 100%;
+    }
+    .d2h-file-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--text-normal);
+        font-size: var(--h5-size);
+    }
+    .d2h-file-wrapper {
+        border: 1px solid var(--background-secondary-alt);
+        border-radius: 3px;
+        margin-bottom: 1em;
+        max-height: 100%;
+    }
+    .d2h-file-collapse {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        border: 1px solid var(--background-secondary-alt);
+        border-radius: 3px;
+        cursor: pointer;
+        display: none;
+        font-size: 12px;
+        justify-content: flex-end;
+        padding: 4px 8px;
+    }
+    .d2h-file-collapse.d2h-selected {
+        background-color: var(--git-selected);
+    }
+    .d2h-file-collapse-input {
+        margin: 0 4px 0 0;
+    }
+    .d2h-diff-table {
+        border-collapse: collapse;
+        font-family: var(--font-monospace);
+        font-size: var(--code-size);
+        width: 100%;
+    }
+    .d2h-files-diff {
+        width: 100%;
+    }
+    .d2h-file-diff {
+        /*
+		overflow-y: scroll;
+		*/
+        border-radius: 5px;
+        font-size: var(--font-text-size);
+        line-height: var(--line-height-normal);
+    }
+    .d2h-file-side-diff {
+        display: inline-block;
+        margin-bottom: -8px;
+        margin-right: -4px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 50%;
+    }
+    .d2h-code-line {
+        padding-left: 6em;
+        padding-right: 1.5em;
+    }
+    .d2h-code-line,
+    .d2h-code-side-line {
+        display: inline-block;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        white-space: nowrap;
+        width: 100%;
+    }
+    .d2h-code-side-line {
+        /* needed to be changed */
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+    .d2h-code-line-ctn {
+        word-wrap: normal;
+        background: none;
+        display: inline-block;
+        padding: 0;
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+        vertical-align: middle;
+        width: 100%;
+        /* only works for line-by-line */
+        white-space: pre-wrap;
+    }
+    .d2h-code-line del,
+    .d2h-code-side-line del {
+        background-color: var(--git-delete-hl);
+        color: var(--text-normal);
+    }
+    .d2h-code-line del,
+    .d2h-code-line ins,
+    .d2h-code-side-line del,
+    .d2h-code-side-line ins {
+        border-radius: 0.2em;
+        display: inline-block;
+        margin-top: -1px;
+        text-decoration: none;
+        vertical-align: middle;
+    }
+    .d2h-code-line ins,
+    .d2h-code-side-line ins {
+        background-color: var(--git-insert-hl);
+        text-align: left;
+    }
+    .d2h-code-line-prefix {
+        word-wrap: normal;
+        background: none;
+        display: inline;
+        padding: 0;
+        white-space: pre;
+    }
+    .line-num1 {
+        float: left;
+    }
+    .line-num1,
+    .line-num2 {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        overflow: hidden;
+        /*
+		padding: 0 0.5em;
+		*/
+        text-overflow: ellipsis;
+        width: 2.5em;
+        padding-left: 0;
+    }
+    .line-num2 {
+        float: right;
+    }
+    .d2h-code-linenumber {
+        background-color: var(--background-primary);
+        border: solid var(--background-modifier-border);
+        border-width: 0 1px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: var(--text-faint);
+        cursor: pointer;
+        display: inline-block;
+        position: absolute;
+        text-align: right;
+        width: 5.5em;
+    }
+    .d2h-code-linenumber:after {
+        content: "\200b";
+    }
+    .d2h-code-side-linenumber {
+        background-color: var(--background-primary);
+        border: solid var(--background-modifier-border);
+        border-width: 0 1px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        color: var(--text-faint);
+        cursor: pointer;
+        overflow: hidden;
+        padding: 0 0.5em;
+        text-align: right;
+        text-overflow: ellipsis;
+        width: 4em;
+        /* needed to be changed */
+        display: table-cell;
+        position: relative;
+    }
+    .d2h-code-side-linenumber:after {
+        content: "\200b";
+    }
+    .d2h-code-side-emptyplaceholder,
+    .d2h-emptyplaceholder {
+        background-color: var(--background-primary);
+        border-color: var(--background-modifier-border);
+    }
+    .d2h-code-line-prefix,
+    .d2h-code-linenumber,
+    .d2h-code-side-linenumber,
+    .d2h-emptyplaceholder {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .d2h-code-linenumber,
+    .d2h-code-side-linenumber {
+        direction: rtl;
+    }
+    .d2h-del {
+        background-color: var(--git-delete-bg);
+        border-color: var(--git-delete-hl);
+    }
+    .d2h-ins {
+        background-color: var(--git-insert-bg);
+        border-color: var(--git-insert-hl);
+    }
+    .d2h-info {
+        background-color: var(--background-primary);
+        border-color: var(--background-modifier-border);
+        color: var(--text-faint);
+    }
+    .d2h-del,
+    .d2h-ins,
+    .d2h-file-diff .d2h-change {
+        color: var(--text-normal);
+    }
+    .d2h-file-diff .d2h-del.d2h-change {
+        background-color: var(--git-change-bg);
+    }
+    .d2h-file-diff .d2h-ins.d2h-change {
+        background-color: var(--git-insert-bg);
+    }
+    .d2h-file-list-wrapper {
+        a {
+            text-decoration: none;
+            cursor: default;
+            -webkit-user-drag: none;
+        }
+
+        svg {
+            display: none;
+        }
+    }
+    .d2h-file-list-header {
+        text-align: left;
+    }
+    .d2h-file-list-title {
+        display: none;
+    }
+    .d2h-file-list-line {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        text-align: left;
+    }
+    .d2h-file-list {
+    }
+    .d2h-file-list > li {
+        border-bottom: 1px solid var(--background-modifier-border);
+        margin: 0;
+        padding: 5px 10px;
+    }
+    .d2h-file-list > li:last-child {
+        border-bottom: none;
+    }
+    .d2h-file-switch {
+        cursor: pointer;
+        display: none;
+        font-size: 10px;
+    }
+    .d2h-icon {
+        fill: currentColor;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+    .d2h-deleted {
+        color: var(--git-delete);
+    }
+    .d2h-added {
+        color: var(--git-insert);
+    }
+    .d2h-changed {
+        color: var(--git-change);
+    }
+    .d2h-moved {
+        color: var(--git-move);
+    }
+    .d2h-tag {
+        background-color: var(--background-secondary);
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        font-size: 10px;
+        margin-left: 5px;
+        padding: 0 2px;
+    }
+    .d2h-deleted-tag {
+        border: 1px solid var(--git-delete);
+    }
+    .d2h-added-tag {
+        border: 1px solid var(--git-insert);
+    }
+    .d2h-changed-tag {
+        border: 1px solid var(--git-change);
+    }
+    .d2h-moved-tag {
+        border: 1px solid var(--git-move);
+    }
+
+    /* needed for line-by-line*/
+
+    .d2h-diff-tbody {
+        position: relative;
+    }
+
+    /* My additions */
+    .cm-merge-revert {
+        width: 4em;
+    }
+    /* Ensure that merge revert markers are positioned correctly */
+    .cm-merge-revert > * {
+        position: absolute;
+        background-color: var(--background-secondary);
+        display: flex;
+    }
+}
+
+/* ====================== Line Authoring Information ====================== */
+
+.cm-gutterElement.obs-git-blame-gutter {
+    /* Add background color to spacing inbetween and around the gutter for better aesthetics */
+    border-width: 0px 2px 0.2px;
+    border-style: solid;
+    border-color: var(--background-secondary);
+    background-color: var(--background-secondary);
+}
+
+.cm-gutterElement.obs-git-blame-gutter > div,
+.line-author-settings-preview {
+    /* delegate text color to settings */
+    color: var(--obs-git-gutter-text);
+    font-family: monospace;
+    height: 100%; /* ensure, that age-based background color occupies entire parent */
+    text-align: right;
+    padding: 0px 6px;
+    white-space: pre; /* Keep spaces and do not collapse them. */
+}
+
+@media (max-width: 800px) {
+    /* hide git blame gutter not to superpose text */
+    .cm-gutterElement.obs-git-blame-gutter {
+        display: none;
+    }
+}
+
+.git-unified-diff-view,
+.git-split-diff-view .cm-deletedLine .cm-changedText {
+    background-color: #ee443330;
+}
+
+.git-unified-diff-view,
+.git-split-diff-view .cm-insertedLine .cm-changedText {
+    background-color: #22bb2230;
+}
+
+.git-obscure-prompt[git-is-obscured="true"] #git-show-password:after {
+    -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>');
+}
+
+.git-obscure-prompt[git-is-obscured="false"] #git-show-password:after {
+    -webkit-mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-eye-off"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"></path><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"></path><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"></path><path d="m2 2 20 20"></path></svg>');
+}
+
+/* Override styling of Codemirror merge view "collapsed lines" indicator */
+.git-split-diff-view .ͼ2 .cm-collapsedLines {
+    background: var(--interactive-normal);
+    border-radius: var(--radius-m);
+    color: var(--text-accent);
+    font-size: var(--font-small);
+    padding: var(--size-4-1) var(--size-4-1);
+}
+.git-split-diff-view .ͼ2 .cm-collapsedLines:hover {
+    background: var(--interactive-hover);
+    color: var(--text-accent-hover);
+}
+
+.git-signs-gutter {
+    .cm-gutterElement {
+        display: grid;
+
+        /* Needed to align the sign properly for different line heigts. Such as
+         * when having a heading or list item.
+         */
+        padding-top: 0 !important;
+    }
+}
+
+.git-gutter-marker:hover {
+    border-radius: 2px;
+}
+
+.git-gutter-marker.git-add {
+    background-color: var(--color-green);
+    justify-self: center;
+    height: inherit;
+    width: 0.2rem;
+}
+
+.git-gutter-marker.git-change {
+    background-color: var(--color-yellow);
+    justify-self: center;
+    height: inherit;
+    width: 0.2rem;
+}
+
+.git-gutter-marker.git-changedelete {
+    color: var(--color-yellow);
+    font-weight: var(--font-bold);
+    font-size: 1rem;
+    justify-self: center;
+    height: inherit;
+}
+
+.git-gutter-marker.git-delete {
+    background-color: var(--color-red);
+    height: 0.2rem;
+    width: 0.8rem;
+    align-self: end;
+}
+
+.git-gutter-marker.git-topdelete {
+    background-color: var(--color-red);
+    height: 0.2rem;
+    width: 0.8rem;
+    align-self: start;
+}
+
+div:hover > .git-gutter-marker.git-change {
+    width: 0.6rem;
+}
+
+div:hover > .git-gutter-marker.git-add {
+    width: 0.6rem;
+}
+
+div:hover > .git-gutter-marker.git-delete {
+    height: 0.6rem;
+}
+
+div:hover > .git-gutter-marker.git-topdelete {
+    height: 0.6rem;
+}
+
+div:hover > .git-gutter-marker.git-changedelete {
+    font-weight: var(--font-bold);
+}
+
+.git-gutter-marker.staged {
+    opacity: 0.5;
+}
+
+/* Prevent shifting of the editor when git signs gutter is the only gutter present */
+.cm-gutters.cm-gutters-before:has(> .git-signs-gutter:only-child) {
+    margin-inline-end: 0;
+    .git-signs-gutter {
+        margin-inline-start: -1rem;
+    }
+}
+
+.git-changes-status-bar-colored {
+    .git-add {
+        color: var(--color-green);
+    }
+    .git-change {
+        color: var(--color-yellow);
+    }
+    .git-delete {
+        color: var(--color-red);
+    }
+}
+
+.git-changes-status-bar .git-add {
+    margin-right: 0.3em;
+}
+
+.git-changes-status-bar .git-change {
+    margin-right: 0.3em;
+}
+ 
+.pandoc-plugin-error {
+    color: red;
+}
+ undefined
+</style>
+    </head>
+    <body>
+<h1 data-heading="API中转站 — 灰色生意实施方案" dir="auto">API中转站 — 灰色生意实施方案</h1>
+<blockquote dir="auto">
+<p>来源：TikTok @ai_programer 《API中转站的灰色生意》<br>
+整理时间：2026-05-16</p>
+</blockquote>
+<hr>
+<h2 data-heading="一、项目概述" dir="auto">一、项目概述</h2>
+<p dir="auto">搭建一个API中转代理服务，为国内用户提供海外大模型API（OpenAI、Claude、Gemini等）的转发访问。本质是 <strong>"卖水"生意</strong>——赚取流量差价。</p>
+<h3 data-heading="核心公式" dir="auto">核心公式</h3>
+<pre><code>收入 = ∑(用户调用量 × 单价) - ∑(上游API成本 + 服务器成本)
+利润率目标：50%-70%
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path><style>
+:root {
+  --default-font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
+  --font-monospace: 'Source Code Pro', monospace;
+  --background-primary: #ffffff;
+  --background-modifier-border: #ddd;
+  --text-accent: #705dcf;
+  --text-accent-hover: #7a6ae6;
+  --text-normal: #2e3338;
+  --background-secondary: #f2f3f5;
+  --background-secondary-alt: #e3e5e8;
+  --text-muted: #888888;
+}</style>"<marker id="mermaid_arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker>"</svg></button></pre>
+<hr>
+<h2 data-heading="二、技术架构" dir="auto">二、技术架构</h2>
+<h3 data-heading="2.1 基础架构（最低成本版）" dir="auto">2.1 基础架构（最低成本版）</h3>
+<pre><code>用户 → 域名/CDN → Nginx反代 → 鉴权/计费中间件 → 上游API(OpenAI/Claude等)
+                                      │
+                                      ▼
+                                SQLite/MySQL (用量记录)
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path><style>
+:root {
+  --default-font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
+  --font-monospace: 'Source Code Pro', monospace;
+  --background-primary: #ffffff;
+  --background-modifier-border: #ddd;
+  --text-accent: #705dcf;
+  --text-accent-hover: #7a6ae6;
+  --text-normal: #2e3338;
+  --background-secondary: #f2f3f5;
+  --background-secondary-alt: #e3e5e8;
+  --text-muted: #888888;
+}</style>"<marker id="mermaid_arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker>"</svg></button></pre>
+<h3 data-heading="2.2 推荐技术栈" dir="auto">2.2 推荐技术栈</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>推荐方案</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>反代服务器</strong></td>
+<td>Nginx + Lua</td>
+<td>请求转发</td>
+</tr>
+<tr>
+<td><strong>后端</strong></td>
+<td>Node.js / Python FastAPI</td>
+<td>鉴权+计费</td>
+</tr>
+<tr>
+<td><strong>数据库</strong></td>
+<td>SQLite（起步）/ MySQL（规模后）</td>
+<td>存储用户和用量</td>
+</tr>
+<tr>
+<td><strong>缓存</strong></td>
+<td>Redis</td>
+<td>频率限制+热点缓存</td>
+</tr>
+<tr>
+<td><strong>部署</strong></td>
+<td>阿里云香港 / 腾讯云海外轻量</td>
+<td>服务器位置</td>
+</tr>
+<tr>
+<td><strong>域名</strong></td>
+<td>.xyz / .top 便宜域名</td>
+<td>低调不备案</td>
+</tr>
+</tbody>
+</table>
+<h3 data-heading="2.3 核心功能模块" dir="auto">2.3 核心功能模块</h3>
+<ol>
+<li dir="auto"><strong>密钥管理</strong>：生成用户的API Key，绑定额度</li>
+<li dir="auto"><strong>请求转发</strong>：标准OpenAI API兼容格式</li>
+<li dir="auto"><strong>计费系统</strong>：按token计费，支持预充值</li>
+<li dir="auto"><strong>频率限制</strong>：防止滥用</li>
+<li dir="auto"><strong>用量监控</strong>：给用户看仪表盘</li>
+<li dir="auto"><strong>管理后台</strong>：用户管理、价格设置、统计</li>
+</ol>
+<hr>
+<h2 data-heading="三、部署步骤" dir="auto">三、部署步骤</h2>
+<h3 data-heading="第一阶段：搭建基础服务（1天）" dir="auto">第一阶段：搭建基础服务（1天）</h3>
+<pre class="language-bash"><code class="language-bash is-loaded"><span class="token comment"># 1. 购买服务器（香港轻量，2核2G，约30元/月）</span>
+<span class="token comment"># 2. 安装基础环境</span>
+<span class="token function">apt</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> nginx python3-pip redis-server
+
+<span class="token comment"># 3. 部署中转核心（用开源项目 one-api 改）</span>
+<span class="token function">git</span> clone https://github.com/songquanpeng/one-api.git
+<span class="token builtin class-name">cd</span> one-api <span class="token operator">&amp;&amp;</span> <span class="token function">docker-compose</span> up <span class="token parameter variable">-d</span>
+</code><button class="copy-code-button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-icon lucide-copy"><rect x="8" y="8" width="14" height="14" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path><style>
+:root {
+  --default-font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
+  --font-monospace: 'Source Code Pro', monospace;
+  --background-primary: #ffffff;
+  --background-modifier-border: #ddd;
+  --text-accent: #705dcf;
+  --text-accent-hover: #7a6ae6;
+  --text-normal: #2e3338;
+  --background-secondary: #f2f3f5;
+  --background-secondary-alt: #e3e5e8;
+  --text-muted: #888888;
+}</style>"<marker id="mermaid_arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1; stroke-dasharray: 1, 0;"></path></marker>"</svg></button></pre>
+<blockquote dir="auto">
+<p>推荐直接用 <strong><a data-tooltip-position="top" aria-label="https://github.com/songquanpeng/one-api" rel="noopener nofollow" class="external-link" href="https://github.com/songquanpeng/one-api" target="_blank">one-api</a></strong>（开源，Star 20k+）改改就能用，它已经包含：多模型接入、密钥管理、额度控制、Web管理面板。</p>
+</blockquote>
+<h3 data-heading="第二阶段：对接上游渠道" dir="auto">第二阶段：对接上游渠道</h3>
+<table>
+<thead>
+<tr>
+<th>上游</th>
+<th>获取方式</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OpenAI</strong></td>
+<td>海外信用卡/虚拟卡注册</td>
+<td>GPT-4o: $2.5/1M input tokens</td>
+</tr>
+<tr>
+<td><strong>Claude</strong></td>
+<td>Anthropic API（需海外手机号）</td>
+<td>Sonnet: $3/1M input tokens</td>
+</tr>
+<tr>
+<td><strong>DeepSeek</strong></td>
+<td>国内直连，低延迟</td>
+<td>极低，适合走量</td>
+</tr>
+<tr>
+<td><strong>中转上家</strong></td>
+<td>从其他中转站批发（省去自己出海）</td>
+<td>加价10-20%</td>
+</tr>
+</tbody>
+</table>
+<h3 data-heading="第三阶段：定价策略" dir="auto">第三阶段：定价策略</h3>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>上游成本</th>
+<th>建议售价</th>
+<th>利润率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-4o</td>
+<td>$2.5/1M input</td>
+<td>¥0.03/1K tokens</td>
+<td>~60%</td>
+</tr>
+<tr>
+<td>GPT-4o-mini</td>
+<td>$0.15/1M input</td>
+<td>¥0.005/1K tokens</td>
+<td>~70%</td>
+</tr>
+<tr>
+<td>Claude Sonnet</td>
+<td>$3/1M input</td>
+<td>¥0.035/1K tokens</td>
+<td>~60%</td>
+</tr>
+<tr>
+<td>DeepSeek-V3</td>
+<td>¥1/1M tokens</td>
+<td>¥0.003/1K tokens</td>
+<td>~50%</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto"><strong>推荐策略</strong>：主打低价引流（GPT-4o-mini接近成本），靠GPT-4o和Claude赚钱。</p>
+<hr>
+<h2 data-heading="四、获客渠道" dir="auto">四、获客渠道</h2>
+<h3 data-heading="4.1 流量来源（按优先级）" dir="auto">4.1 流量来源（按优先级）</h3>
+<ol>
+<li dir="auto"><strong>闲鱼</strong>：发帖"国内直连GPT-4o API，免翻墙"，单价调低引流</li>
+<li dir="auto"><strong>GitHub</strong>：开源一些小工具嵌入你的API地址</li>
+<li dir="auto"><strong>CSDN/知乎</strong>：写教程"国内如何调用OpenAI API"，文末放链接</li>
+<li dir="auto"><strong>QQ/微信群</strong>：AI开发者群，提供免费试用额度</li>
+<li dir="auto"><strong>Nodeseek/LowEnd</strong>：主机论坛发广告</li>
+</ol>
+<h3 data-heading="4.2 运营技巧" dir="auto">4.2 运营技巧</h3>
+<ul>
+<li dir="auto"><strong>免费试用</strong>：注册送 ¥1-3 体验金</li>
+<li dir="auto"><strong>充值梯度</strong>：¥10 / ¥50 / ¥200 / ¥1000，越大量越便宜</li>
+<li dir="auto"><strong>老带新</strong>：邀请送10%返利（裂变）</li>
+<li dir="auto"><strong>自动续费</strong>：月付套餐（¥30包月不限量但限速）</li>
+</ul>
+<hr>
+<h2 data-heading="五、风险与规避" dir="auto">五、风险与规避</h2>
+<h3 data-heading="⚠️ 核心风险" dir="auto">⚠️ 核心风险</h3>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>严重程度</th>
+<th>应对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>上游API封号</strong></td>
+<td>🔴 高</td>
+<td>多账号轮换，每账号设日限额</td>
+</tr>
+<tr>
+<td><strong>被DDoS攻击</strong></td>
+<td>🟡 中</td>
+<td>Cloudflare WAF + 速率限制</td>
+</tr>
+<tr>
+<td><strong>法律风险</strong></td>
+<td>🟡 中</td>
+<td>注册海外公司(Stripe Atlas)，国内低调运营</td>
+</tr>
+<tr>
+<td><strong>用户滥用</strong></td>
+<td>🟡 中</td>
+<td>IP+Key双限频，敏感内容过滤</td>
+</tr>
+<tr>
+<td><strong>支付跑路</strong></td>
+<td>🟢 低</td>
+<td>预付费模式，不赊账</td>
+</tr>
+</tbody>
+</table>
+<h3 data-heading="安全建议" dir="auto">安全建议</h3>
+<ol>
+<li dir="auto"><strong>不要用国内服务器转发OpenAI</strong> — 国内云厂商会拦截海外API</li>
+<li dir="auto"><strong>域名用境外注册</strong> — Namecheap/Namesilo，不用备案</li>
+<li dir="auto"><strong>收款用USDT</strong> — 匿名，减少监管风险</li>
+<li dir="auto"><strong>隐私政策写清楚</strong> — "仅做技术转发，不存储用户数据"</li>
+<li dir="auto"><strong>不要接太高调</strong> — 闷声发大财，别去大平台打广告</li>
+</ol>
+<hr>
+<h2 data-heading="六、盈利预测" dir="auto">六、盈利预测</h2>
+<table>
+<thead>
+<tr>
+<th>规模</th>
+<th>用户数</th>
+<th>月流水</th>
+<th>月成本</th>
+<th>月利润</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>初始</strong></td>
+<td>50-100</td>
+<td>¥3,000-5,000</td>
+<td>¥500</td>
+<td>¥2,500-4,500</td>
+</tr>
+<tr>
+<td><strong>增长期</strong></td>
+<td>500-1000</td>
+<td>¥15,000-30,000</td>
+<td>¥3,000</td>
+<td>¥12,000-27,000</td>
+</tr>
+<tr>
+<td><strong>成熟期</strong></td>
+<td>2000-5000</td>
+<td>¥50,000-150,000</td>
+<td>¥15,000</td>
+<td>¥35,000-135,000</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 data-heading="七、推荐工具/项目" dir="auto">七、推荐工具/项目</h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>链接</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>one-api</strong></td>
+<td>github.com/songquanpeng/one-api</td>
+<td>管理面板+转发（可直接用）</td>
+</tr>
+<tr>
+<td><strong>new-api</strong></td>
+<td>github.com/Calcium-Ion/new-api</td>
+<td>one-api增强版</td>
+</tr>
+<tr>
+<td><strong>LobeChat</strong></td>
+<td>github.com/lobehub/lobe-chat</td>
+<td>给用户用的Web聊天界面</td>
+</tr>
+<tr>
+<td><strong>ChatGPT-Next-Web</strong></td>
+<td>github.com/Yidadaa/ChatGPT-Next-Web</td>
+<td>轻量Web客户端</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 data-heading="八、与你的资源结合建议" dir="auto">八、与你的资源结合建议</h2>
+<p dir="auto">你已经有 <strong>Hermes Agent</strong> + 自己的Ollama模型部署经验，做这个有天然优势：</p>
+<ol>
+<li dir="auto"><strong>复用已有反向代理经验</strong> — 你正用着代理，知道用户痛点</li>
+<li dir="auto"><strong>Hermes生态整合</strong> — 可以在你的Hermes里直接对接中转站</li>
+<li dir="auto"><strong>工程背景</strong> — EPC项目经理执行力强，搞这个技术门槛很低</li>
+<li dir="auto"><strong>台球俱乐部社群</strong> — 俱乐部会员里可能就有搞AI开发的</li>
+</ol>
+<blockquote dir="auto">
+<p><strong>建议路径</strong>：先用 one-api 搭起来 → 免费送 ¥5体验金 → 私域冷启动 → 观察两周看看付费转化率再做决定。</p>
+</blockquote>
+<hr>
+<p dir="auto"><em>本方案基于TikTok @ai_programer 视频内容整理，结合行业实践编写。</em></p>
+    </body>
+</html>
