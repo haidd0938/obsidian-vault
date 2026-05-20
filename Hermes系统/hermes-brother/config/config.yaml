@@ -1,0 +1,150 @@
+# ===========================================
+#  config.yaml — 贾维斯二弟 Hermes 配置
+#  三道 API 保险: OpenRouter → DeepSeek → NVIDIA
+# ===========================================
+
+model:
+  default: deepseek-chat
+  provider: deepseek
+
+# ----- 核心 provider 配置（三道保险）-----
+providers:
+  deepseek:
+    api_key: ""          # ← 填入你的 DeepSeek API Key
+    base_url: https://api.deepseek.com
+
+custom_providers:
+  # 🔴 保险一: OpenRouter（主入口，有免费额度）
+  - name: OpenRouter
+    base_url: https://openrouter.ai/api/v1
+    api_key: ""          # ← 填入你的 OpenRouter API Key
+    model: deepseek/deepseek-chat
+    models:
+      deepseek-chat:
+        context_length: 64000
+      deepseek-reasoner:
+        context_length: 64000
+
+  # 🟡 保险二: DeepSeek 官方（直连）
+  - name: DeepSeek
+    base_url: https://api.deepseek.com
+    api_key: ""          # ← 填入你的 DeepSeek API Key
+    model: deepseek-chat
+    models:
+      deepseek-chat:
+        context_length: 64000
+      deepseek-reasoner:
+        context_length: 64000
+
+  # 🟢 保险三: NVIDIA NIM（免费备胎，注册就有）
+  - name: NVIDIA NIM
+    base_url: https://integrate.api.nvidia.com/v1
+    api_key: ""          # ← 填入你的 NVIDIA API Key
+    model: meta/llama-3.1-8b-instruct
+    models:
+      meta/llama-3.1-8b-instruct:
+        context_length: 32768
+      meta/llama-3.2-11b-vision:
+        context_length: 32768
+        vision: true
+
+fallback_providers:
+  - provider: deepseek
+    model: deepseek-chat
+  - provider: nvidia-nim
+    model: meta/llama-3.1-8b-instruct
+
+# ----- 系统配置（照搬当前配置）-----
+agent:
+  max_turns: 90
+  api_max_retries: 3
+  tool_use_enforcement: auto
+
+terminal:
+  backend: local
+  cwd: .
+  timeout: 180
+  auto_source_bashrc: true
+
+browser:
+  inactivity_timeout: 120
+  command_timeout: 30
+  dialog_policy: must_respond
+
+tts:
+  provider: edge
+  edge:
+    voice: zh-CN-XiaoxiaoNeural
+
+stt:
+  enabled: true
+  provider: local
+  local:
+    model: base
+
+voice:
+  auto_tts: false  # 默认关闭，想开就改成 true
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+
+delegation:
+  max_concurrent_children: 3
+  max_spawn_depth: 1
+  orchestrator_enabled: true
+
+curator:
+  enabled: true
+  interval_hours: 168
+  min_idle_hours: 2
+
+mcp_servers:
+  # 小红书 MCP（需要先启动 xiaohongshu-mcp）
+  xiaohongshu:
+    url: "http://localhost:18060/mcp"
+    connect_timeout: 30
+    timeout: 60
+
+# ----- 各种辅助模块（自动选择最优）-----
+auxiliary:
+  vision:
+    provider: auto
+  web_extract:
+    provider: auto
+  compression:
+    provider: auto
+  session_search:
+    provider: auto
+    max_concurrency: 3
+  skills_hub:
+    provider: auto
+  approval:
+    provider: auto
+
+logging:
+  level: INFO
+  max_size_mb: 5
+  backup_count: 3
+
+web:
+  backend: auto
+
+toolsets:
+  - hermes-cli
+
+display:
+  compact: false
+  personality: kawaii
+  streaming: false
+  show_cost: false
+
+timezone: Asia/Shanghai
+
+cron:
+  wrap_response: true
+
+code_execution:
+  mode: project

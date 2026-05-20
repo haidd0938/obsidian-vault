@@ -1,0 +1,12 @@
+使用 ngrok 临时暴露端口（免费）
+
+# 1. 先安装 ngrok（如果没装）
+brew install ngrok
+
+# 2. 启动 ngrok（新开一个终端）
+ngrok http 8642
+它会给你一个类似 https://xxxx.ngrok-free.app 的地址，把这个地址填到企业微信的 URL 里，后面加上 /wecom/callback
+
+示例：
+
+https://a1b2c3d4.ngrok-free.app/wecom/callback

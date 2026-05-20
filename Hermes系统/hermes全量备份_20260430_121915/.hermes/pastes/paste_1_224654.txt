@@ -1,0 +1,15 @@
+接口调用也是标准的 OpenAI 格式。
+
+请求地址换成 https://integrate.api.nvidia.com/v1/chat/completions。
+
+Model 字段填入 minimaxai/minimax-m2.7 就能直接跑。
+
+虽然现在的限制是每分钟 40 次调用。
+
+但对于日常写脚本或者测试 Prompt 来说绰绰有余。
+
+这种动态限速机制意味着只要你别瞬间拉满请求。
+
+它就能一直作为你的免费开发环境存在。
+
+我在服务器上挂了一整天，稳定性甚至比某些付费接口还强。

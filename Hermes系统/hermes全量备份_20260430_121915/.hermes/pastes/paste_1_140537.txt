@@ -1,0 +1,11 @@
+# 1. 检查 Ollama 是否还在运行
+curl http://localhost:11434/api/tags
+
+# 2. 检查 Ollama 进程
+ps aux | grep ollama
+
+# 3. 检查内存使用情况
+free -h
+
+# 4. 查看 Ollama 日志（如果有）
+cat /tmp/ollama.log 2>/dev/null || echo "无日志文件"

@@ -1,0 +1,665 @@
+太棒了！这是一个**超级复合场景**：设计施工一体化企业 + 台球俱乐部副业。需要重新设计架构，加入**专业工具链**和**多业务隔离**。
+
+---
+
+# 🦞 超级个人助理秘书团队 V2.0
+## 设计施工一体化企业 + 台球俱乐部副业 专用方案
+
+---
+
+## 一、业务场景分析
+
+### 1.1 核心业务矩阵
+
+| 业务线 | 关键任务 | 数据敏感度 | 处理频率 | 优先级 |
+|:---|:---|:---:|:---:|:---:|
+| **🏗️ 建筑工程设计** | 方案设计、图纸审核、规范查询 | 🔴 极高 | 每日 | P1 |
+| **🔨 施工项目管理** | 进度跟踪、质安检查、变更管理 | 🔴 极高 | 每日 | P1 |
+| **📊 招投标商务** | 招标文件编制、公告检索、背景调查 | 🟡 高 | 每周 | P2 |
+| **💰 财务行政** | 报销审核、预算编制、广联达算量 | 🟡 高 | 每日 | P2 |
+| **🎱 台球俱乐部** | 会员管理、赛事安排、营销推广 | 🟢 中 | 每周 | P3 |
+| **📅 个人秘书** | 会议记录、日程安排、邮件处理 | 🟢 中 | 每日 | P2 |
+
+### 1.2 特殊需求识别
+
+| 需求 | 解决方案 | 实现方式 |
+|:---|:---|:---|
+| 广联达算量文件处理 | 本地API桥接 | 公司主力机 + 广联达SDK |
+| 招投标公告检索 | 自动化爬虫 | NAS定时任务 + AI摘要 |
+| 合作伙伴背调 | 多源信息聚合 | 云端大模型 + 本地缓存 |
+| 设计规范查询 | 私有知识库 | 本地RAG + 向量数据库 |
+| 台球俱乐部会员系统 | 轻量CRM | 家里NAS + 小程序接口 |
+
+---
+
+## 二、重构后的六层架构
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  终端层：笔记本 + 手机 + 平板（多端同步）                   │
+│  • 移动办公：工地现场、商务谈判、俱乐部巡视                 │
+│  • 离线模式：地下室、偏远工地自动切换本地                   │
+└─────────────────────────────────────────────────────────┘
+                            │
+        ┌───────────────────┼───────────────────┐
+        ▼                   ▼                   ▼
+┌───────────────┐    ┌───────────────┐    ┌───────────────┐
+│ 🏢 企业计算层  │    │ 🏠 副业计算层  │    │ ☁️ 云端API层   │
+│ 公司主力+NAS   │    │ 家里主力+NAS   │    │ DeepSeek/智谱  │
+│               │    │               │    │               │
+│ • 广联达算量  │    │ • 台球会员系统 │    │ • 背调报告    │
+│ • 招投标文件  │    │ • 营销推广    │    │ • 公告检索    │
+│ • 设计图纸AI  │    │ • 赛事管理    │    │ • 复杂推理    │
+│ • 财务数据    │    │ • 财务分离    │    │ • 兜底服务    │
+│ 🔒 企业VPN隔离 │    │ 🔒 副业独立   │    │ 🔓 通用服务   │
+└───────┬───────┘    └───────┬───────┘    └───────┬───────┘
+        │                    │                    │
+        ▼                    ▼                    ▼
+┌─────────────────────────────────────────────────────────┐
+│  知识库层（向量数据库 + RAG）                              │
+│  ┌───────────────┬───────────────┬───────────────┐      │
+│  │ 建筑规范库     │ 招投标模板库   │ 台球运营知识   │      │
+│  │ • 国标/行标   │ • 投标文件    │ • 赛事规则    │      │
+│  │ • 设计图集    │ • 合同范本    │ • 营销案例    │      │
+│  │ • 材料价格    │ • 资质证书    │ • 会员FAQ     │      │
+│  └───────────────┴───────────────┴───────────────┘      │
+└─────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│  自动化层（定时任务 + 工作流）                              │
+│  • 招标公告每日抓取 → AI摘要 → 推送到微信                 │
+│  • 项目进度每周汇总 → 自动生成PPT → 邮件发送              │
+│  • 台球俱乐部日报 → 营收统计 → 异常预警                   │
+│  • 财务报销OCR → 自动分类 → 预算对比预警                  │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 三、业务隔离与安全策略
+
+### 3.1 网络隔离方案
+
+```yaml
+# 公司网络（企业数据）
+公司主力: 192.168.10.10  # 仅内网访问
+公司NAS: 192.168.10.20   # 仅内网访问
+广联达工作站: 192.168.10.50  # 物理隔离
+
+# 家里网络（副业+个人）
+家里主力: 192.168.31.100  # 可公网映射
+家里NAS: 192.168.31.200   # 可公网映射
+
+# VPN隧道（安全远程）
+WireGuard: 10.200.200.0/24  # 加密通道
+```
+
+### 3.2 数据分类路由
+
+| 数据类型 | 路由规则 | 存储位置 |
+|:---|:---|:---|
+| 建筑工程图纸 | 公司主力强制 | 本地加密 + 公司NAS备份 |
+| 广联达算量文件 | 公司主力 + 广联达API | 不出内网 |
+| 财务报销凭证 | 公司NAS（审计追踪） | 本地RAID + 加密 |
+| 台球会员信息 | 家里NAS（副业隔离） | 独立数据库 |
+| 招投标公开信息 | 云端抓取 + 本地缓存 | 可公开 |
+| 合作伙伴背调 | 云端聚合 + 本地摘要 | 加密存储 |
+
+---
+
+## 四、专业工具链集成
+
+### 4.1 广联达算量AI桥接（公司主力机）
+
+```python
+# glodon_bridge.py - 广联达API桥接
+import win32com.client  # Windows only
+import json
+from flask import Flask, request
+
+app = Flask(__name__)
+
+class GlodonAI:
+    def __init__(self):
+        # 连接广联达GTJ2021
+        self.gtj = win32com.client.Dispatch("GTJ.Application")
+        self.ai_local = OllamaClient("192.168.10.10:11434")  # 公司主力
+        
+    def analyze_quantity(self, file_path: str, query: str) -> dict:
+        """
+        AI分析算量文件
+        示例： "钢筋总量比预算超了多少？"
+        """
+        # 1. 读取广联达数据
+        project = self.gtj.OpenProject(file_path)
+        steel_data = project.GetComponentData("钢筋工程")
+        concrete_data = project.GetComponentData("混凝土工程")
+        
+        # 2. 本地AI分析（数据不出内网）
+        context = f"""
+        项目数据：
+        - 钢筋总量：{steel_data.total}吨，预算{steel_data.budget}吨
+        - 混凝土总量：{concrete_data.total}m³，预算{concrete_data.budget}m³
+        - 超标项：{steel_data.overrun_items}
+        
+        用户问题：{query}
+        """
+        
+        result = self.ai_local.generate(
+            model="qwen2.5:7b",
+            prompt=context,
+            system="你是建筑工程造价专家，擅长广联达算量分析"
+        )
+        
+        return {
+            "analysis": result,
+            "data_source": "广联达GTJ+本地AI",
+            "security_level": "内网隔离"
+        }
+
+@app.route('/glodon/analyze', methods=['POST'])
+def analyze():
+    data = request.json
+    return GlodonAI().analyze_quantity(
+        data['file_path'], 
+        data['query']
+    )
+
+if __name__ == '__main__':
+    app.run(host='192.168.10.10', port=5000)
+```
+
+### 4.2 招投标公告自动检索（NAS定时任务）
+
+```python
+# bid_scraper.py - 运行在NAS上
+import schedule
+import time
+from datetime import datetime
+import requests
+from bs4 import BeautifulSoup
+
+class BidScraper:
+    def __init__(self):
+        self.sources = [
+            "http://ggzy.zwfwb.tj.gov.cn",  # 天津公共资源
+            "http://www.ccgp.gov.cn",        # 政府采购
+            "https://www.chinabidding.com",  # 中国采购与招标
+        ]
+        self.ai_nas = OllamaClient("localhost:11434")
+        
+    def fetch_bids(self):
+        """每日抓取招标公告"""
+        bids = []
+        for url in self.sources:
+            try:
+                resp = requests.get(url, timeout=30)
+                soup = BeautifulSoup(resp.text, 'html.parser')
+                items = soup.select('.bid-item')  # 根据实际结构调整
+                bids.extend(items)
+            except Exception as e:
+                print(f"抓取失败 {url}: {e}")
+        
+        return bids
+    
+    def ai_filter(self, bids: list) -> list:
+        """AI筛选相关公告"""
+        keywords = ["建筑工程", "装饰装修", "设计施工一体化", "幕墙", "钢结构"]
+        
+        filtered = []
+        for bid in bids:
+            # 本地AI快速摘要
+            summary = self.ai_nas.generate(
+                model="qwen2.5:1.5b",
+                prompt=f"摘要：{bid.text}\n\n判断是否相关：{keywords}",
+                options={"num_predict": 100}
+            )
+            
+            if "相关" in summary or "匹配" in summary:
+                filtered.append({
+                    "title": bid.title,
+                    "date": bid.date,
+                    "url": bid.link,
+                    "summary": summary,
+                    "match_score": self._score(summary)
+                })
+        
+        return sorted(filtered, key=lambda x: x['match_score'], reverse=True)[:10]
+    
+    def notify(self, bids: list):
+        """推送到微信/钉钉"""
+        if not bids:
+            return
+        
+        message = f"📋 今日招标 ({len(bids)}条)\n"
+        for bid in bids[:5]:  # 前5条
+            message += f"\n🔹 {bid['title'][:20]}...\n"
+            message += f"   截止：{bid['date']} | 匹配度：{bid['match_score']}%\n"
+            message += f"   {bid['url']}\n"
+        
+        # 发送到微信（使用Server酱等）
+        requests.post(
+            "https://sctapi.ftqq.com/{key}.send",
+            data={"title": "招标提醒", "desp": message}
+        )
+    
+    def run(self):
+        bids = self.fetch_bids()
+        filtered = self.ai_filter(bids)
+        self.notify(filtered)
+
+# 定时任务
+schedule.every().day.at("09:00").do(BidScraper().run)
+schedule.every().day.at("17:00").do(BidScraper().run)
+
+while True:
+    schedule.run_pending()
+    time.sleep(60)
+```
+
+### 4.3 合作伙伴背调系统（云端+本地）
+
+```python
+# due_diligence.py
+class DueDiligence:
+    def __init__(self):
+        self.cloud_ai = DeepSeekClient()  # 云端大模型
+        self.local_kb = VectorDB("partners")  # 本地向量库
+        
+    def investigate(self, company_name: str) -> dict:
+        """
+        合作伙伴背景调查
+        流程：云端收集 -> 本地分析 -> 生成报告
+        """
+        
+        # 1. 云端检索公开信息（不存储原始数据）
+        search_query = f"{company_name} 建筑工程 资质 诉讼 信用"
+        web_data = self.cloud_ai.search_aggregate(search_query)
+        
+        # 2. 本地AI分析（数据脱敏后）
+        analysis = self.cloud_ai.generate(
+            model="deepseek-chat",
+            prompt=f"""
+            基于公开信息分析{company_name}：
+            {web_data.summary}
+            
+            请分析：
+            1. 企业资质等级与有效期
+            2. 近3年诉讼/仲裁记录
+            3. 信用评价与行政处罚
+            4. 类似项目业绩
+            5. 风险提示（1-5级）
+            """,
+            max_tokens=2000
+        )
+        
+        # 3. 本地存储脱敏报告
+        report = {
+            "company": company_name,
+            "risk_level": self._extract_risk(analysis),
+            "key_findings": analysis,
+            "check_date": datetime.now(),
+            "data_source": "公开信息聚合",
+            "storage": "本地加密"
+        }
+        
+        self.local_kb.store(report)
+        return report
+```
+
+### 4.4 台球俱乐部管理系统（家里NAS）
+
+```python
+# billiard_manager.py - 运行在NAS上
+from flask import Flask, request, jsonify
+import sqlite3
+from datetime import datetime
+
+app = Flask(__name__)
+
+class BilliardClub:
+    def __init__(self):
+        self.db = "/volume1/club/members.db"
+        self.ai_marketing = OllamaClient("localhost:11434")
+        
+    # ==================== 会员管理 ====================
+    
+    def member_checkin(self, member_id: str, table: str):
+        """会员签到"""
+        # 记录消费
+        # 检查会员等级
+        # AI推荐饮品/活动
+        member = self._get_member(member_id)
+        
+        suggestion = self.ai_marketing.generate(
+            model="qwen2.5:1.5b",
+            prompt=f"会员{member['name']}（{member['level']}）到店，"
+                   f"历史消费{member['total_spend']}，"
+                   f"偏好{member['preferences']}，推荐今日活动："
+        )
+        
+        return {
+            "welcome": f"欢迎{member['name']}！",
+            "table": table,
+            "suggestion": suggestion,
+            "balance": member['balance']
+        }
+    
+    # ==================== 赛事管理 ====================
+    
+    def generate_tournament(self, level: str, players: int):
+        """AI生成赛事方案"""
+        schedule = self.ai_marketing.generate(
+            model="qwen2.5:3b",
+            prompt=f"设计{players}人{level}级台球赛，"
+                   "包括赛制、时间表、奖品设置、宣传文案"
+        )
+        return schedule
+    
+    # ==================== 营销自动化 ====================
+    
+    def daily_marketing(self):
+        """每日AI生成营销内容"""
+        # 生成朋友圈文案
+        # 生成短视频脚本
+        # 分析昨日营收
+        
+        yesterday_data = self._get_yesterday_stats()
+        
+        content = self.ai_marketing.generate(
+            model="qwen2.5:1.5b",
+            prompt=f"昨日营收{yesterday_data['revenue']}，"
+                   f"客流{yesterday_data['customers']}，"
+                   "生成今日朋友圈营销文案（3条）："
+        )
+        
+        # 自动发布（需接入微信API）
+        return content
+
+# API路由
+@app.route('/club/checkin', methods=['POST'])
+def checkin():
+    data = request.json
+    return jsonify(BilliardClub().member_checkin(
+        data['member_id'], 
+        data['table']
+    ))
+
+@app.route('/club/tournament', methods=['POST'])
+def tournament():
+    data = request.json
+    return jsonify(BilliardClub().generate_tournament(
+        data['level'],
+        data['players']
+    ))
+```
+
+---
+
+## 五、完整设备部署清单
+
+### 5.1 设备角色与配置
+
+| 设备 | 物理位置 | 网络 | 运行服务 | 存储 |
+|:---|:---|:---|:---|:---|
+| **笔记本** | 随身携带 | 全网 | 智能网关、监控面板、临时缓存 | 512GB SSD |
+| **公司主力** | 办公室 | 企业内网 | Ollama(7B/3B)、广联达桥接、设计AI | 2TB NVMe |
+| **公司NAS** | 办公室 | 企业内网 | Ollama(1.5B)、招标爬虫、财务DB、RAID备份 | 4TB×4 RAID5 |
+| **家里主力** | 住宅 | 家庭网+映射 | Ollama(7B/3B)、副业AI、远程桌面 | 1TB NVMe |
+| **家里NAS** | 住宅 | 家庭网+映射 | Ollama(1.5B)、台球俱乐部系统、个人知识库 | 4TB×2 RAID1 |
+
+### 5.2 模型部署矩阵
+
+| 节点 | 主力模型 | 备用模型 | 专用场景 |
+|:---|:---|:---|:---|
+| 公司主力 | qwen2.5:7b | qwen2.5:3b | 图纸审核、算量分析、招投标编制 |
+| 公司NAS | qwen2.5:1.5b | phi3:mini | 招标监控、财务OCR、日志存储 |
+| 家里主力 | qwen2.5:7b | qwen2.5:3b | 副业管理、远程办公、复杂推理 |
+| 家里NAS | qwen2.5:1.5b | phi3:mini | 台球会员、轻量问答、7×24服务 |
+
+---
+
+## 六、智能路由策略 V2（业务感知）
+
+```python
+class BusinessAwareRouter:
+    def __init__(self):
+        self.routes = {
+            # 建筑工程设计
+            'design': {
+                'keywords': ['图纸', 'CAD', '规范', '结构', '建筑', '设计'],
+                'target': '公司主力',
+                'model': 'qwen2.5:7b',
+                'kb': '建筑规范库',
+                'isolation': '企业内网'
+            },
+            
+            # 施工项目管理
+            'construction': {
+                'keywords': ['进度', '质量', '安全', '变更', '签证', '验收'],
+                'target': '公司主力',
+                'model': 'qwen2.5:7b',
+                'kb': '项目管理库',
+                'isolation': '企业内网'
+            },
+            
+            # 广联达算量
+            'quantity': {
+                'keywords': ['广联达', '算量', '造价', '钢筋', '混凝土', '预算'],
+                'target': '公司主力',
+                'model': 'qwen2.5:7b',
+                'tool': 'glodon_bridge',
+                'isolation': '物理隔离'
+            },
+            
+            # 招投标商务
+            'bid': {
+                'keywords': ['招标', '投标', '标书', '资质', '合同', '保证金'],
+                'target': '公司主力/云端',
+                'model': 'qwen2.5:7b',
+                'kb': '招投标模板库',
+                'isolation': '企业内网优先'
+            },
+            
+            # 财务行政
+            'finance': {
+                'keywords': ['报销', '发票', '预算', '付款', '工资', '成本'],
+                'target': '公司NAS',
+                'model': 'qwen2.5:3b',
+                'kb': '财务制度库',
+                'isolation': '审计追踪'
+            },
+            
+            # 台球俱乐部
+            'billiard': {
+                'keywords': ['台球', '会员', '赛事', '桌球', '俱乐部', '营业'],
+                'target': '家里NAS',
+                'model': 'qwen2.5:1.5b',
+                'kb': '台球运营库',
+                'isolation': '副业独立'
+            },
+            
+            # 个人秘书通用
+            'secretary': {
+                'keywords': ['会议', '邮件', '日程', '记录', '安排', '提醒'],
+                'target': '家里NAS',
+                'model': 'qwen2.5:1.5b',
+                'kb': '个人知识库',
+                'isolation': '私有'
+            }
+        }
+    
+    def route(self, query: str, context: dict = None) -> dict:
+        """业务感知路由"""
+        
+        # 1. 业务分类
+        business = self._classify_business(query)
+        
+        # 2. 获取路由规则
+        rule = self.routes.get(business, self.routes['secretary'])
+        
+        # 3. 检查网络环境
+        if rule['isolation'] == '企业内网' and not self._in_company_network():
+            # 不在公司，通过VPN或拒绝
+            if self._vpn_connected():
+                target = rule['target']
+            else:
+                return {
+                    'error': '敏感数据需连接企业VPN',
+                    'fallback': '仅提供公开信息查询'
+                }
+        
+        # 4. 检查工具依赖
+        if 'tool' in rule:
+            return self._call_with_tool(rule, query)
+        
+        # 5. 标准AI调用
+        return self._call_ai(rule, query)
+```
+
+---
+
+## 七、关键自动化工作流
+
+### 7.1 每日自动化（NAS定时执行）
+
+```bash
+# crontab -e
+
+# 9:00 招标公告抓取
+0 9 * * * /usr/bin/python3 /volume1/scripts/bid_scraper.py
+
+# 12:00 台球俱乐部午报
+0 12 * * * /usr/bin/python3 /volume1/club/daily_report.py --type=lunch
+
+# 18:00 项目进度汇总（工作日）
+0 18 * * 1-5 /usr/bin/python3 /volume1/scripts/project_summary.py
+
+# 20:00 台球俱乐部晚报
+0 20 * * * /usr/bin/python3 /volume1/club/daily_report.py --type=evening
+
+# 23:00 数据备份
+0 23 * * * /volume1/scripts/backup_to_cloud.sh
+```
+
+### 7.2 会议记录自动化
+
+```python
+# meeting_assistant.py
+class MeetingAssistant:
+    def __init__(self):
+        self.whisper = WhisperModel("base")  # 本地语音识别
+        self.ai = OllamaClient("公司NAS:11434")
+        
+    def process_recording(self, audio_path: str, meeting_type: str) -> dict:
+        """
+        会议录音 -> 文字 -> 摘要 -> 待办
+        """
+        # 1. 语音转文字（本地，保护隐私）
+        text = self.whisper.transcribe(audio_path)
+        
+        # 2. AI摘要（根据会议类型）
+        if meeting_type == 'project':
+            prompt = f"""工程项目会议纪要：
+            {text}
+            
+            提取：
+            1. 决议事项（带责任人）
+            2. 进度节点（带日期）
+            3. 风险预警
+            4. 待办任务（自动创建日历）
+            """
+        elif meeting_type == 'design':
+            prompt = f"""设计评审纪要：
+            {text}
+            
+            提取：
+            1. 修改意见（按专业分类）
+            2. 规范依据
+            3. 图纸变更清单
+            """
+        
+        summary = self.ai.generate(model="qwen2.5:3b", prompt=prompt)
+        
+        # 3. 自动生成待办并入项目管理系统
+        todos = self._extract_todos(summary)
+        self._create_calendar_events(todos)
+        
+        return {
+            "transcript": text,
+            "summary": summary,
+            "todos": todos,
+            "storage": "公司NAS加密"
+        }
+```
+
+---
+
+## 八、成本与收益预估
+
+### 8.1 月度运营成本
+
+| 项目 | 成本 | 说明 |
+|:---|:---:|:---|
+| 云端API（DeepSeek） | ¥50 | 仅背调、复杂推理使用 |
+| 电费（5设备） | ¥80 | NAS 24h + 主力8h |
+| 网络/VPN | ¥30 | DDNS + 域名 |
+| 存储扩容 | ¥50 | 月均摊 |
+| **总计** | **¥210/月** | vs 纯云端 ¥2000+/月 |
+
+### 8.2 效率提升预估
+
+| 场景 | 原耗时 | AI辅助后 | 节省时间 |
+|:---|:---:|:---:|:---:|
+| 招投标文件编制 | 3天 | 1天 | 67% |
+| 会议记录整理 | 2小时 | 10分钟 | 92% |
+| 招标公告筛选 | 1小时/天 | 自动推送 | 100% |
+| 广联达算量复核 | 4小时 | 1小时 | 75% |
+| 台球会员营销 | 2小时/天 | 自动 | 100% |
+
+---
+
+## 九、实施路线图
+
+### Phase 1: 基础设施（Week 1-2）
+- [ ] 所有设备安装Ollama，验证连通性
+- [ ] 部署公司NAS招标爬虫
+- [ ] 配置VPN/内网穿透
+
+### Phase 2: 企业核心（Week 3-4）
+- [ ] 广联达桥接开发部署
+- [ ] 建筑规范向量库构建
+- [ ] 会议记录自动化测试
+
+### Phase 3: 副业系统（Week 5-6）
+- [ ] 台球俱乐部系统上线
+- [ ] 会员小程序对接
+- [ ] 营销自动化测试
+
+### Phase 4: 智能集成（Week 7-8）
+- [ ] 业务感知路由调优
+- [ ] 跨业务数据隔离审计
+- [ ] 移动端适配优化
+
+---
+
+## 十、风险与合规
+
+| 风险 | 等级 | 缓解措施 |
+|:---|:---:|:---|
+| 建筑图纸泄密 | 🔴 高 | 公司主力物理隔离，禁止公网 |
+| 财务数据篡改 | 🔴 高 | NAS RAID + 异地备份 + 审计日志 |
+| 会员信息泄露 | 🟡 中 | 家里NAS独立网络，加密存储 |
+| 云端API依赖 | 🟢 低 | 本地7B模型兜底，可离线运行 |
+| 设备故障 | 🟢 低 | 多层备份，云端最终兜底 |
+
+---
+
+这个方案将你的**双业务线**（设计施工+台球俱乐部）与**五设备集群**深度融合，实现：
+- 🏗️ **企业数据**绝对隔离、安全合规
+- 🎱 **副业系统**独立运行、轻量高效  
+- 💰 **综合成本**降低90%，效率提升300%
+- 🌐 **随时随地**移动办公、智能助理随行
+
+需要我针对**广联达具体接口**、**台球小程序对接**或**建筑规范RAG构建**展开详细设计吗？

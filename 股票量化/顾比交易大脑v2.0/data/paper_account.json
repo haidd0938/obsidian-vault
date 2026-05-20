@@ -1,0 +1,84 @@
+{
+  "initial_capital": 10000.0,
+  "cash": 26.799999999999727,
+  "holdings": {
+    "159840": {
+      "name": "锂电池ETF",
+      "shares": 3000,
+      "avg_cost": 0.989,
+      "total_cost": 2967.0,
+      "buy_date": "2026-05-05",
+      "commission": 5.0
+    },
+    "510300": {
+      "name": "沪深300ETF",
+      "shares": 400,
+      "avg_cost": 4.824,
+      "total_cost": 1929.6,
+      "buy_date": "2026-05-05",
+      "commission": 5.0
+    },
+    "601668": {
+      "name": "中国建筑",
+      "shares": 600,
+      "avg_cost": 4.92,
+      "total_cost": 2952.0,
+      "buy_date": "2026-05-07",
+      "commission": 5.0
+    },
+    "159865": {
+      "name": "基建ETF",
+      "shares": 3400,
+      "avg_cost": 0.619,
+      "total_cost": 2104.6,
+      "buy_date": "2026-05-07",
+      "commission": 5.0
+    }
+  },
+  "orders": [
+    {
+      "type": "BUY",
+      "code": "159840",
+      "name": "锂电池ETF",
+      "shares": 3000,
+      "price": 0.989,
+      "total": 2967.0,
+      "commission": 5.0,
+      "timestamp": "2026-05-05 23:30:06"
+    },
+    {
+      "type": "BUY",
+      "code": "510300",
+      "name": "沪深300ETF",
+      "shares": 400,
+      "price": 4.824,
+      "total": 1929.6,
+      "commission": 5.0,
+      "timestamp": "2026-05-05 23:30:06"
+    },
+    {
+      "type": "BUY",
+      "code": "601668",
+      "name": "中国建筑",
+      "shares": 600,
+      "price": 4.92,
+      "total": 2952.0,
+      "commission": 5.0,
+      "timestamp": "2026-05-07 08:36:48"
+    },
+    {
+      "type": "BUY",
+      "code": "159865",
+      "name": "基建ETF",
+      "shares": 3400,
+      "price": 0.619,
+      "total": 2104.6,
+      "commission": 5.0,
+      "timestamp": "2026-05-07 08:36:48"
+    }
+  ],
+  "created_at": "2026-05-05 20:48:13",
+  "updated_at": "2026-05-07 08:36:48",
+  "total_fees_paid": 20.0,
+  "peak_capital": 10000.0
+}

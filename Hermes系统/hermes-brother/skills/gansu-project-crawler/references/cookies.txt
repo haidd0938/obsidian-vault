@@ -1,0 +1,7 @@
+# 将从浏览器复制的 Cookie 粘贴到下方（一行）
+# 获取方法：
+# 1. 用 Chrome 打开 https://tzxm.fzgg.gansu.gov.cn/ 并登录
+# 2. F12 → Application → Cookies → 选择 tzxm.fzgg.gansu.gov.cn
+# 3. 双击任何一个 Cookie 值区域 → Ctrl+A 全选 → Ctrl+C 复制
+# 4. 粘贴到下面这行（替换现有内容）
+

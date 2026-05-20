@@ -1,0 +1,35 @@
+{
+  "updated_at": "2026-04-30T12:16:47.334129",
+  "platforms": {
+    "telegram": [
+      {
+        "id": "1932005111",
+        "name": "坦克✈ 0938",
+        "type": "dm",
+        "thread_id": null
+      },
+      {
+        "id": "-1003633322671",
+        "name": "Jarvis秘书团",
+        "type": "group",
+        "thread_id": null
+      }
+    ],
+    "discord": [],
+    "whatsapp": [],
+    "slack": [],
+    "signal": [],
+    "mattermost": [],
+    "matrix": [],
+    "homeassistant": [],
+    "email": [],
+    "sms": [],
+    "dingtalk": [],
+    "feishu": [],
+    "wecom": [],
+    "wecom_callback": [],
+    "weixin": [],
+    "bluebubbles": [],
+    "qqbot": []
+  }
+}

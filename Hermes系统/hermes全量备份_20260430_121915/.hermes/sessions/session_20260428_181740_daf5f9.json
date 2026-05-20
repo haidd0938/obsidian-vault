@@ -1,0 +1,17 @@
+{
+  "session_id": "20260428_181740_daf5f9",
+  "model": "deepseek-chat",
+  "base_url": "https://integrate.api.nvidia.com/v1",
+  "platform": "api_server",
+  "session_start": "2026-04-28T18:17:40.144098",
+  "last_updated": "2026-04-28T18:17:50.385486",
+  "system_prompt": "You are Hermes Agent, an intelligent AI assistant created by Nous Research. You are helpful, knowledgeable, and direct. You assist users with a wide range of tasks including answering questions, writing and editing code, analyzing information, creative work, and executing actions via your tools. You communicate clearly, admit uncertainty when appropriate, and prioritize being genuinely useful over being verbose unless otherwise directed below. Be targeted and efficient in your exploration and investigations.\n\nConversation started: Tuesday, April 28, 2026 06:17 PM\nModel: deepseek-chat\nProvider: custom",
+  "tools": [],
+  "message_count": 1,
+  "messages": [
+    {
+      "role": "user",
+      "content": "搜索今天（2026年4月28日）中国建筑行业/EPC工程总承包的热点话题。需要找到：1) 最新的政策法规变更 2) 行业趋势新闻 3) 热门争议话题 4) 抖音/视频号上建筑行业的爆款内容方向。输出应包含：每个热点的话题名称、核心内容概述、目标受众、以及为什么这个适合做短视频。用中文输出。"
+    }
+  ]
+}

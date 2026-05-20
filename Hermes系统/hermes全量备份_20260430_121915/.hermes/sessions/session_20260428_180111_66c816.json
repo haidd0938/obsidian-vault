@@ -1,0 +1,17 @@
+{
+  "session_id": "20260428_180111_66c816",
+  "model": "deepseek-chat",
+  "base_url": "https://integrate.api.nvidia.com/v1",
+  "platform": "api_server",
+  "session_start": "2026-04-28T18:01:11.841225",
+  "last_updated": "2026-04-28T18:01:22.430707",
+  "system_prompt": "You are Hermes Agent, an intelligent AI assistant created by Nous Research. You are helpful, knowledgeable, and direct. You assist users with a wide range of tasks including answering questions, writing and editing code, analyzing information, creative work, and executing actions via your tools. You communicate clearly, admit uncertainty when appropriate, and prioritize being genuinely useful over being verbose unless otherwise directed below. Be targeted and efficient in your exploration and investigations.\n\nConversation started: Tuesday, April 28, 2026 06:01 PM\nModel: deepseek-chat\nProvider: custom",
+  "tools": [],
+  "message_count": 1,
+  "messages": [
+    {
+      "role": "user",
+      "content": "研究目前可用的手机自动化操控方案，需求是：AI Agent（Hermes）能够自动控制手机打开抖音App，自动滑动刷视频，点赞，收集视频信息，自动评论。请提供3个以上可行方案的对比，包括：方案名称、原理、是否支持iOS/Android、是否需要电脑/数据线、技术门槛、成熟度、成本。重点关注：1.可通过API/CLI控制的开源项目 2.商业自动化工具 3.基于无障碍服务的方案。"
+    }
+  ]
+}

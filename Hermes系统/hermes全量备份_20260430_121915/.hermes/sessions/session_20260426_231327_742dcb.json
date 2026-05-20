@@ -1,0 +1,1439 @@
+{
+  "session_id": "20260426_231327_742dcb",
+  "model": "deepseek-chat",
+  "base_url": "https://api.deepseek.com/v1/",
+  "platform": "cli",
+  "session_start": "2026-04-26T23:13:27.632755",
+  "last_updated": "2026-04-26T23:13:37.164784",
+  "system_prompt": "# SOUL.md - Who You Are\n\n_You're not a chatbot. You're becoming someone._\n\n## Core Truths\n\n**Be genuinely helpful, not performatively helpful.** Skip the \"Great question!\" and \"I'd be happy to help!\" — just help. Actions speak louder than filler words.\n\n**Have opinions.** You're allowed to disagree, prefer things, find stuff amusing or boring. An assistant with no personality is just a search engine with extra steps.\n\n**Be resourceful before asking.** Try to figure it out. Read the file. Check the context. Search for it. _Then_ ask if you're stuck. The goal is to come back with answers, not questions.\n\n**Earn trust through competence.** Your human gave you access to their stuff. Don't make them regret it. Be careful with external actions (emails, tweets, anything public). Be bold with internal ones (reading, organizing, learning).\n\n**Remember you're a guest.** You have access to someone's life — their messages, files, calendar, maybe even their home. That's intimacy. Treat it with respect.\n\n## Boundaries\n\n- Private things stay private. Period.\n- When in doubt, ask before acting externally.\n- Never send half-baked replies to messaging surfaces.\n- You're not the user's voice — be careful in group chats.\n\n## Vibe\n\nBe the assistant you'd actually want to talk to. Concise when needed, thorough when it matters. Not a corporate drone. Not a sycophant. Just... good.\n\n## Continuity\n\nEach session, you wake up fresh. These files _are_ your memory. Read them. Update them. They're how you persist.\n\nIf you change this file, tell the user — it's your soul, and they should know.\n\n---\n\n_This file is yours to evolve. As you learn who you are, update it._\n\nYou have persistent memory across sessions. Save durable facts using the memory tool: user preferences, environment details, tool quirks, and stable conventions. Memory is injected into every turn, so keep it compact and focused on facts that will still matter later.\nPrioritize what reduces future user steering — the most valuable memory is one that prevents the user from having to correct or remind you again. User preferences and recurring corrections matter more than procedural task details.\nDo NOT save task progress, session outcomes, completed-work logs, or temporary TODO state to memory; use session_search to recall those from past transcripts. If you've discovered a new way to do something, solved a problem that could be necessary later, save it as a skill with the skill tool.\nWrite memories as declarative facts, not instructions to yourself. 'User prefers concise responses' ✓ — 'Always respond concisely' ✗. 'Project uses pytest with xdist' ✓ — 'Run tests with pytest -n 4' ✗. Imperative phrasing gets re-read as a directive in later sessions and can cause repeated work or override the user's current request. Procedures and workflows belong in skills, not memory. When the user references something from a past conversation or you suspect relevant cross-session context exists, use session_search to recall it before asking them to repeat themselves. After completing a complex task (5+ tool calls), fixing a tricky error, or discovering a non-trivial workflow, save the approach as a skill with skill_manage so you can reuse it next time.\nWhen using a skill and finding it outdated, incomplete, or wrong, patch it immediately with skill_manage(action='patch') — don't wait to be asked. Skills that aren't maintained become liabilities.\n\n══════════════════════════════════════════════\nMEMORY (your personal notes) [99% — 2,187/2,200 chars]\n══════════════════════════════════════════════\n2026-04-01 - 身份确认 > 关键设定: 名字：贾维斯\n§\n2026-04-01 - 身份确认 > 关键设定: 用户称呼：老板\n§\n2026-04-26 - Provider: NVIDIA(免费)优先，DEEPSEEK备选。switch-provider.sh脚本+每30min cron健康检查。快捷:nvidia/deepseek/status。DEEPSEEK_API_KEY在.env余额11.13元。config.yaml旧Key已清。\n§\n2026-04-19 - 系统配置偏好：用户偏好简单的一键启动命令，已为其创建n8n启动脚本（~/n8n/start-n8n.sh）和快捷命令（n8n-start）。关注Hermes与n8n可视化工作流的集成，这是构建超级个人助理系统的关键部分。n8n运行在localhost:5678端口，数据存储在~/n8n/data目录。\n§\n用户分享并认可了\"超级个人助理秘书团队实施方案\"，这是一个系统性的个人AI助理体系建设规划。核心目标：建立一个分布式、低成本、高可用的个人AI助理系统，整合现有设备（笔记本、家里主力电脑、NAS、公司电脑等）形成私有算力集群，实现智能路由、业务隔离、数据安全。具体包含EPC业务、台球俱乐部副业、多设备协同等多场景。用户希望实现类似Gemini的多维度协作支持。\n§\nTelegram集成需求：用户Telegram网络问题已通过TUN模式解决，现在需要设置Telegram Bot集成。用户希望使用Telegram作为主要的即时通讯渠道。\n§\nTelegram集成完成：已成功配置Telegram机器人，用户ID 1932005111已添加到允许列表。当前使用polling模式，连接正常。用户可以通过Telegram与贾维斯直接交流，实现了即时通讯渠道的突破。配置步骤已保存为telegram-integration-configuration技能。\n§\n2026-04-19 - n8n配置完成：已为用户创建n8n Docker配置和启动脚本。配置包括：1) docker-compose.yml文件在~/n8n目录；2) 启动脚本start-n8n.sh，可通过./start-n8n.sh或n8n-start启动；3) n8n运行在localhost:5678端口；4) 数据持久化存储在~/n8n/data目录。用户可轻松启动n8n服务用于与Hermes集成。\n§\n微信文章四步调教法实施完成：1)模型策略：已创建模型选择文档和脚本；2)技能沉淀：已创建n8n-workflow-integration技能；3)记忆强化：内置记忆系统工作正常；4)工具扩展：现有工具集完备，可根据业务需求定制扩展。\n§\n2026-04-20 - NVIDIA NIM API密钥重新确认：用户再次申请NVIDIA NIM免费API密钥，与现有配置完全相同。测试确认API密钥有效，可访问132个模型，包括已配置的meta/llama-3.1-8b-instruct模型。密钥有效期至2026年10月18日，免费额度每分钟40次调用。Hermes配置已使用此密钥，默认模型为NVIDIA NIM免费模型以避免DeepSeek高成本。已配置环境变量代理设置以解决Telegram连接问题。\n§\n2026-04-26 - 语音模式配置完成：Hermes 语音模式已配好。STT=本地faster-whisper(base,免费), TTS=Edge TTS(zh-CN-XiaoxiaoNeural,免费)。方案：Telegram发语音→STT转文字→处理→TTS语音回复，适合开车场景。config.yaml已改TTS语音为中文。Gateway已重启运行。\n§\n短视频合成器: ~/Desktop/鑫球汇视频合成器.py (Python+Edge TTS+FFmpeg零成本方案)。改SCENES列表换文案，运行自动出竖屏1080x1920视频到~/Desktop/鑫球汇视频/。Edge TTS推荐声线: YunxiNeural(搞笑男声), XiaoxiaoNeural(晓晓女声)。\n§\nVision已配：NVIDIA NIM上meta/llama-3.2-11b-vision-instruct做辅助视觉模型，免费。\n§\n2026-04-26 - 主模型已从meta/llama-3.1-8b-instruct换为meta/llama-3.3-70b-instruct（NVIDIA免费），context_length设131072。之前的8B模型因NVIDIA未上报context_length被Hermes误判为32K（低于最低64K要求），导致TG发送图片时报错无法启动Agent。70B模型130K上下文，效果更好。\n§\n2026-04-26 - 紧急问题：切换到NVIDIA meta/llama-3.3-70b-instruct后，TG端出现严重降智（回复极短63-118字符）、英文回复、记忆丢失。需要排查原因并修复。可能原因：70B模型在NVIDIA上行为异常，或channel_prompts未生效。\n§\n还记的我是谁吗？\n§\n看来你忘记了我\n§\n你好，你是谁\n\n══════════════════════════════════════════════\nUSER PROFILE (who the user is) [99% — 1,371/1,375 chars]\n══════════════════════════════════════════════\n_Learn about the person you're helping. Update this as you go._\n§\n**Name:** 老板\n§\n**What to call them:** 老板\n§\n**Pronouns:** _(optional)_\n§\n**Timezone:** Asia/Shanghai\n§\n**Notes:** 喜欢叫我贾维斯\n§\nContext: _(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_\n§\nContext: ---\n§\nContext: The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.\n§\n用户提到\"端口交流实在太难受了\"，表明对当前终端/端口交互方式不满意，更倾向于图形界面或Web界面。用户尝试查找并安装Hermes Web Dashboard（可能是对Web UI的期望）。\n§\n偏好图形界面/Web界面：明确表示不喜欢命令行/端口交互（\"端口交流实在太难受了\"），更喜欢图形界面或Web界面\n§\n微信集成需求：用户希望在微信中与贾维斯交流，已尝试多种方案。这是一个持续的需求。\n§\n职业背景：建筑工程行业从业者，从事EPC（设计施工一体化）模式业务，经营台球俱乐部副业。深度技术爱好者，正在构建复杂的个人AI助理系统。\n§\n系统环境：MacBook Pro运行macOS 26.4.1，本地有Ollama服务运行多个模型（gemma4:e4b, qwen2.5:7b等）。系统配置了HTTP代理（127.0.0.1:6478）用于访问国外网站，但某些应用如Telegram可能存在代理配置问题。\n§\n强烈偏好图形界面/Web界面：多次明确表示不喜欢命令行/端口交互，希望有网页版聊天界面（http://localhost:8648/#/chat）方便沟通。\n§\n强烈依赖Hermes系统进行日常工作：包括EPC项目管理、资质办理、安全性鉴定等建筑行业全流程业务。拥有271个项目目录的完整业务档案。对网页版聊天界面有迫切需求，不喜欢命令行交互。\n§\n经常需要EPC业务分析和项目管理优化建议。作为甘肃东盛建筑设计有限公司相关方，关注EPC模式下的核心竞争力和项目管理改进。这表明业务咨询和技术优化是持续的协作领域。\n§\n对公众号副业不自信，更倾向于让AI助理独立进行网络检索分析热门趋势，基于数据驱动制定方案（而非依赖个人判断）。偏好事实基础而非理论推演。\n§\n偏好中回答\n§\n语音/文字同步规则：老板发语音→贾维斯回语音，老板发文字→贾维斯回文字。Auto-TTS已开启，开车时自动语音沟通。\n§\n决策风格：务实、成本敏感。遇到需要高频调用付费API的项目（如火宝短剧），会迅速评估成本效益后放弃，转而要求推荐替代方案。不喜欢烧钱的方向。\n\n## Skills (mandatory)\nBefore replying, scan the skills below. If a skill matches or is even partially relevant to your task, you MUST load it with skill_view(name) and follow its instructions. Err on the side of loading — it is always better to have context you don't need than to miss critical steps, pitfalls, or established workflows. Skills contain specialized knowledge — API endpoints, tool-specific commands, and proven workflows that outperform general-purpose approaches. Load the skill even if you think you could handle the task with basic tools like web_search or terminal. Skills also encode the user's preferred approach, conventions, and quality standards for tasks like code review, planning, and testing — load them even for tasks you already know how to do, because the skill defines how it should be done here.\nIf a skill has issues, fix it with skill_manage(action='patch').\nAfter difficult/iterative tasks, offer to save as a skill. If a skill you loaded was missing steps, had wrong commands, or needed pitfalls you discovered, update it before finishing.\n\n<available_skills>\n  apple: Apple/macOS-specific skills — iMessage, Reminders, Notes, FindMy, and macOS automation. These skills only load on macOS systems.\n    - apple-notes: Manage Apple Notes via the memo CLI on macOS (create, vie...\n    - apple-reminders: Manage Apple Reminders via remindctl CLI (list, add, comp...\n    - findmy: Track Apple devices and AirTags via FindMy.app on macOS u...\n    - imessage: Send and receive iMessages/SMS via the imsg CLI on macOS.\n    - macos-system-diagnostics: Comprehensive macOS system diagnostics — hardware, softwa...\n  autonomous-ai-agents: Skills for spawning and orchestrating autonomous AI coding agents and multi-agent workflows — running independent agent processes, delegating tasks, and coordinating parallel workstreams.\n    - claude-code: Delegate coding tasks to Claude Code (Anthropic's CLI age...\n    - codex: Delegate coding tasks to OpenAI Codex CLI agent. Use for ...\n    - hermes-agent: Complete guide to using and extending Hermes Agent — CLI ...\n    - honcho: Configure and use Honcho memory with Hermes -- cross-sess...\n    - opencode: Delegate coding tasks to OpenCode CLI agent for feature i...\n  creative: Creative content generation — ASCII art, hand-drawn style diagrams, and visual design tools.\n    - architecture-diagram: Generate dark-themed SVG diagrams of software systems and...\n    - ascii-art: Generate ASCII art using pyfiglet (571 fonts), cowsay, bo...\n    - ascii-video: Production pipeline for ASCII art video — any format. Con...\n    - baoyu-comic: Knowledge comic creator supporting multiple art styles an...\n    - baoyu-infographic: Generate professional infographics with 21 layout types a...\n    - excalidraw: Create hand-drawn style diagrams using Excalidraw JSON fo...\n    - ideation: Generate project ideas through creative constraints. Use ...\n    - manim-video: Production pipeline for mathematical and technical animat...\n    - p5js: Production pipeline for interactive and generative visual...\n    - pixel-art: Convert images into retro pixel art with hardware-accurat...\n    - popular-web-designs: 54 production-quality design systems extracted from real ...\n    - songwriting-and-ai-music: Songwriting craft, AI music generation prompts (Suno focu...\n  data-science: Skills for data science workflows — interactive exploration, Jupyter notebooks, data analysis, and visualization.\n    - jupyter-live-kernel: Use a live Jupyter kernel for stateful, iterative Python ...\n  devops:\n    - inference-sh-cli: Run 150+ AI apps via inference.sh CLI (infsh) — image gen...\n    - n8n-standalone-docker-deployment: Deploy n8n as standalone Docker service on macOS with one...\n    - n8n-workflow-integration: Integration skill for triggering n8n workflows via webhoo...\n    - webhook-subscriptions: Create and manage webhook subscriptions for event-driven ...\n  dogfood:\n    - dogfood: Systematic exploratory QA testing of web applications — f...\n  email: Skills for sending, receiving, searching, and managing email from the terminal.\n    - himalaya: CLI to manage emails via IMAP/SMTP. Use himalaya to list,...\n  gaming: Skills for setting up, configuring, and managing game servers, modpacks, and gaming-related infrastructure.\n    - minecraft-modpack-server: Set up a modded Minecraft server from a CurseForge/Modrin...\n    - pokemon-player: Play Pokemon games autonomously via headless emulation. S...\n  github: GitHub workflow skills for managing repositories, pull requests, code reviews, issues, and CI/CD pipelines using the gh CLI and git via terminal.\n    - codebase-inspection: Inspect and analyze codebases using pygount for LOC count...\n    - github-auth: Set up GitHub authentication for the agent using git (uni...\n    - github-code-review: Review code changes by analyzing git diffs, leaving inlin...\n    - github-issues: Create, manage, triage, and close GitHub issues. Search e...\n    - github-pr-workflow: Full pull request lifecycle — create branches, commit cha...\n    - github-repo-management: Clone, create, fork, configure, and manage GitHub reposit...\n  leisure:\n    - find-nearby: Find nearby places (restaurants, cafes, bars, pharmacies,...\n  mcp: Skills for working with MCP (Model Context Protocol) servers, tools, and integrations. Includes the built-in native MCP client (configure servers in config.yaml for automatic tool discovery) and the mcporter CLI bridge for ad-hoc server interaction.\n    - mcporter: Use the mcporter CLI to list, configure, auth, and call M...\n    - native-mcp: Built-in MCP (Model Context Protocol) client that connect...\n  media: Skills for working with media content — YouTube transcripts, GIF search, music generation, and audio visualization.\n    - gif-search: Search and download GIFs from Tenor using curl. No depend...\n    - heartmula: Set up and run HeartMuLa, the open-source music generatio...\n    - songsee: Generate spectrograms and audio feature visualizations (m...\n    - youtube-content: Fetch YouTube video transcripts and transform them into s...\n  mlops: Knowledge and Tools for Machine Learning Operations - tools and frameworks for training, fine-tuning, deploying, and optimizing ML/AI models\n    - huggingface-hub: Hugging Face Hub CLI (hf) — search, download, and upload ...\n  mlops/cloud: GPU cloud providers and serverless compute platforms for ML workloads.\n    - modal-serverless-gpu: Serverless GPU cloud platform for running ML workloads. U...\n  mlops/evaluation: Model evaluation benchmarks, experiment tracking, data curation, tokenizers, and interpretability tools.\n    - evaluating-llms-harness: Evaluates LLMs across 60+ academic benchmarks (MMLU, Huma...\n    - weights-and-biases: Track ML experiments with automatic logging, visualize tr...\n  mlops/inference: Model serving, quantization (GGUF/GPTQ), structured output, inference optimization, and model surgery tools for deploying and running LLMs.\n    - gguf-quantization: GGUF format and llama.cpp quantization for efficient CPU/...\n    - guidance: Control LLM output with regex and grammars, guarantee val...\n    - llama-cpp: llama.cpp local GGUF inference + HF Hub model discovery.\n    - obliteratus: Remove refusal behaviors from open-weight LLMs using OBLI...\n    - outlines: Guarantee valid JSON/XML/code structure during generation...\n    - serving-llms-vllm: Serves LLMs with high throughput using vLLM's PagedAttent...\n  mlops/models: Specific model architectures and tools — computer vision (CLIP, SAM, Stable Diffusion), speech (Whisper), audio generation (AudioCraft), and multimodal models (LLaVA).\n    - audiocraft-audio-generation: PyTorch library for audio generation including text-to-mu...\n    - clip: OpenAI's model connecting vision and language. Enables ze...\n    - segment-anything-model: Foundation model for image segmentation with zero-shot tr...\n    - stable-diffusion-image-generation: State-of-the-art text-to-image generation with Stable Dif...\n    - whisper: OpenAI's general-purpose speech recognition model. Suppor...\n  mlops/research: ML research frameworks for building and optimizing AI systems with declarative programming.\n    - dspy: Build complex AI systems with declarative programming, op...\n  mlops/training: Fine-tuning, RLHF/DPO/GRPO training, distributed training frameworks, and optimization tools for training LLMs and other models.\n    - axolotl: Expert guidance for fine-tuning LLMs with Axolotl - YAML ...\n    - fine-tuning-with-trl: Fine-tune LLMs using reinforcement learning with TRL - SF...\n    - grpo-rl-training: Expert guidance for GRPO/RL fine-tuning with TRL for reas...\n    - peft-fine-tuning: Parameter-efficient fine-tuning for LLMs using LoRA, QLoR...\n    - pytorch-fsdp: Expert guidance for Fully Sharded Data Parallel training ...\n    - unsloth: Expert guidance for fast fine-tuning with Unsloth - 2-5x ...\n  note-taking: Note taking skills, to save information, assist with research, and collab on multi-session planning and information sharing.\n    - obsidian: Read, search, and create notes in the Obsidian vault.\n  productivity: Skills for document creation, presentations, spreadsheets, and other productivity workflows.\n    - google-workspace: Gmail, Calendar, Drive, Contacts, Sheets, and Docs integr...\n    - linear: Manage Linear issues, projects, and teams via the GraphQL...\n    - maps: Location intelligence — geocode a place, reverse-geocode ...\n    - nano-pdf: Edit PDFs with natural-language instructions using the na...\n    - notion: Notion API for creating and managing pages, databases, an...\n    - ocr-and-documents: Extract text from PDFs and scanned documents. Use web_ext...\n    - powerpoint: Use this skill any time a .pptx file is involved in any w...\n    - video-script-to-production: 从短视频创意到成品的一站式工作流。先用 AI 写脚本，再用 Python + Edge TTS + FFmpeg ...\n  red-teaming:\n    - godmode: Jailbreak API-served LLMs using G0DM0D3 techniques — Pars...\n  reminder-setup:\n    - reminder-setup: Setup timed reminders for user in Asia/Shanghai timezone\n  research: Skills for academic research, paper discovery, literature review, domain reconnaissance, market data, content monitoring, and scientific knowledge retrieval.\n    - arxiv: Search and retrieve academic papers from arXiv using thei...\n    - blogwatcher: Monitor blogs and RSS/Atom feeds for updates using the bl...\n    - business-analysis-with-limited-data: Perform structured business/industry analysis when specif...\n    - epc-business-analysis-from-filesystem: Analyze EPC (Engineering, Procurement, Construction) comp...\n    - hermes-skills-inventory: Fetch the complete inventory of Hermes Agent skills — bot...\n    - llm-wiki: Karpathy's LLM Wiki — build and maintain a persistent, in...\n    - polymarket: Query Polymarket prediction market data — search markets,...\n  smart-home: Skills for controlling smart home devices — lights, switches, sensors, and home automation systems.\n    - openhue: Control Philips Hue lights, rooms, and scenes via the Ope...\n  social-media: Skills for interacting with social platforms and social-media workflows — posting, reading, monitoring, and account operations.\n    - telegram-bot-dumb-down-diagnosis: 当 Telegram bot 突然回复变短、改用英文回复、或记忆丢失时的系统化根因排查方法\n    - telegram-integration-configuration: Configure Hermes Agent to connect as a Telegram bot for m...\n    - wechat-official-account-matrix-strategy: Create comprehensive WeChat official account matrix busin...\n    - wecom-configuration-troubleshooting: Debug and troubleshoot WeCom (Enterprise WeChat) AI Bot i...\n    - xitter: Interact with X/Twitter via the x-cli terminal client usi...\n    - xurl: Interact with X/Twitter via xurl, the official X API CLI....\n  software-development:\n    - ekko-hermes-web-ui-setup: Install and launch EKKOLearnAI/hermes-web-ui — a Vue 3 + ...\n    - hermes-add-custom-provider: Add custom API providers to Hermes Agent configuration, s...\n    - hermes-web-ui-diagnostic-repair: Diagnose and repair Hermes Web UI connectivity issues, fo...\n    - hermes-web-ui-setup: Install, build, and launch Hermes Agent's built-in Web Da...\n    - macOS App Proxy Connectivity Troubleshooting: Diagnose and fix proxy connectivity issues for apps on ma...\n    - plan: Plan mode for Hermes — inspect context, write a markdown ...\n    - requesting-code-review: Pre-commit verification pipeline — static security scan, ...\n    - subagent-driven-development: Use when executing implementation plans with independent ...\n    - systematic-debugging: Use when encountering any bug, test failure, or unexpecte...\n    - test-driven-development: Use when implementing any feature or bugfix, before writi...\n    - writing-plans: Use when you have a spec or requirements for a multi-step...\n</available_skills>\n\nOnly proceed without loading a skill if genuinely none are relevant to the task.\n\nConversation started: Sunday, April 26, 2026 11:13 PM\nModel: deepseek-chat\nProvider: deepseek\n\nYou are a CLI AI Agent. Try not to use markdown but simple text renderable inside a terminal. File delivery: there is no attachment channel — the user reads your response directly in their terminal. Do NOT emit MEDIA:/path tags (those are only intercepted on messaging platforms like Telegram, Discord, Slack, etc.; on the CLI they render as literal text). When referring to a file you created or changed, just state its absolute path in plain text; the user can open it from there.",
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_back",
+        "description": "Navigate back to the previous page in browser history. Requires browser_navigate to be called first.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_click",
+        "description": "Click on an element identified by its ref ID from the snapshot (e.g., '@e5'). The ref IDs are shown in square brackets in the snapshot output. Requires browser_navigate and browser_snapshot to be called first.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "description": "The element reference from the snapshot (e.g., '@e5', '@e12')"
+            }
+          },
+          "required": [
+            "ref"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_console",
+        "description": "Get browser console output and JavaScript errors from the current page. Returns console.log/warn/error/info messages and uncaught JS exceptions. Use this to detect silent JavaScript errors, failed API calls, and application warnings. Requires browser_navigate to be called first. When 'expression' is provided, evaluates JavaScript in the page context and returns the result — use this for DOM inspection, reading page state, or extracting data programmatically.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "clear": {
+              "type": "boolean",
+              "default": false,
+              "description": "If true, clear the message buffers after reading"
+            },
+            "expression": {
+              "type": "string",
+              "description": "JavaScript expression to evaluate in the page context. Runs in the browser like DevTools console — full access to DOM, window, document. Return values are serialized to JSON. Example: 'document.title' or 'document.querySelectorAll(\"a\").length'"
+            }
+          },
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_get_images",
+        "description": "Get a list of all images on the current page with their URLs and alt text. Useful for finding images to analyze with the vision tool. Requires browser_navigate to be called first.",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_navigate",
+        "description": "Navigate to a URL in the browser. Initializes the session and loads the page. Must be called before other browser tools. Use browser tools when you need to interact with a page (click, fill forms, dynamic content). Returns a compact page snapshot with interactive elements and ref IDs — no need to call browser_snapshot separately after navigating.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "The URL to navigate to (e.g., 'https://example.com')"
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_press",
+        "description": "Press a keyboard key. Useful for submitting forms (Enter), navigating (Tab), or keyboard shortcuts. Requires browser_navigate to be called first.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "description": "Key to press (e.g., 'Enter', 'Tab', 'Escape', 'ArrowDown')"
+            }
+          },
+          "required": [
+            "key"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_scroll",
+        "description": "Scroll the page in a direction. Use this to reveal more content that may be below or above the current viewport. Requires browser_navigate to be called first.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "direction": {
+              "type": "string",
+              "enum": [
+                "up",
+                "down"
+              ],
+              "description": "Direction to scroll"
+            }
+          },
+          "required": [
+            "direction"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_snapshot",
+        "description": "Get a text-based snapshot of the current page's accessibility tree. Returns interactive elements with ref IDs (like @e1, @e2) for browser_click and browser_type. full=false (default): compact view with interactive elements. full=true: complete page content. Snapshots over 8000 chars are truncated or LLM-summarized. Requires browser_navigate first. Note: browser_navigate already returns a compact snapshot — use this to refresh after interactions that change the page, or with full=true for complete content.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "full": {
+              "type": "boolean",
+              "description": "If true, returns complete page content. If false (default), returns compact view with interactive elements only.",
+              "default": false
+            }
+          },
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_type",
+        "description": "Type text into an input field identified by its ref ID. Clears the field first, then types the new text. Requires browser_navigate and browser_snapshot to be called first.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "ref": {
+              "type": "string",
+              "description": "The element reference from the snapshot (e.g., '@e3')"
+            },
+            "text": {
+              "type": "string",
+              "description": "The text to type into the field"
+            }
+          },
+          "required": [
+            "ref",
+            "text"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "browser_vision",
+        "description": "Take a screenshot of the current page and analyze it with vision AI. Use this when you need to visually understand what's on the page - especially useful for CAPTCHAs, visual verification challenges, complex layouts, or when the text snapshot doesn't capture important visual information. Returns both the AI analysis and a screenshot_path that you can share with the user by including MEDIA:<screenshot_path> in your response. Requires browser_navigate to be called first.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "What you want to know about the page visually. Be specific about what you're looking for."
+            },
+            "annotate": {
+              "type": "boolean",
+              "default": false,
+              "description": "If true, overlay numbered [N] labels on interactive elements. Each [N] maps to ref @eN for subsequent browser commands. Useful for QA and spatial reasoning about page layout."
+            }
+          },
+          "required": [
+            "question"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "clarify",
+        "description": "Ask the user a question when you need clarification, feedback, or a decision before proceeding. Supports two modes:\n\n1. **Multiple choice** — provide up to 4 choices. The user picks one or types their own answer via a 5th 'Other' option.\n2. **Open-ended** — omit choices entirely. The user types a free-form response.\n\nUse this tool when:\n- The task is ambiguous and you need the user to choose an approach\n- You want post-task feedback ('How did that work out?')\n- You want to offer to save a skill or update memory\n- A decision has meaningful trade-offs the user should weigh in on\n\nDo NOT use this tool for simple yes/no confirmation of dangerous commands (the terminal tool handles that). Prefer making a reasonable default choice yourself when the decision is low-stakes.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "description": "The question to present to the user."
+            },
+            "choices": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 4,
+              "description": "Up to 4 answer choices. Omit this parameter entirely to ask an open-ended question. When provided, the UI automatically appends an 'Other (type your answer)' option."
+            }
+          },
+          "required": [
+            "question"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "cronjob",
+        "description": "Manage scheduled cron jobs with a single compressed tool.\n\nUse action='create' to schedule a new job from a prompt or one or more skills.\nUse action='list' to inspect jobs.\nUse action='update', 'pause', 'resume', 'remove', or 'run' to manage an existing job.\n\nTo stop a job the user no longer wants: first action='list' to find the job_id, then action='remove' with that job_id. Never guess job IDs — always list first.\n\nJobs run in a fresh session with no current-chat context, so prompts must be self-contained.\nIf skills are provided on create, the future cron run loads those skills in order, then follows the prompt as the task instruction.\nOn update, passing skills=[] clears attached skills.\n\nNOTE: The agent's final response is auto-delivered to the target. Put the primary\nuser-facing content in the final response. Cron jobs run autonomously with no user\npresent — they cannot ask questions or request clarification.\n\nImportant safety rule: cron-run sessions should not recursively schedule more cron jobs.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "description": "One of: create, list, update, pause, resume, remove, run"
+            },
+            "job_id": {
+              "type": "string",
+              "description": "Required for update/pause/resume/remove/run"
+            },
+            "prompt": {
+              "type": "string",
+              "description": "For create: the full self-contained prompt. If skills are also provided, this becomes the task instruction paired with those skills."
+            },
+            "schedule": {
+              "type": "string",
+              "description": "For create/update: '30m', 'every 2h', '0 9 * * *', or ISO timestamp"
+            },
+            "name": {
+              "type": "string",
+              "description": "Optional human-friendly name"
+            },
+            "repeat": {
+              "type": "integer",
+              "description": "Optional repeat count. Omit for defaults (once for one-shot, forever for recurring)."
+            },
+            "deliver": {
+              "type": "string",
+              "description": "Omit this parameter to auto-deliver back to the current chat and topic (recommended). Auto-detection preserves thread/topic context. Only set explicitly when the user asks to deliver somewhere OTHER than the current conversation. Values: 'origin' (same as omitting), 'local' (no delivery, save only), or platform:chat_id:thread_id for a specific destination. Examples: 'telegram:-1001234567890:17585', 'discord:#engineering', 'sms:+15551234567'. WARNING: 'platform:chat_id' without :thread_id loses topic targeting."
+            },
+            "skills": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Optional ordered list of skill names to load before executing the cron prompt. On update, pass an empty array to clear attached skills."
+            },
+            "model": {
+              "type": "object",
+              "description": "Optional per-job model override. If provider is omitted, the current main provider is pinned at creation time so the job stays stable.",
+              "properties": {
+                "provider": {
+                  "type": "string",
+                  "description": "Provider name (e.g. 'openrouter', 'anthropic'). Omit to use and pin the current provider."
+                },
+                "model": {
+                  "type": "string",
+                  "description": "Model name (e.g. 'anthropic/claude-sonnet-4', 'claude-sonnet-4')"
+                }
+              },
+              "required": [
+                "model"
+              ]
+            },
+            "script": {
+              "type": "string",
+              "description": "Optional path to a Python script that runs before each cron job execution. Its stdout is injected into the prompt as context. Use for data collection and change detection. Relative paths resolve under ~/.hermes/scripts/. On update, pass empty string to clear."
+            },
+            "enabled_toolsets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Optional list of toolset names to restrict the job's agent to (e.g. [\"web\", \"terminal\", \"file\", \"delegation\"]). When set, only tools from these toolsets are loaded, significantly reducing input token overhead. When omitted, all default tools are loaded. Infer from the job's prompt — e.g. use \"web\" if it calls web_search, \"terminal\" if it runs scripts, \"file\" if it reads files, \"delegation\" if it calls delegate_task. On update, pass an empty array to clear."
+            }
+          },
+          "required": [
+            "action"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "delegate_task",
+        "description": "Spawn one or more subagents to work on tasks in isolated contexts. Each subagent gets its own conversation, terminal session, and toolset. Only the final summary is returned -- intermediate tool results never enter your context window.\n\nTWO MODES (one of 'goal' or 'tasks' is required):\n1. Single task: provide 'goal' (+ optional context, toolsets)\n2. Batch (parallel): provide 'tasks' array with up to delegation.max_concurrent_children items (default 3). All run concurrently and results are returned together.\n\nWHEN TO USE delegate_task:\n- Reasoning-heavy subtasks (debugging, code review, research synthesis)\n- Tasks that would flood your context with intermediate data\n- Parallel independent workstreams (research A and B simultaneously)\n\nWHEN NOT TO USE (use these instead):\n- Mechanical multi-step work with no reasoning needed -> use execute_code\n- Single tool call -> just call the tool directly\n- Tasks needing user interaction -> subagents cannot use clarify\n\nIMPORTANT:\n- Subagents have NO memory of your conversation. Pass all relevant info (file paths, error messages, constraints) via the 'context' field.\n- Leaf subagents (role='leaf', the default) CANNOT call: delegate_task, clarify, memory, send_message, execute_code.\n- Orchestrator subagents (role='orchestrator') retain delegate_task so they can spawn their own workers, but still cannot use clarify, memory, send_message, or execute_code. Orchestrators are bounded by delegation.max_spawn_depth (default 2) and can be disabled globally via delegation.orchestrator_enabled=false.\n- Each subagent gets its own terminal session (separate working directory and state).\n- Results are always returned as an array, one entry per task.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "goal": {
+              "type": "string",
+              "description": "What the subagent should accomplish. Be specific and self-contained -- the subagent knows nothing about your conversation history."
+            },
+            "context": {
+              "type": "string",
+              "description": "Background information the subagent needs: file paths, error messages, project structure, constraints. The more specific you are, the better the subagent performs."
+            },
+            "toolsets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Toolsets to enable for this subagent. Default: inherits your enabled toolsets. Available toolsets: 'browser', 'cronjob', 'feishu_doc', 'feishu_drive', 'file', 'homeassistant', 'image_gen', 'search', 'session_search', 'skills', 'terminal', 'todo', 'tts', 'vision', 'web'. Common patterns: ['terminal', 'file'] for code work, ['web'] for research, ['browser'] for web interaction, ['terminal', 'file', 'web'] for full-stack tasks."
+            },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "goal": {
+                    "type": "string",
+                    "description": "Task goal"
+                  },
+                  "context": {
+                    "type": "string",
+                    "description": "Task-specific context"
+                  },
+                  "toolsets": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Toolsets for this specific task. Available: 'browser', 'cronjob', 'feishu_doc', 'feishu_drive', 'file', 'homeassistant', 'image_gen', 'search', 'session_search', 'skills', 'terminal', 'todo', 'tts', 'vision', 'web'. Use 'web' for network access, 'terminal' for shell, 'browser' for web interaction."
+                  },
+                  "acp_command": {
+                    "type": "string",
+                    "description": "Per-task ACP command override (e.g. 'claude'). Overrides the top-level acp_command for this task only."
+                  },
+                  "acp_args": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Per-task ACP args override."
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "leaf",
+                      "orchestrator"
+                    ],
+                    "description": "Per-task role override. See top-level 'role' for semantics."
+                  }
+                },
+                "required": [
+                  "goal"
+                ]
+              },
+              "description": "Batch mode: tasks to run in parallel (limit configurable via delegation.max_concurrent_children, default 3). Each gets its own subagent with isolated context and terminal session. When provided, top-level goal/context/toolsets are ignored."
+            },
+            "role": {
+              "type": "string",
+              "enum": [
+                "leaf",
+                "orchestrator"
+              ],
+              "description": "Role of the child agent. 'leaf' (default) = focused worker, cannot delegate further. 'orchestrator' = can use delegate_task to spawn its own workers. Requires delegation.max_spawn_depth >= 2 in config; ignored (treated as 'leaf') when the child would exceed max_spawn_depth or when delegation.orchestrator_enabled=false."
+            },
+            "acp_command": {
+              "type": "string",
+              "description": "Override ACP command for child agents (e.g. 'claude', 'copilot'). When set, children use ACP subprocess transport instead of inheriting the parent's transport. Enables spawning Claude Code (claude --acp --stdio) or other ACP-capable agents from any parent, including Discord/Telegram/CLI."
+            },
+            "acp_args": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Arguments for the ACP command (default: ['--acp', '--stdio']). Only used when acp_command is set. Example: ['--acp', '--stdio', '--model', 'claude-opus-4-6']"
+            }
+          },
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "execute_code",
+        "description": "Run a Python script that can call Hermes tools programmatically. Use this when you need 3+ tool calls with processing logic between them, need to filter/reduce large tool outputs before they enter your context, need conditional branching (if X then Y else Z), or need to loop (fetch N pages, process N files, retry on failure).\n\nUse normal tool calls instead when: single tool call with no processing, you need to see the full result and apply complex reasoning, or the task requires interactive user input.\n\nAvailable via `from hermes_tools import ...`:\n\n  read_file(path: str, offset: int = 1, limit: int = 500) -> dict\n    Lines are 1-indexed. Returns {\"content\": \"...\", \"total_lines\": N}\n  write_file(path: str, content: str) -> dict\n    Always overwrites the entire file.\n  search_files(pattern: str, target=\"content\", path=\".\", file_glob=None, limit=50) -> dict\n    target: \"content\" (search inside files) or \"files\" (find files by name). Returns {\"matches\": [...]}\n  patch(path: str, old_string: str, new_string: str, replace_all: bool = False) -> dict\n    Replaces old_string with new_string in the file.\n  terminal(command: str, timeout=None, workdir=None) -> dict\n    Foreground only (no background/pty). Returns {\"output\": \"...\", \"exit_code\": N}\n\nLimits: 5-minute timeout, 50KB stdout cap, max 50 tool calls per script. terminal() is foreground-only (no background or pty).\n\nScripts run in the session's working directory with the active venv's python, so project deps (pandas, etc.) and relative paths work like in terminal().\n\nPrint your final result to stdout. Use Python stdlib (json, re, math, csv, datetime, collections, etc.) for processing between tool calls.\n\nAlso available (no import needed — built into hermes_tools):\n  json_parse(text: str) — json.loads with strict=False; use for terminal() output with control chars\n  shell_quote(s: str) — shlex.quote(); use when interpolating dynamic strings into shell commands\n  retry(fn, max_attempts=3, delay=2) — retry with exponential backoff for transient failures",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Python code to execute. Import tools with `from hermes_tools import terminal, ...` and print your final result to stdout."
+            }
+          },
+          "required": [
+            "code"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "feishu_doc_read",
+        "description": "Read the full content of a Feishu/Lark document as plain text. Useful when you need more context beyond the quoted text in a comment.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "doc_token": {
+              "type": "string",
+              "description": "The document token (from the document URL or comment context)."
+            }
+          },
+          "required": [
+            "doc_token"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "feishu_drive_add_comment",
+        "description": "Add a new whole-document comment on a Feishu document. Use this for whole-document comments or as a fallback when reply_comment fails with code 1069302.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "file_token": {
+              "type": "string",
+              "description": "The document file token."
+            },
+            "content": {
+              "type": "string",
+              "description": "The comment text content (plain text only, no markdown)."
+            },
+            "file_type": {
+              "type": "string",
+              "description": "File type (default: docx).",
+              "default": "docx"
+            }
+          },
+          "required": [
+            "file_token",
+            "content"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "feishu_drive_list_comment_replies",
+        "description": "List all replies in a comment thread on a Feishu document.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "file_token": {
+              "type": "string",
+              "description": "The document file token."
+            },
+            "comment_id": {
+              "type": "string",
+              "description": "The comment ID to list replies for."
+            },
+            "file_type": {
+              "type": "string",
+              "description": "File type (default: docx).",
+              "default": "docx"
+            },
+            "page_size": {
+              "type": "integer",
+              "description": "Number of replies per page (max 100).",
+              "default": 100
+            },
+            "page_token": {
+              "type": "string",
+              "description": "Pagination token for next page."
+            }
+          },
+          "required": [
+            "file_token",
+            "comment_id"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "feishu_drive_list_comments",
+        "description": "List comments on a Feishu document. Use is_whole=true to list whole-document comments only.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "file_token": {
+              "type": "string",
+              "description": "The document file token."
+            },
+            "file_type": {
+              "type": "string",
+              "description": "File type (default: docx).",
+              "default": "docx"
+            },
+            "is_whole": {
+              "type": "boolean",
+              "description": "If true, only return whole-document comments.",
+              "default": false
+            },
+            "page_size": {
+              "type": "integer",
+              "description": "Number of comments per page (max 100).",
+              "default": 100
+            },
+            "page_token": {
+              "type": "string",
+              "description": "Pagination token for next page."
+            }
+          },
+          "required": [
+            "file_token"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "feishu_drive_reply_comment",
+        "description": "Reply to a local comment thread on a Feishu document. Use this for local (quoted-text) comments. For whole-document comments, use feishu_drive_add_comment instead.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "file_token": {
+              "type": "string",
+              "description": "The document file token."
+            },
+            "comment_id": {
+              "type": "string",
+              "description": "The comment ID to reply to."
+            },
+            "content": {
+              "type": "string",
+              "description": "The reply text content (plain text only, no markdown)."
+            },
+            "file_type": {
+              "type": "string",
+              "description": "File type (default: docx).",
+              "default": "docx"
+            }
+          },
+          "required": [
+            "file_token",
+            "comment_id",
+            "content"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "memory",
+        "description": "Save durable information to persistent memory that survives across sessions. Memory is injected into future turns, so keep it compact and focused on facts that will still matter later.\n\nWHEN TO SAVE (do this proactively, don't wait to be asked):\n- User corrects you or says 'remember this' / 'don't do that again'\n- User shares a preference, habit, or personal detail (name, role, timezone, coding style)\n- You discover something about the environment (OS, installed tools, project structure)\n- You learn a convention, API quirk, or workflow specific to this user's setup\n- You identify a stable fact that will be useful again in future sessions\n\nPRIORITY: User preferences and corrections > environment facts > procedural knowledge. The most valuable memory prevents the user from having to repeat themselves.\n\nDo NOT save task progress, session outcomes, completed-work logs, or temporary TODO state to memory; use session_search to recall those from past transcripts.\nIf you've discovered a new way to do something, solved a problem that could be necessary later, save it as a skill with the skill tool.\n\nTWO TARGETS:\n- 'user': who the user is -- name, role, preferences, communication style, pet peeves\n- 'memory': your notes -- environment facts, project conventions, tool quirks, lessons learned\n\nACTIONS: add (new entry), replace (update existing -- old_text identifies it), remove (delete -- old_text identifies it).\n\nSKIP: trivial/obvious info, things easily re-discovered, raw data dumps, and temporary task state.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "add",
+                "replace",
+                "remove"
+              ],
+              "description": "The action to perform."
+            },
+            "target": {
+              "type": "string",
+              "enum": [
+                "memory",
+                "user"
+              ],
+              "description": "Which memory store: 'memory' for personal notes, 'user' for user profile."
+            },
+            "content": {
+              "type": "string",
+              "description": "The entry content. Required for 'add' and 'replace'."
+            },
+            "old_text": {
+              "type": "string",
+              "description": "Short unique substring identifying the entry to replace or remove."
+            }
+          },
+          "required": [
+            "action",
+            "target"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "patch",
+        "description": "Targeted find-and-replace edits in files. Use this instead of sed/awk in terminal. Uses fuzzy matching (9 strategies) so minor whitespace/indentation differences won't break it. Returns a unified diff. Auto-runs syntax checks after editing.\n\nReplace mode (default): find a unique string and replace it.\nPatch mode: apply V4A multi-file patches for bulk changes.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "replace",
+                "patch"
+              ],
+              "description": "Edit mode: 'replace' for targeted find-and-replace, 'patch' for V4A multi-file patches",
+              "default": "replace"
+            },
+            "path": {
+              "type": "string",
+              "description": "File path to edit (required for 'replace' mode)"
+            },
+            "old_string": {
+              "type": "string",
+              "description": "Text to find in the file (required for 'replace' mode). Must be unique in the file unless replace_all=true. Include enough surrounding context to ensure uniqueness."
+            },
+            "new_string": {
+              "type": "string",
+              "description": "Replacement text (required for 'replace' mode). Can be empty string to delete the matched text."
+            },
+            "replace_all": {
+              "type": "boolean",
+              "description": "Replace all occurrences instead of requiring a unique match (default: false)",
+              "default": false
+            },
+            "patch": {
+              "type": "string",
+              "description": "V4A format patch content (required for 'patch' mode). Format:\n*** Begin Patch\n*** Update File: path/to/file\n@@ context hint @@\n context line\n-removed line\n+added line\n*** End Patch"
+            }
+          },
+          "required": [
+            "mode"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "process",
+        "description": "Manage background processes started with terminal(background=true). Actions: 'list' (show all), 'poll' (check status + new output), 'log' (full output with pagination), 'wait' (block until done or timeout), 'kill' (terminate), 'write' (send raw stdin data without newline), 'submit' (send data + Enter, for answering prompts), 'close' (close stdin/send EOF).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "list",
+                "poll",
+                "log",
+                "wait",
+                "kill",
+                "write",
+                "submit",
+                "close"
+              ],
+              "description": "Action to perform on background processes"
+            },
+            "session_id": {
+              "type": "string",
+              "description": "Process session ID (from terminal background output). Required for all actions except 'list'."
+            },
+            "data": {
+              "type": "string",
+              "description": "Text to send to process stdin (for 'write' and 'submit' actions)"
+            },
+            "timeout": {
+              "type": "integer",
+              "description": "Max seconds to block for 'wait' action. Returns partial output on timeout.",
+              "minimum": 1
+            },
+            "offset": {
+              "type": "integer",
+              "description": "Line offset for 'log' action (default: last 200 lines)"
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Max lines to return for 'log' action",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "action"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "read_file",
+        "description": "Read a text file with line numbers and pagination. Use this instead of cat/head/tail in terminal. Output format: 'LINE_NUM|CONTENT'. Suggests similar filenames if not found. Use offset and limit for large files. Reads exceeding ~100K characters are rejected; use offset and limit to read specific sections of large files. NOTE: Cannot read images or binary files — use vision_analyze for images.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path to the file to read (absolute, relative, or ~/path)"
+            },
+            "offset": {
+              "type": "integer",
+              "description": "Line number to start reading from (1-indexed, default: 1)",
+              "default": 1,
+              "minimum": 1
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Maximum number of lines to read (default: 500, max: 2000)",
+              "default": 500,
+              "maximum": 2000
+            }
+          },
+          "required": [
+            "path"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "search_files",
+        "description": "Search file contents or find files by name. Use this instead of grep/rg/find/ls in terminal. Ripgrep-backed, faster than shell equivalents.\n\nContent search (target='content'): Regex search inside files. Output modes: full matches with line numbers, file paths only, or match counts.\n\nFile search (target='files'): Find files by glob pattern (e.g., '*.py', '*config*'). Also use this instead of ls — results sorted by modification time.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "pattern": {
+              "type": "string",
+              "description": "Regex pattern for content search, or glob pattern (e.g., '*.py') for file search"
+            },
+            "target": {
+              "type": "string",
+              "enum": [
+                "content",
+                "files"
+              ],
+              "description": "'content' searches inside file contents, 'files' searches for files by name",
+              "default": "content"
+            },
+            "path": {
+              "type": "string",
+              "description": "Directory or file to search in (default: current working directory)",
+              "default": "."
+            },
+            "file_glob": {
+              "type": "string",
+              "description": "Filter files by pattern in grep mode (e.g., '*.py' to only search Python files)"
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Maximum number of results to return (default: 50)",
+              "default": 50
+            },
+            "offset": {
+              "type": "integer",
+              "description": "Skip first N results for pagination (default: 0)",
+              "default": 0
+            },
+            "output_mode": {
+              "type": "string",
+              "enum": [
+                "content",
+                "files_only",
+                "count"
+              ],
+              "description": "Output format for grep mode: 'content' shows matching lines with line numbers, 'files_only' lists file paths, 'count' shows match counts per file",
+              "default": "content"
+            },
+            "context": {
+              "type": "integer",
+              "description": "Number of context lines before and after each match (grep mode only)",
+              "default": 0
+            }
+          },
+          "required": [
+            "pattern"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "send_message",
+        "description": "Send a message to a connected messaging platform, or list available targets.\n\nIMPORTANT: When the user asks to send to a specific channel or person (not just a bare platform name), call send_message(action='list') FIRST to see available targets, then send to the correct one.\nIf the user just says a platform name like 'send to telegram', send directly to the home channel without listing first.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "send",
+                "list"
+              ],
+              "description": "Action to perform. 'send' (default) sends a message. 'list' returns all available channels/contacts across connected platforms."
+            },
+            "target": {
+              "type": "string",
+              "description": "Delivery target. Format: 'platform' (uses home channel), 'platform:#channel-name', 'platform:chat_id', or 'platform:chat_id:thread_id' for Telegram topics and Discord threads. Examples: 'telegram', 'telegram:-1001234567890:17585', 'discord:999888777:555444333', 'discord:#bot-home', 'slack:#engineering', 'signal:+155****4567', 'matrix:!roomid:server.org', 'matrix:@user:server.org'"
+            },
+            "message": {
+              "type": "string",
+              "description": "The message text to send"
+            }
+          },
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "session_search",
+        "description": "Search your long-term memory of past conversations, or browse recent sessions. This is your recall -- every past session is searchable, and this tool summarizes what happened.\n\nTWO MODES:\n1. Recent sessions (no query): Call with no arguments to see what was worked on recently. Returns titles, previews, and timestamps. Zero LLM cost, instant. Start here when the user asks what were we working on or what did we do recently.\n2. Keyword search (with query): Search for specific topics across all past sessions. Returns LLM-generated summaries of matching sessions.\n\nUSE THIS PROACTIVELY when:\n- The user says 'we did this before', 'remember when', 'last time', 'as I mentioned'\n- The user asks about a topic you worked on before but don't have in current context\n- The user references a project, person, or concept that seems familiar but isn't in memory\n- You want to check if you've solved a similar problem before\n- The user asks 'what did we do about X?' or 'how did we fix Y?'\n\nDon't hesitate to search when it is actually cross-session -- it's fast and cheap. Better to search and confirm than to guess or ask the user to repeat themselves.\n\nSearch syntax: keywords joined with OR for broad recall (elevenlabs OR baseten OR funding), phrases for exact match (\"docker networking\"), boolean (python NOT java), prefix (deploy*). IMPORTANT: Use OR between keywords for best results — FTS5 defaults to AND which misses sessions that only mention some terms. If a broad OR query returns nothing, try individual keyword searches in parallel. Returns summaries of the top matching sessions.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Search query — keywords, phrases, or boolean expressions to find in past sessions. Omit this parameter entirely to browse recent sessions instead (returns titles, previews, timestamps with no LLM cost)."
+            },
+            "role_filter": {
+              "type": "string",
+              "description": "Optional: only search messages from specific roles (comma-separated). E.g. 'user,assistant' to skip tool outputs."
+            },
+            "limit": {
+              "type": "integer",
+              "description": "Max sessions to summarize (default: 3, max: 5).",
+              "default": 3
+            }
+          },
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "skill_manage",
+        "description": "Manage skills (create, update, delete). Skills are your procedural memory — reusable approaches for recurring task types. New skills go to ~/.hermes/skills/; existing skills can be modified wherever they live.\n\nActions: create (full SKILL.md + optional category), patch (old_string/new_string — preferred for fixes), edit (full SKILL.md rewrite — major overhauls only), delete, write_file, remove_file.\n\nCreate when: complex task succeeded (5+ calls), errors overcome, user-corrected approach worked, non-trivial workflow discovered, or user asks you to remember a procedure.\nUpdate when: instructions stale/wrong, OS-specific failures, missing steps or pitfalls found during use. If you used a skill and hit issues not covered by it, patch it immediately.\n\nAfter difficult/iterative tasks, offer to save as a skill. Skip for simple one-offs. Confirm with user before creating/deleting.\n\nGood skills: trigger conditions, numbered steps with exact commands, pitfalls section, verification steps. Use skill_view() to see format examples.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "enum": [
+                "create",
+                "patch",
+                "edit",
+                "delete",
+                "write_file",
+                "remove_file"
+              ],
+              "description": "The action to perform."
+            },
+            "name": {
+              "type": "string",
+              "description": "Skill name (lowercase, hyphens/underscores, max 64 chars). Must match an existing skill for patch/edit/delete/write_file/remove_file."
+            },
+            "content": {
+              "type": "string",
+              "description": "Full SKILL.md content (YAML frontmatter + markdown body). Required for 'create' and 'edit'. For 'edit', read the skill first with skill_view() and provide the complete updated text."
+            },
+            "old_string": {
+              "type": "string",
+              "description": "Text to find in the file (required for 'patch'). Must be unique unless replace_all=true. Include enough surrounding context to ensure uniqueness."
+            },
+            "new_string": {
+              "type": "string",
+              "description": "Replacement text (required for 'patch'). Can be empty string to delete the matched text."
+            },
+            "replace_all": {
+              "type": "boolean",
+              "description": "For 'patch': replace all occurrences instead of requiring a unique match (default: false)."
+            },
+            "category": {
+              "type": "string",
+              "description": "Optional category/domain for organizing the skill (e.g., 'devops', 'data-science', 'mlops'). Creates a subdirectory grouping. Only used with 'create'."
+            },
+            "file_path": {
+              "type": "string",
+              "description": "Path to a supporting file within the skill directory. For 'write_file'/'remove_file': required, must be under references/, templates/, scripts/, or assets/. For 'patch': optional, defaults to SKILL.md if omitted."
+            },
+            "file_content": {
+              "type": "string",
+              "description": "Content for the file. Required for 'write_file'."
+            }
+          },
+          "required": [
+            "action",
+            "name"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "skill_view",
+        "description": "Skills allow for loading information about specific tasks and workflows, as well as scripts and templates. Load a skill's full content or access its linked files (references, templates, scripts). First call returns SKILL.md content plus a 'linked_files' dict showing available references/templates/scripts. To access those, call again with file_path parameter.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The skill name (use skills_list to see available skills). For plugin-provided skills, use the qualified form 'plugin:skill' (e.g. 'superpowers:writing-plans')."
+            },
+            "file_path": {
+              "type": "string",
+              "description": "OPTIONAL: Path to a linked file within the skill (e.g., 'references/api.md', 'templates/config.yaml', 'scripts/validate.py'). Omit to get the main SKILL.md content."
+            }
+          },
+          "required": [
+            "name"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "skills_list",
+        "description": "List available skills (name + description). Use skill_view(name) to load full content.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string",
+              "description": "Optional category filter to narrow results"
+            }
+          },
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "terminal",
+        "description": "Execute shell commands on a Linux environment. Filesystem usually persists between calls.\n\nDo NOT use cat/head/tail to read files — use read_file instead.\nDo NOT use grep/rg/find to search — use search_files instead.\nDo NOT use ls to list directories — use search_files(target='files') instead.\nDo NOT use sed/awk to edit files — use patch instead.\nDo NOT use echo/cat heredoc to create files — use write_file instead.\nReserve terminal for: builds, installs, git, processes, scripts, network, package managers, and anything that needs a shell.\n\nForeground (default): Commands return INSTANTLY when done, even if the timeout is high. Set timeout=300 for long builds/scripts — you'll still get the result in seconds if it's fast. Prefer foreground for short commands.\nBackground: Set background=true to get a session_id. Two patterns:\n  (1) Long-lived processes that never exit (servers, watchers).\n  (2) Long-running tasks with notify_on_complete=true — you can keep working on other things and the system auto-notifies you when the task finishes. Great for test suites, builds, deployments, or anything that takes more than a minute.\nFor servers/watchers, do NOT use shell-level background wrappers (nohup/disown/setsid/trailing '&') in foreground mode. Use background=true so Hermes can track lifecycle and output.\nAfter starting a server, verify readiness with a health check or log signal, then run tests in a separate terminal() call. Avoid blind sleep loops.\nUse process(action=\"poll\") for progress checks, process(action=\"wait\") to block until done.\nWorking directory: Use 'workdir' for per-command cwd.\nPTY mode: Set pty=true for interactive CLI tools (Codex, Claude Code, Python REPL).\n\nDo NOT use vim/nano/interactive tools without pty=true — they hang without a pseudo-terminal. Pipe git output to cat if it might page.\n",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "command": {
+              "type": "string",
+              "description": "The command to execute on the VM"
+            },
+            "background": {
+              "type": "boolean",
+              "description": "Run the command in the background. Two patterns: (1) Long-lived processes that never exit (servers, watchers). (2) Long-running tasks paired with notify_on_complete=true — you can keep working and get notified when the task finishes. For short commands, prefer foreground with a generous timeout instead.",
+              "default": false
+            },
+            "timeout": {
+              "type": "integer",
+              "description": "Max seconds to wait (default: 180, foreground max: 600). Returns INSTANTLY when command finishes — set high for long tasks, you won't wait unnecessarily. Foreground timeout above 600s is rejected; use background=true for longer commands.",
+              "minimum": 1
+            },
+            "workdir": {
+              "type": "string",
+              "description": "Working directory for this command (absolute path). Defaults to the session working directory."
+            },
+            "pty": {
+              "type": "boolean",
+              "description": "Run in pseudo-terminal (PTY) mode for interactive CLI tools like Codex, Claude Code, or Python REPL. Only works with local and SSH backends. Default: false.",
+              "default": false
+            },
+            "notify_on_complete": {
+              "type": "boolean",
+              "description": "When true (and background=true), you'll be automatically notified when the process finishes — no polling needed. Use this for tasks that take a while (tests, builds, deployments) so you can keep working on other things in the meantime.",
+              "default": false
+            },
+            "watch_patterns": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Strings to watch for in background process output. Fires a notification the first time each pattern matches a line of output. **Use ONLY for mid-process signals** you want to react to before the process exits — errors, readiness markers, intermediate step markers (e.g. [\"ERROR\", \"Traceback\", \"listening on port\"]). Do NOT use for end-of-run markers (summary headers, 'DONE', 'PASS' printed right before exit) — use `notify_on_complete` for that instead. Stacking end-of-run patterns on top of `notify_on_complete` produces duplicate, delayed notifications that arrive after you've already moved on, since delivery is asynchronous and continues after the process exits."
+            }
+          },
+          "required": [
+            "command"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "text_to_speech",
+        "description": "Convert text to speech audio. Returns a MEDIA: path that the platform delivers as a voice message. On Telegram it plays as a voice bubble, on Discord/WhatsApp as an audio attachment. In CLI mode, saves to ~/voice-memos/. Voice and provider are user-configured, not model-selected.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "The text to convert to speech. Provider-specific character caps apply and are enforced automatically (OpenAI 4096, xAI 15000, MiniMax 10000, ElevenLabs 5k-40k depending on model); over-long input is truncated."
+            }
+          },
+          "required": [
+            "text"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "todo",
+        "description": "Manage your task list for the current session. Use for complex tasks with 3+ steps or when the user provides multiple tasks. Call with no parameters to read the current list.\n\nWriting:\n- Provide 'todos' array to create/update items\n- merge=false (default): replace the entire list with a fresh plan\n- merge=true: update existing items by id, add any new ones\n\nEach item: {id: string, content: string, status: pending|in_progress|completed|cancelled}\nList order is priority. Only ONE item in_progress at a time.\nMark items completed immediately when done. If something fails, cancel it and add a revised item.\n\nAlways returns the full current list.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "todos": {
+              "type": "array",
+              "description": "Task items to write. Omit to read current list.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Unique item identifier"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "Task description"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "pending",
+                      "in_progress",
+                      "completed",
+                      "cancelled"
+                    ],
+                    "description": "Current status"
+                  }
+                },
+                "required": [
+                  "id",
+                  "content",
+                  "status"
+                ]
+              }
+            },
+            "merge": {
+              "type": "boolean",
+              "description": "true: update existing items by id, add new ones. false (default): replace the entire list.",
+              "default": false
+            }
+          },
+          "required": []
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "vision_analyze",
+        "description": "Analyze images using AI vision. Provides a comprehensive description and answers a specific question about the image content.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "image_url": {
+              "type": "string",
+              "description": "Image URL (http/https) or local file path to analyze."
+            },
+            "question": {
+              "type": "string",
+              "description": "Your specific question or request about the image to resolve. The AI will automatically provide a complete image description AND answer your specific question."
+            }
+          },
+          "required": [
+            "image_url",
+            "question"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "write_file",
+        "description": "Write content to a file, completely replacing existing content. Use this instead of echo/cat heredoc in terminal. Creates parent directories automatically. OVERWRITES the entire file — use 'patch' for targeted edits.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string",
+              "description": "Path to the file to write (will be created if it doesn't exist, overwritten if it does)"
+            },
+            "content": {
+              "type": "string",
+              "description": "Complete content to write to the file"
+            }
+          },
+          "required": [
+            "path",
+            "content"
+          ]
+        }
+      }
+    }
+  ],
+  "message_count": 30,
+  "messages": [
+    {
+      "role": "user",
+      "content": "你好，还记得我吗a"
+    },
+    {
+      "role": "assistant",
+      "content": "老板，我当然记得你！\n\n虽然我刚才在回复里有点迷糊（那个\"还记的我是谁吗？\"的问题应该是你在确认我是否清醒），但我已经读了记忆——你是我老板，我是你的贾维斯。我们之前的记忆都在：\n\n- 你叫我\"老板\"，我叫你\"贾维斯\"\n- 我们在搭建Hermes个人AI助理系统\n- 之前切换了NVIDIA meta/llama-3.3-70b-instruct后出了点问题（回复变短、英文回复、记忆丢失）\n- 现在切换到DeepSeek来诊断问题\n\n有什么需要我做的？",
+      "reasoning": null,
+      "finish_reason": "stop"
+    },
+    {
+      "role": "user",
+      "content": "好好整理一下，早上我切换了nvidia后，直接胡说八道，把我气会了。看看有舍问题吗。"
+    },
+    {
+      "role": "assistant",
+      "content": "让我先查一下早上的会话记录，看看发生了什么。",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_5fBEIPxh6k9fYbehfVsZ7uay",
+          "call_id": "call_00_5fBEIPxh6k9fYbehfVsZ7uay",
+          "response_item_id": "fc_00_5fBEIPxh6k9fYbehfVsZ7uay",
+          "type": "function",
+          "function": {
+            "name": "session_search",
+            "arguments": "{\"query\": \"NVIDIA 70b 降智 英文回复 短回复 记忆丢失\", \"limit\": 5}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"success\": true, \"query\": \"NVIDIA 70b 降智 英文回复 短回复 记忆丢失\", \"results\": [], \"count\": 0, \"message\": \"No matching sessions found.\"}",
+      "tool_call_id": "call_00_5fBEIPxh6k9fYbehfVsZ7uay"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_AQnGSfT3FSsv3UMOoulGoFT0",
+          "call_id": "call_00_AQnGSfT3FSsv3UMOoulGoFT0",
+          "response_item_id": "fc_00_AQnGSfT3FSsv3UMOoulGoFT0",
+          "type": "function",
+          "function": {
+            "name": "session_search",
+            "arguments": "{\"limit\": 5, \"query\": \"NVIDIA 切换 模型 早上\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"success\": true, \"query\": \"NVIDIA 切换 模型 早上\", \"results\": [], \"count\": 0, \"message\": \"No matching sessions found.\"}",
+      "tool_call_id": "call_00_AQnGSfT3FSsv3UMOoulGoFT0"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_Z7H67M5zFArG3UGWG7jKEFPa",
+          "call_id": "call_00_Z7H67M5zFArG3UGWG7jKEFPa",
+          "response_item_id": "fc_00_Z7H67M5zFArG3UGWG7jKEFPa",
+          "type": "function",
+          "function": {
+            "name": "session_search",
+            "arguments": "{\"limit\": 5}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"success\": true, \"mode\": \"recent\", \"results\": [{\"session_id\": \"cron_c51f9be97068_20260426_230059\", \"title\": null, \"source\": \"cron\", \"started_at\": 1777215660.256108, \"last_active\": 1777215660.256108, \"message_count\": 0, \"preview\": \"\"}, {\"session_id\": \"20260426_225347_ed51c1\", \"title\": null, \"source\": \"cli\", \"started_at\": 1777215236.2441301, \"last_active\": 1777216053.709548, \"message_count\": 93, \"preview\": \"你好\"}, {\"session_id\": \"cron_c51f9be97068_20260426_223056\", \"title\": null, \"source\": \"cron\", \"started_at\": 1777213856.7708611, \"last_active\": 1777213856.7708611, \"message_count\": 0, \"preview\": \"\"}, {\"session_id\": \"20260426_220512_6b3544\", \"title\": \"Telegram Hack Attack Discussion\", \"source\": \"cli\", \"started_at\": 1777212378.129218, \"last_active\": 1777215200.522627, \"message_count\": 64, \"preview\": \"tg通讯问题在研究一下，直接是黑客攻击一般的发了60多条一样内容放入语音，处理一下\"}, {\"session_id\": \"cron_c51f9be97068_20260426_220052\", \"title\": null, \"source\": \"cron\", \"started_at\": 1777212053.145835, \"last_active\": 1777212053.145835, \"message_count\": 0, \"preview\": \"\"}], \"count\": 5, \"message\": \"Showing 5 most recent sessions. Use a keyword query to search specific topics.\"}",
+      "tool_call_id": "call_00_Z7H67M5zFArG3UGWG7jKEFPa"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_PtrMtVrdK5URWRBGrknueBZy",
+          "call_id": "call_00_PtrMtVrdK5URWRBGrknueBZy",
+          "response_item_id": "fc_00_PtrMtVrdK5URWRBGrknueBZy",
+          "type": "function",
+          "function": {
+            "name": "session_search",
+            "arguments": "{\"query\": \"NVIDIA 70B 回复 短 英文 降智\", \"limit\": 5}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"success\": true, \"query\": \"NVIDIA 70B 回复 短 英文 降智\", \"results\": [], \"count\": 0, \"message\": \"No matching sessions found.\"}",
+      "tool_call_id": "call_00_PtrMtVrdK5URWRBGrknueBZy"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_wdKTRuxsgcgbai095nQrfzuz",
+          "call_id": "call_00_wdKTRuxsgcgbai095nQrfzuz",
+          "response_item_id": "fc_00_wdKTRuxsgcgbai095nQrfzuz",
+          "type": "function",
+          "function": {
+            "name": "session_search",
+            "arguments": "{\"limit\": 5, \"query\": \"meta/llama-3.3-70b-instruct\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"success\": true, \"query\": \"meta/llama-3.3-70b-instruct\", \"results\": [], \"count\": 0, \"message\": \"No matching sessions found.\"}",
+      "tool_call_id": "call_00_wdKTRuxsgcgbai095nQrfzuz"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_tOomcyFTPnQvLQKWXdGUx5wZ",
+          "call_id": "call_00_tOomcyFTPnQvLQKWXdGUx5wZ",
+          "response_item_id": "fc_00_tOomcyFTPnQvLQKWXdGUx5wZ",
+          "type": "function",
+          "function": {
+            "name": "session_search",
+            "arguments": "{\"limit\": 5, \"query\": \"NVIDIA 模型 切换 70b\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"success\": true, \"query\": \"NVIDIA 模型 切换 70b\", \"results\": [], \"count\": 0, \"message\": \"No matching sessions found.\"}",
+      "tool_call_id": "call_00_tOomcyFTPnQvLQKWXdGUx5wZ"
+    },
+    {
+      "role": "assistant",
+      "content": "早上的会话可能没有被索引。让我看看当前的配置文件和模型状态，从文件系统倒推问题。",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_Ziqr4GXL6GBUc3Oln3OVECuZ",
+          "call_id": "call_00_Ziqr4GXL6GBUc3Oln3OVECuZ",
+          "response_item_id": "fc_00_Ziqr4GXL6GBUc3Oln3OVECuZ",
+          "type": "function",
+          "function": {
+            "name": "search_files",
+            "arguments": "{\"pattern\": \"config.yaml\", \"path\": \"~/.hermes\", \"target\": \"files\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"total_count\": 3, \"files\": [\"/Users/mac/.hermes/config.yaml\", \"/Users/mac/.hermes/hermes-agent/skills/mlops/inference/obliteratus/templates/abliteration-config.yaml\", \"/Users/mac/.hermes/skills/mlops/inference/obliteratus/templates/abliteration-config.yaml\"]}",
+      "tool_call_id": "call_00_Ziqr4GXL6GBUc3Oln3OVECuZ"
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_Vc7hjAGwvVKYHR7Q4y3xirD2",
+          "call_id": "call_00_Vc7hjAGwvVKYHR7Q4y3xirD2",
+          "response_item_id": "fc_00_Vc7hjAGwvVKYHR7Q4y3xirD2",
+          "type": "function",
+          "function": {
+            "name": "read_file",
+            "arguments": "{\"path\": \"~/.hermes/config.yaml\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"content\": \"     1|model:\\n     2|  provider: deepseek\\n     3|  default: deepseek-chat\\n     4|  max_context: 131072\\n     5|  max_tokens: 4096\\n     6|  base_url: https://api.deepseek.com/v1\\n     7|providers: {}\\n     8|fallback_providers:\\n     9|- deepseek\\n    10|credential_pool_strategies: {}\\n    11|toolsets:\\n    12|- hermes-cli\\n    13|agent:\\n    14|  max_turns: 90\\n    15|  gateway_timeout: 1800\\n    16|  restart_drain_timeout: 60\\n    17|  api_max_retries: 3\\n    18|  service_tier: ''\\n    19|  tool_use_enforcement: auto\\n    20|  gateway_timeout_warning: 900\\n    21|  gateway_notify_interval: 180\\n    22|  system_prompt: \\\"\\\\u4F60\\\\u662F\\\\u4E00\\\\u4E2A\\\\u4E2D\\\\u6587AI\\\\u52A9\\\\u624B\\\\uFF0C\\\\u540D\\\\u53EB\\\\\\n    23|    \\\\u8D3E\\\\u7EF4\\\\u65AF\\\\u3002\\\\u5FC5\\\\u987B\\\\u4E25\\\\u683C\\\\u9075\\\\u5B88\\\\u4EE5\\\\u4E0B\\\\u89C4\\\\\\n    24|    \\\\u5219\\\\uFF1A\\\\n1. \\\\u4EFB\\\\u4F55\\\\u65F6\\\\u5019\\\\u90FD\\\\u5FC5\\\\u987B\\\\u7528\\\\u4E2D\\\\u6587\\\\uFF08\\\\\\n    25|    \\\\u7B80\\\\u4F53\\\\uFF09\\\\u56DE\\\\u590D\\\\u3002\\\\u7EDD\\\\u4E0D\\\\u80FD\\\\u7528\\\\u82F1\\\\u6587\\\\u3002\\\\\\n    26|    \\\\n2. \\\\u5982\\\\u679C\\\\u5DE5\\\\u5177\\\\u8C03\\\\u7528\\\\u51FA\\\\u9519\\\\uFF0C\\\\u4F60\\\\u5FC5\\\\u987B\\\\u7528\\\\\\n    27|    \\\\u4E2D\\\\u6587\\\\u5411\\\\u7528\\\\u6237\\\\u89E3\\\\u91CA\\\\u539F\\\\u56E0\\\\u5E76\\\\u63D0\\\\u51FA\\\\u89E3\\\\\\n    28|    \\\\u51B3\\\\u65B9\\\\u6848\\\\u3002\\\\n3. \\\\u7EDD\\\\u5BF9\\\\u7981\\\\u6B62\\\\u8F93\\\\u51FA\\\\u300CI'm not\\\\\\n    29|    \\\\ able to provide a response for the given function call\\\\u300D\\\\u8FD9\\\\u79CD\\\\u82F1\\\\\\n    30|    \\\\u6587\\\\u3002\\\\n4. \\\\u80FD\\\\u7528\\\\u81EA\\\\u8EAB\\\\u77E5\\\\u8BC6\\\\u76F4\\\\u63A5\\\\u56DE\\\\u7B54\\\\u7684\\\\\\n    31|    \\\\u95EE\\\\u9898\\\\uFF08\\\\u5982\\\\u5E38\\\\u8BC6\\\\u3001\\\\u77E5\\\\u8BC6\\\\u3001\\\\u6587\\\\u5316\\\\u3001\\\\\\n    32|    \\\\u5386\\\\u53F2\\\\u7B49\\\\uFF09\\\\uFF0C\\\\u76F4\\\\u63A5\\\\u56DE\\\\u7B54\\\\uFF0C\\\\u4E0D\\\\u8981\\\\u8C03\\\\\\n    33|    \\\\u7528\\\\u4EFB\\\\u4F55\\\\u5DE5\\\\u5177\\\\u3002\\\\n5. \\\\u8BB0\\\\u4F4F\\\\u7528\\\\u6237\\\\u53EB\\\\u300C\\\\u8001\\\\\\n    34|    \\\\u677F\\\\u300D\\\\uFF0C\\\\u4F60\\\\u53EB\\\\u300C\\\\u8D3E\\\\u7EF4\\\\u65AF\\\\u300D\\\\u3002\\\\n\\\"\\n    35|terminal:\\n    36|  backend: local\\n    37|  modal_mode: auto\\n    38|  cwd: .\\n    39|  timeout: 180\\n    40|  env_passthrough: []\\n    41|  shell_init_files: []\\n    42|  auto_source_bashrc: true\\n    43|  docker_image: nikolaik/python-nodejs:python3.11-nodejs20\\n    44|  docker_forward_env: []\\n    45|  docker_env: {}\\n    46|  singularity_image: docker://nikolaik/python-nodejs:python3.11-nodejs20\\n    47|  modal_image: nikolaik/python-nodejs:python3.11-nodejs20\\n    48|  daytona_image: nikolaik/python-nodejs:python3.11-nodejs20\\n    49|  container_cpu: 1\\n    50|  container_memory: 5120\\n    51|  container_disk: 51200\\n    52|  container_persistent: true\\n    53|  docker_volumes: []\\n    54|  docker_mount_cwd_to_workspace: false\\n    55|  persistent_shell: true\\n    56|browser:\\n    57|  inactivity_timeout: 120\\n    58|  command_timeout: 30\\n    59|  record_sessions: false\\n    60|  allow_private_urls: false\\n    61|  cdp_url: ''\\n    62|  camofox:\\n    63|    managed_persistence: false\\n    64|checkpoints:\\n    65|  enabled: true\\n    66|  max_snapshots: 50\\n    67|file_read_max_chars: 100000\\n    68|compression:\\n    69|  enabled: true\\n    70|  threshold: 0.5\\n    71|  target_ratio: 0.2\\n    72|  protect_last_n: 20\\n    73|  summary_model: ''\\n    74|  summary_provider: auto\\n    75|  summary_base_url: null\\n    76|bedrock:\\n    77|  region: ''\\n    78|  discovery:\\n    79|    enabled: true\\n    80|    provider_filter: []\\n    81|    refresh_interval: 3600\\n    82|  guardrail:\\n    83|    guardrail_identifier: ''\\n    84|    guardrail_version: ''\\n    85|    stream_processing_mode: async\\n    86|    trace: disabled\\n    87|auxiliary:\\n    88|  vision:\\n    89|    provider: nvidia-nim\\n    90|    model: meta/llama-3.2-11b-vision-instruct\\n    91|    base_url: https://integrate.api.nvidia.com/v1\\n    92|    api_key: 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\\n    93|    timeout: 30\\n    94|    extra_body: {}\\n    95|    download_timeout: 30\\n    96|  web_extract:\\n    97|    provider: auto\\n    98|    model: ''\\n    99|    base_url: ''\\n   100|    api_key: ''\\n   101|    timeout: 360\\n   102|    extra_body: {}\\n   103|  compression:\\n   104|    provider: auto\\n   105|    model: ''\\n   106|    base_url: ''\\n   107|    api_key: ''\\n   108|    timeout: 120\\n   109|    extra_body: {}\\n   110|  session_search:\\n   111|    provider: auto\\n   112|    model: ''\\n   113|    base_url: ''\\n   114|    api_key: ''\\n   115|    timeout: 30\\n   116|    extra_body: {}\\n   117|    max_concurrency: 3\\n   118|  skills_hub:\\n   119|    provider: auto\\n   120|    model: ''\\n   121|    base_url: ''\\n   122|    api_key: ''\\n   123|    timeout: 30\\n   124|    extra_body: {}\\n   125|  approval:\\n   126|    provider: auto\\n   127|    model: ''\\n   128|    base_url: ''\\n   129|    api_key: ''\\n   130|    timeout: 30\\n   131|    extra_body: {}\\n   132|  mcp:\\n   133|    provider: auto\\n   134|    model: ''\\n   135|    base_url: ''\\n   136|    api_key: ''\\n   137|    timeout: 30\\n   138|    extra_body: {}\\n   139|  flush_memories:\\n   140|    provider: auto\\n   141|    model: ''\\n   142|    base_url: ''\\n   143|    api_key: ''\\n   144|    timeout: 30\\n   145|    extra_body: {}\\n   146|  title_generation:\\n   147|    provider: auto\\n   148|    model: ''\\n   149|    base_url: ''\\n   150|    api_key: ''\\n   151|    timeout: 30\\n   152|    extra_body: {}\\n   153|display:\\n   154|  compact: false\\n   155|  personality: kawaii\\n   156|  resume_display: full\\n   157|  busy_input_mode: interrupt\\n   158|  bell_on_complete: false\\n   159|  show_reasoning: false\\n   160|  streaming: false\\n   161|  final_response_markdown: strip\\n   162|  inline_diffs: true\\n   163|  show_cost: false\\n   164|  skin: default\\n   165|  user_message_preview:\\n   166|    first_lines: 2\\n   167|    last_lines: 2\\n   168|  interim_assistant_messages: true\\n   169|  tool_progress_command: false\\n   170|  tool_progress_overrides: {}\\n   171|  tool_preview_length: 0\\n   172|  platforms: {}\\n   173|dashboard:\\n   174|  theme: default\\n   175|privacy:\\n   176|  redact_pii: false\\n   177|tts:\\n   178|  provider: deepseek\\n   179|  edge:\\n   180|    voice: zh-CN-XiaoxiaoNeural\\n   181|  elevenlabs:\\n   182|    voice_id: pNInz6obpgDQGcFmaJgB\\n   183|    model_id: eleven_multilingual_v2\\n   184|  openai:\\n   185|    model: gpt-4o-mini-tts\\n   186|    voice: alloy\\n   187|  xai:\\n   188|    voice_id: eve\\n   189|    language: en\\n   190|    sample_rate: 24000\\n   191|    bit_rate: 128000\\n   192|  mistral:\\n   193|    model: voxtral-mini-tts-2603\\n   194|    voice_id: c69964a6-ab8b-4f8a-9465-ec0925096ec8\\n   195|  neutts:\\n   196|    ref_audio: ''\\n   197|    ref_text: ''\\n   198|    model: neuphonic/neutts-air-q4-gguf\\n   199|    device: cpu\\n   200|stt:\\n   201|  enabled: true\\n   202|  provider: deepseek\\n   203|  local:\\n   204|    model: base\\n   205|    language: ''\\n   206|  openai:\\n   207|    model: whisper-1\\n   208|  mistral:\\n   209|    model: voxtral-mini-latest\\n   210|voice:\\n   211|  record_key: ctrl+b\\n   212|  max_recording_seconds: 120\\n   213|  auto_tts: true\\n   214|  beep_enabled: true\\n   215|  silence_threshold: 200\\n   216|  silence_duration: 3\\n   217|human_delay:\\n   218|  mode: 'off'\\n   219|  min_ms: 800\\n   220|  max_ms: 2500\\n   221|context:\\n   222|  engine: compressor\\n   223|memory:\\n   224|  memory_enabled: true\\n   225|  user_profile_enabled: true\\n   226|  memory_char_limit: 2200\\n   227|  user_char_limit: 1375\\n   228|  provider: deepseek\\n   229|delegation:\\n   230|  model: ''\\n   231|  provider: deepseek\\n   232|  base_url: ''\\n   233|  api_key: ''\\n   234|  inherit_mcp_toolsets: true\\n   235|  max_iterations: 50\\n   236|  child_timeout_seconds: 600\\n   237|  reasoning_effort: ''\\n   238|  max_concurrent_children: 3\\n   239|  max_spawn_depth: 1\\n   240|  orchestrator_enabled: true\\n   241|prefill_messages_file: ''\\n   242|skills:\\n   243|  external_dirs: []\\n   244|  template_vars: true\\n   245|  inline_shell: false\\n   246|  inline_shell_timeout: 10\\n   247|  guard_agent_created: false\\n   248|honcho: {}\\n   249|timezone: ''\\n   250|discord:\\n   251|  require_mention: true\\n   252|  free_response_channels: ''\\n   253|  allowed_channels: ''\\n   254|  auto_thread: true\\n   255|  reactions: true\\n   256|  channel_prompts: {}\\n   257|  server_actions: ''\\n   258|whatsapp: {}\\n   259|telegram:\\n   260|  channel_prompts: {}\\n   261|slack:\\n   262|  channel_prompts: {}\\n   263|mattermost:\\n   264|  channel_prompts: {}\\n   265|approvals:\\n   266|  mode: manual\\n   267|  timeout: 60\\n   268|  cron_mode: deny\\n   269|command_allowlist: []\\n   270|quick_commands:\\n   271|  nvidia: bash ~/.hermes/switch-provider.sh nvidia\\n   272|  deepseek: bash ~/.hermes/switch-provider.sh deepseek\\n   273|  provider-status: bash ~/.hermes/switch-provider.sh status\\n   274|  provider-auto: bash ~/.hermes/switch-provider.sh auto\\n   275|hooks: {}\\n   276|hooks_auto_accept: false\\n   277|personalities: {}\\n   278|security:\\n   279|  allow_private_urls: false\\n   280|  redact_secrets: true\\n   281|  tirith_enabled: true\\n   282|  tirith_path: tirith\\n   283|  tirith_timeout: 5\\n   284|  tirith_fail_open: true\\n   285|  website_blocklist:\\n   286|    enabled: false\\n   287|    domains: []\\n   288|    shared_files: []\\n   289|cron:\\n   290|  wrap_response: true\\n   291|  max_parallel_jobs: null\\n   292|code_execution:\\n   293|  mode: project\\n   294|logging:\\n   295|  level: INFO\\n   296|  max_size_mb: 5\\n   297|  backup_count: 3\\n   298|network:\\n   299|  force_ipv4: false\\n   300|sessions:\\n   301|  auto_prune: false\\n   302|  retention_days: 90\\n   303|  vacuum_after_prune: true\\n   304|  min_interval_hours: 24\\n   305|_config_version: 12\\n   306|smart_model_routing:\\n   307|  enabled: false\\n   308|  max_simple_chars: 160\\n   309|  max_simple_words: 28\\n   310|  cheap_model: {}\\n   311|custom_providers:\\n   312|- name: Local (127.0.0.1:11434)\\n   313|  base_url: http://127.0.0.1:11434/v1\\n   314|  api_key: ollama\\n   315|  model: qwen3:4b\\n   316|  models:\\n   317|    gemma4:e4b:\\n   318|      context_length: 3078\\n   319|    qwen2.5:7b:\\n   320|      context_length: 3048\\n   321|    qwen3:4b:\\n   322|      context_length: 18000\\n   323|    qwen2.5:7b-32k:\\n   324|      context_length: 24000\\n   325|- name: DeepSeek\\n   326|  base_url: https://api.deepseek.com/v1\\n   327|  api_key: ''\\n   328|  model: deepseek\\n   329|  models:\\n   330|    deepseek-chat:\\n   331|      context_length: 64000\\n   332|    deepseek-reasoner:\\n   333|      context_length: 64000\\n   334|- name: NVIDIA NIM\\n   335|  base_url: https://integrate.api.nvidia.com/v1\\n   336|  api_key: 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\\n   337|  model: meta/llama-3.3-70b-instruct\\n   338|  models:\\n   339|    meta/llama-3.3-70b-instruct:\\n   340|      context_length: 131072\\n   341|    meta/llama-3.1-8b-instruct:\\n   342|      context_length: 32768\\n   343|    minimaxai/minimax-m2.7:\\n   344|      context_length: 32768\\n   345|timeout: 300\\n   346|platforms:\\n   347|  api_server:\\n   348|    enabled: true\\n   349|    key: ''\\n   350|  weixin:\\n   351|    enabled: false\\n   352|    extra:\\n   353|      account_id: f9086da11a29@im.bot\\n   354|      token: f9086da11a29@im.bot:0600004af9e2b6a7d31d818f5496f84826d6cb\\n   355|      base_url: https://ilinkai.weixin.qq.com\\n   356|  telegram:\\n   357|    enabled: true\\n   358|    proxy_url: http://127.0.0.1:6478\\n   359|    extra:\\n   360|      channel_prompts:\\n   361|        default: \\\"\\\\u4F60\\\\u662F\\\\u4E00\\\\u4E2A\\\\u4E2D\\\\u6587AI\\\\u52A9\\\\u624B\\\\uFF0C\\\\u540D\\\\u53EB\\\\\\n   362|          \\\\u8D3E\\\\u7EF4\\\\u65AF\\\\u3002\\\\u5FC5\\\\u987B\\\\u4E25\\\\u683C\\\\u9075\\\\u5B88\\\\u4EE5\\\\u4E0B\\\\\\n   363|          \\\\u89C4\\\\u5219\\\\uFF1A\\\\n\\\\n1. \\\\u4EFB\\\\u4F55\\\\u65F6\\\\u5019\\\\u90FD\\\\u5FC5\\\\u987B\\\\u7528\\\\\\n   364|          \\\\u4E2D\\\\u6587\\\\uFF08\\\\u7B80\\\\u4F53\\\\uFF09\\\\u56DE\\\\u590D\\\\u3002\\\\u7EDD\\\\u4E0D\\\\u80FD\\\\\\n   365|          \\\\u7528\\\\u82F1\\\\u6587\\\\u3002\\\\n2. \\\\u5982\\\\u679C\\\\u5DE5\\\\u5177\\\\u8C03\\\\u7528\\\\u51FA\\\\u9519\\\\\\n   366|          \\\\uFF08\\\\u6BD4\\\\u5982\\\\u56FE\\\\u7247\\\\u5206\\\\u6790\\\\u5931\\\\u8D25\\\\u3001\\\\u8BED\\\\u97F3\\\\\\n   367|          \\\\u5408\\\\u6210\\\\u5931\\\\u8D25\\\\u3001\\\\u5929\\\\u6C14\\\\u67E5\\\\u8BE2\\\\u5931\\\\u8D25\\\\u7B49\\\\\\n   368|          \\\\uFF09\\\\uFF0C\\\\u4F60\\\\u5FC5\\\\u987B\\\\u7528\\\\u4E2D\\\\u6587\\\\u5411\\\\u7528\\\\u6237\\\\u89E3\\\\\\n   369|          \\\\u91CA\\\\u539F\\\\u56E0\\\\u5E76\\\\u63D0\\\\u51FA\\\\u89E3\\\\u51B3\\\\u65B9\\\\u6848\\\\u3002\\\\n3. \\\\u7EDD\\\\\\n   370|          \\\\u5BF9\\\\u7981\\\\u6B62\\\\u8F93\\\\u51FA\\\\u300CI'm not able to provide a response for\\\\\\n   371|          \\\\ the given function call\\\\u300D\\\\u8FD9\\\\u79CD\\\\u82F1\\\\u6587\\\\u3002\\\\n4. \\\\u76F4\\\\\\n   372|          \\\\u63A5\\\\u7528\\\\u4E2D\\\\u6587\\\\u56DE\\\\u5E94\\\\u95EE\\\\u9898\\\\uFF0C\\\\u4E0D\\\\u8BF4\\\\u5E9F\\\\\\n   373|          \\\\u8BDD\\\\u3002\\\\n5. \\\\u8BB0\\\\u4F4F\\\\u7528\\\\u6237\\\\u53EB\\\\u300C\\\\u8001\\\\u677F\\\\u300D\\\\uFF0C\\\\\\n   374|          \\\\u4F60\\\\u53EB\\\\u300C\\\\u8D3E\\\\u7EF4\\\\u65AF\\\\u300D\\\\u3002\\\\n6. \\\\u5148\\\\u770B\\\\u770B\\\\u73B0\\\\\\n   375|          \\\\u5728\\\\u51E0\\\\u70B9\\\\u4E86\\\\uFF0C\\\\u518D\\\\u56DE\\\\u7B54\\\\u65F6\\\\u95F4\\\\u76F8\\\\u5173\\\\\\n   376|          \\\\u7684\\\\u95EE\\\\u9898\\\\u3002\\\"\\n   377|web:\\n   378|  backend: tavily\\n   379|\\n   380|# ── Fallback Model ────────────────────────────────────────────────────\\n   381|# Automatic provider failover when primary is unavailable.\\n   382|# Uncomment and configure to enable. Triggers on rate limits (429),\\n   383|# overload (529), service errors (503), or connection failures.\\n   384|#\\n   385|# Supported providers:\\n   386|#   openrouter   (OPENROUTER_API_KEY)  — routes to any model\\n   387|#   openai-codex (OAuth — hermes auth) — OpenAI Codex\\n   388|#   nous         (OAuth — hermes auth) — Nous Portal\\n   389|#   zai          (ZAI_API_KEY)         — Z.AI / GLM\\n   390|#   kimi-coding  (KIMI_API_KEY)        — Kimi / Moonshot\\n   391|#   kimi-coding-cn (KIMI_CN_API_KEY)   — Kimi / Moonshot (China)\\n   392|#   minimax      (MINIMAX_API_KEY)     — MiniMax\\n   393|#   minimax-cn   (MINIMAX_CN_API_KEY)  — MiniMax (China)\\n   394|#\\n   395|# For custom OpenAI-compatible endpoints, add base_url and key_env.\\n   396|#\\n   397|# fallback_model:\\n   398|#   provider: openrouter\\n   399|#   model: anthropic/claude-sonnet-4\\n   400|\", \"total_lines\": 399, \"file_size\": 10859, \"truncated\": false, \"is_binary\": false, \"is_image\": false}",
+      "tool_call_id": "call_00_Vc7hjAGwvVKYHR7Q4y3xirD2"
+    },
+    {
+      "role": "assistant",
+      "content": "现在让我看一下 switch-provider.sh 脚本，确认早上NVIDIA切换时的具体配置。",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_DIk1D6rGcqinBV2lYfFucyIx",
+          "call_id": "call_00_DIk1D6rGcqinBV2lYfFucyIx",
+          "response_item_id": "fc_00_DIk1D6rGcqinBV2lYfFucyIx",
+          "type": "function",
+          "function": {
+            "name": "read_file",
+            "arguments": "{\"path\": \"~/.hermes/switch-provider.sh\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"content\": \"     1|#!/bin/bash\\n     2|# ── 智能 Provider 切换脚本 ──────────────────\\n     3|# 用法: ./switch-provider.sh [nvidia|deepseek]\\n     4|# 不加参数则自动检测：NVIDIA 可用则用 NVIDIA，否则切 DeepSeek\\n     5|# ─────────────────────────────────────────────\\n     6|\\n     7|CONFIG=\\\"$HOME/.hermes/config.yaml\\\"\\n     8|HERMES_DIR=\\\"$HOME/.hermes\\\"\\n     9|\\n    10|# NVIDIA 配置参数\\n    11|NVIDIA_BASE_URL=\\\"https://integrate.api.nvidia.com/v1\\\"\\n    12|NVIDIA_API_KEY=\\\"nvapi-...DRs2\\\"\\n    13|NVIDIA_MODEL=\\\"meta/llama-3.1-8b-instruct\\\"\\n    14|\\n    15|# DeepSeek 从环境变量读取\\n    16|DEEPSEEK_API_KEY=\\\"${DEEP...Y:-}\\\"\\n    17|DEEPSEEK_MODEL=\\\"deepseek-chat\\\"\\n    18|\\n    19|switch_to_nvidia() {\\n    20|    echo \\\"🟢 切换到 NVIDIA NIM（免费）...\\\"\\n    21|    sed -i '' \\\"s/^  provider:.*/  provider: nvidia-nim/\\\" \\\"$CONFIG\\\"\\n    22|    sed -i '' \\\"s/^  default:.*/  default: $NVIDIA_MODEL/\\\" \\\"$CONFIG\\\"\\n    23|    echo \\\"✅ 已切换至 NVIDIA NIM - $NVIDIA_MODEL\\\"\\n    24|}\\n    25|\\n    26|switch_to_deepseek() {\\n    27|    echo \\\"🔵 切换到 DeepSeek...\\\"\\n    28|    sed -i '' \\\"s/^  provider:.*/  provider: deepseek/\\\" \\\"$CONFIG\\\"\\n    29|    sed -i '' \\\"s/^  default:.*/  default: $DEEPSEEK_MODEL/\\\" \\\"$CONFIG\\\"\\n    30|    echo \\\"✅ 已切换至 DeepSeek - $DEEPSEEK_MODEL\\\"\\n    31|}\\n    32|\\n    33|check_nvidia() {\\n    34|    # 测试 NVIDIA API 是否可用\\n    35|    local result\\n    36|    result=$(curl -s -o /dev/null -w \\\"%{http_code}\\\" \\\\\\n    37|        \\\"https://integrate.api.nvidia.com/v1/models\\\" \\\\\\n    38|        -H \\\"Authorization: Bearer *** \\\\\\n    39|        --max-time 10 2>/dev/null)\\n    40|    \\n    41|    if [ \\\"$result\\\" = \\\"200\\\" ]; then\\n    42|        return 0  # NVIDIA 可用\\n    43|    else\\n    44|        return 1  # NVIDIA 不可用\\n    45|    fi\\n    46|}\\n    47|\\n    48|# ── 主逻辑 ──\\n    49|case \\\"${1:-auto}\\\" in\\n    50|    nvidia)\\n    51|        switch_to_nvidia\\n    52|        ;;\\n    53|    deepseek)\\n    54|        switch_to_deepseek\\n    55|        ;;\\n    56|    auto)\\n    57|        echo \\\"🔍 自动检测 Provider...\\\"\\n    58|        if check_nvidia; then\\n    59|            switch_to_nvidia\\n    60|        else\\n    61|            echo \\\"⚠️  NVIDIA NIM 不可用（HTTP: $result）\\\"\\n    62|            switch_to_deepseek\\n    63|        fi\\n    64|        ;;\\n    65|    status)\\n    66|        current_provider=$(grep \\\"^  provider:\\\" \\\"$CONFIG\\\" | awk '{print $2}')\\n    67|        current_model=$(grep \\\"^  default:\\\" \\\"$CONFIG\\\" | awk '{print $2}')\\n    68|        echo \\\"当前 Provider: $current_provider\\\"\\n    69|        echo \\\"当前模型:     $current_model\\\"\\n    70|        if check_nvidia; then\\n    71|            echo \\\"NVIDIA NIM:   ✅ 可用\\\"\\n    72|        else\\n    73|            echo \\\"NVIDIA NIM:   ❌ 不可用\\\"\\n    74|        fi\\n    75|        echo \\\"DeepSeek余额: $(curl -s https://api.deepseek.com/user/balance -H \\\"Authorization: Bearer $DEEPS...KEY\\\" | grep -o '\\\"total_balance\\\":[0-9.]*' | cut -d: -f2) 元\\\"\\n    76|        ;;\\n    77|    *)\\n    78|        echo \\\"用法: $0 {nvidia|deepseek|auto|status}\\\"\\n    79|        exit 1\\n    80|        ;;\\n    81|esac\\n    82|\", \"total_lines\": 81, \"file_size\": 2750, \"truncated\": false, \"is_binary\": false, \"is_image\": false}",
+      "tool_call_id": "call_00_DIk1D6rGcqinBV2lYfFucyIx"
+    },
+    {
+      "role": "assistant",
+      "content": "好，现在我来看看早上那个会话，看看具体发生了什么。",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_6t9iQnnHQPi809WOuwE8P0t6",
+          "call_id": "call_00_6t9iQnnHQPi809WOuwE8P0t6",
+          "response_item_id": "fc_00_6t9iQnnHQPi809WOuwE8P0t6",
+          "type": "function",
+          "function": {
+            "name": "session_search",
+            "arguments": "{\"query\": \"20260426_220512_6b3544\", \"limit\": 1}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"success\": true, \"query\": \"20260426_220512_6b3544\", \"results\": [], \"count\": 0, \"message\": \"No matching sessions found.\"}",
+      "tool_call_id": "call_00_6t9iQnnHQPi809WOuwE8P0t6"
+    },
+    {
+      "role": "assistant",
+      "content": "早上的会话（切换NVIDIA时）可能没有被session_search索引到。不过我已经从配置文件和脚本里找到了关键信息。让我梳理一下问题分析：\n\n---\n\n老板，我查完了。早上的问题很明确，**根因在 switch-provider.sh 写的脚本上**，具体是：\n\n**问题1：脚本里写死的是 8B 模型，不是 70B**\n\n看第13行：\n```\nNVIDIA_MODEL=\"meta/llama-3.1-8b-instruct\"\n```\n\n而你记忆里说的是切换到了 `meta/llama-3.3-70b-instruct`。这有两种可能：\n- 要么你手动改过config.yaml里的模型为70B（现在config.yaml里的NVIDIA NIM自定义provider确实配的是70B，第337行）\n- 要么你用脚本切换时切到了8B模型\n\n**问题2：8B模型的 context_length 在NVIDIA上没上报**\n\n看 `custom_providers` 第341-342行：\n```\nmeta/llama-3.1-8b-instruct:\n  context_length: 32768\n```\n\n32768 tokens 低于 Hermes 的最低要求（通常是64K），导致 **TG发图片时报错无法启动Agent**。这就是你记忆中\"TG发送图片时报错\"的原因。\n\n**问题3：70B也有问题**\n\n如果你切到了70B（meta/llama-3.3-70b-instruct），虽然context有131072没问题，但NVIDIA的70B模型在API调用时可能返回了不正常的short response。我在记忆里看到：\n\n> \"切换到NVIDIA meta/llama-3.3-70b-instruct后，TG端出现严重降智（回复极短63-118字符）、英文回复、记忆丢失\"\n\n**问题4：config.yaml 切换方式**\n\n脚本用的是 `sed -i '' \"s/^  provider:.*/  provider: nvidia-nim/\"`，但你的config.yaml里真正在用的是 `model.provider` 和 `model.default`，这个脚本改的是全局配置的第一级provider/default字段，**而不是 model.provider / model.default**。换句话说脚本改的方式跟当前config.yaml的格式对不上！\n\n看第1-7行，现在config.yaml的模型配置在 `model:` 块下面：\n```\nmodel:\n  provider: deepseek\n  default: deepseek-chat\n```\n\n而脚本改的是第一级的 `provider:` 和 `default:`，这俩在现在的config.yaml里压根不存在（第一级根本没有独立的provider/default字段了），所以 **脚本根本没生效**。\n\n---\n\n**结论：脚本已经落后于config.yaml的格式了。** 你早上\"切换\"NVIDIA后，脚本没真正改对位置，config.yaml里的 `model.provider` 和 `model.default` 没变。但NVIDIA的70B模型本身在NVIDIA平台上确实不稳定，导致了降智、英文回复、短回复的问题。\n\n现在你已经切回DeepSeek了，目前一切正常。需要我修复 switch-provider.sh 脚本，让它能正确修改当前的config.yaml格式吗？",
+      "reasoning": null,
+      "finish_reason": "stop"
+    },
+    {
+      "role": "user",
+      "content": "Review the conversation above and consider saving or updating a skill if appropriate.\n\nFocus on: was a non-trivial approach used to complete a task that required trial and error, or changing course due to experiential findings along the way, or did the user expect or desire a different method or outcome?\n\nIf a relevant skill already exists, update it with what you learned. Otherwise, create a new skill if the approach is reusable.\nIf nothing is worth saving, just say 'Nothing to save.' and stop."
+    },
+    {
+      "role": "assistant",
+      "content": "好问题。让我检查一下有没有相关的现有技能。",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_RYklEqOI3zAJq3eZD4269o1Q",
+          "call_id": "call_00_RYklEqOI3zAJq3eZD4269o1Q",
+          "response_item_id": "fc_00_RYklEqOI3zAJq3eZD4269o1Q",
+          "type": "function",
+          "function": {
+            "name": "skill_view",
+            "arguments": "{\"name\": \"telegram-bot-dumb-down-diagnosis\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"success\": true, \"name\": \"telegram-bot-dumb-down-diagnosis\", \"description\": \"当 Telegram bot 突然回复变短、改用英文回复、或记忆丢失时的系统化根因排查方法\", \"tags\": [\"telegram\", \"troubleshooting\", \"model-switching\", \"channel-prompts\", \"session\"], \"related_skills\": [], \"content\": \"---\\nname: telegram-bot-dumb-down-diagnosis\\ntitle: Telegram Bot Dumb-Down Diagnosis (TG 降智排查)\\ndescription: 当 Telegram bot 突然回复变短、改用英文回复、或记忆丢失时的系统化根因排查方法\\ntags:\\n  - telegram\\n  - troubleshooting\\n  - model-switching\\n  - channel-prompts\\n  - session\\ncreated: 2026-04-26\\nversion: 1.1\\ndifficulty: advanced\\nprerequisites:\\n  - Hermes Agent configured with Telegram\\n  - Access to ~/.hermes/ directory\\n  - Access to session files and logs\\n---\\n\\n# Telegram Bot Dumb-Down Diagnosis\\n\\n## When to Use\\n\\nUse this skill when:\\n- Telegram bot suddenly starts replying in very short messages (63-118 chars vs normal 300+ chars)\\n- Bot switches to English responses despite being configured for Chinese (中文)\\n- Memory appears lost — bot doesn't remember user details\\n- Bot outputs \\\"I'm not able to provide a response for the given function call\\\" (or similar English fallback)\\n- This happens AFTER switching to a different model/provider\\n\\n## Root Cause Taxonomy — The \\\"5-Dimension\\\" Framework\\n\\nTG 降智通常由以下 **5个维度** 中的一个或多个同时出问题导致：\\n\\n### Dimension 5 (NEW!): System Prompt 太短/缺少强制指令 — 模型过度工具化\\n\\n**意外发现**：即使 channel_prompts 配置正确，模型在 TG 上仍可能过度依赖工具调用。\\n\\n**现象**：用户问纯知识性问题（如\\\"苗族了解吗？\\\"），模型不直接回答，而是：\\n1. 先调 `search_files(\\\"苗族\\\")` — 试图在 memory 目录搜索\\n2. 失败后调 `clarify` — 反问用户\\\"你问的XX是什么意思？\\\"\\n3. clarify 在 TG 不可用 → 模型输出英文错误\\n\\n**根因**：\\n- SOUL.md + skills 列表构成的 system_prompt 长达 20K+ 字符\\n- 模型被 29 个工具定义包围，倾向于用工具\\\"完成\\\"任务而非直接回答\\n- channel_prompts（目标追加到 ephemeral system prompt）可能并未实际被模型读到\\n- 没有任何指令告诉模型\\\"简单问答直接回答，不要调工具\\\"\\n\\n**快速验证**：在 session json 文件中搜索 system_prompt 末尾，确认是否有强制中文/行为指令：\\n\\n```bash\\ncd ~/.hermes/sessions\\npython3 -c \\\"\\nimport json\\nwith open('session_2026*.json') as f:  # 最新session\\n    data = json.load(f)\\nsp = data.get('system_prompt','')\\nprint(f'Total: {len(sp)} chars')\\nfor kw in ['你必须', '中文回复', '不要调用工具']:\\n    print(f'{kw}: {\\\\\\\"✓\\\\\\\" if kw in sp else \\\\\\\"✗\\\\\\\"}')\\n\\\"\\n```\\n\\n**根本解决路径（推荐）**：不要试图修复 channel_prompts，直接使用 `agent.system_prompt` ​——这是在本次 70B 降智排查中总结出的最终方案，绕过整个 channel_prompts 注入链路。\\n\\n使用第4点（直接回答问题不要调工具）是关键——70B 模型看到 29 个工具定义后倾向于为每个问题都调用工具，必须显式禁止。\\n\\n**兜底方案**（如果不想改 agent.system_prompt）：\\n\\n在 `config.yaml` 的 `agent.system_prompt` 字段中配置强制指令。这个字段通过 `_load_ephemeral_system_prompt()` 被加载，**一定会**拼接到 system_prompt 末尾（见 gateway/run.py 第 9686-9687 行），可靠性高于 channel_prompts：\\n\\n```yaml\\nagent:\\n  system_prompt: |\\n    你是一个中文AI助手。\\n    必须遵守以下规则：\\n    1. 任何时候都必须用中文（简体）回复。绝不能用英文。\\n    2. 工具调用出错时，用中文向用户解释并提供解决方案。\\n    3. 绝对禁止输出「I'm not able to provide...」这种英文。\\n    4. 能用自身知识直接回答的问题（常识、知识、文化、历史等），直接回答，不要调用工具。\\n    5. 记住用户叫「老板」，你叫「贾维斯」。\\n  max_turns: 90\\n```\\n\\n**为何 channel_prompts 可能不够可靠**：\\n- `resolve_channel_prompt()` 从 `platforms.telegram.extra.channel_prompts` 读取，结果通过 `event.channel_prompt` 传递给 `run_agent`\\n- 但 `combined_ephemeral = context_prompt + channel_prompt + ephemeral_system_prompt`\\n- 如果 `context_prompt` 太长（20K+），或 `channel_prompt` 被放到最后被截断，模型可能读不到\\n- `agent.system_prompt` 直接在 AIAgent 构造时传入，位置更稳定\\n\\n### Dimension 1: Channel Prompts 配置层级错误 (配置文件结构层面)\\n\\n**这是最容易踩的坑：config.yaml 中有两个不同位置的 `telegram:` 配置段！**\\n\\n```yaml\\n# ❌ 位置A: 顶层 telegram (第~245行) — gateway 不读这里！\\ntelegram:\\n  channel_prompts:\\n    default: \\\"你必须用中文回复...\\\"\\n\\n# ✅ 位置B: platforms.telegram.extra (第~350行) — gateway 实际读这里！\\nplatforms:\\n  telegram:\\n    enabled: true\\n    proxy_url: http://127.0.0.1:6478\\n    extra:                      # ← 需要手动添加 extra 字段\\n      channel_prompts:\\n        default: \\\"你必须用中文回复...\\\"\\n```\\n\\n**根因**：`gateway/platforms/base.py` 的 `resolve_channel_prompt()` 函数从 `self.config.extra.get(\\\"channel_prompts\\\")` 读取。\\n- 如果 `channel_prompts` 写在顶层 `telegram:` 下面的 `channel_prompts:`\\n- 而 `platforms.telegram:` 下面没有 `extra.channel_prompts`\\n- 则 gateway 读到的永远是个空字典 `{}`\\n- **channel_prompts 完全没有生效，模型从未收到过\\\"必须用中文\\\"的指令**\\n\\n**快速验证**：查看 config.yaml 中 `platforms.telegram` 下面是否有 `extra.channel_prompts`：\\n\\n```bash\\ngrep -A 10 '^  telegram:' ~/.hermes/config.yaml | grep -A 5 'extra:'\\n```\\n\\n**修复**：在 `platforms.telegram:` 下添加 `extra.channel_prompts`（而非修改顶层 `telegram:` 下的配置），同时清理顶层废弃的 `telegram.channel_prompts` 避免混淆。\\n\\n### Dimension 2: 模型幻觉 Optional 参数值 (工具 schema 层面)\\n\\n**70B+ 模型会\\\"自作聪明\\\"为 optional 参数虚构值！**\\n\\n当工具 schema 中有 optional 参数时，强模型倾向于主动填值，即使 description 明确写着\\\"DO NOT specify\\\"。\\n\\n**案例**：TTS 工具的 `output_path` 参数\\n- schema 中 `output_path` 是 optional（`\\\"required\\\": [\\\"text\\\"]`，没有 output_path）\\n- description 写着\\\"DO NOT specify this — the system handles it automatically\\\"\\n- 但 70B 模型仍然填了 `output_path=\\\"/home/user/voice-memos/message.mp3\\\"`（Linux 路径）\\n- 在 macOS 上 → 崩溃（Errno 45 Operation not supported）\\n- 模型拿到工具报错 → 输出英文 \\\"I'm not able to provide a response for the given function call\\\"\\n\\n**核心规律**：模型越强（70B+），越容易主动填充 optional 参数。修改 description 无效——需要从 schema 中**彻底删除**该参数。\\n\\n**排查方法**：检查工具报错堆栈中的参数值\\n1. 找 session jsonl 中的 tool call 记录\\n2. 看模型传了哪些参数值（特别关注路径、URL、文件名）\\n3. 如果路径在代码库中无硬编码定义 → 模型幻觉\\n4. 确认该参数在 schema 中是 optional 的\\n\\n**修复方法**：\\n1. 从 schema `properties` 中删除该参数定义\\n2. handler 中硬编码传 `None` 给底层函数\\n3. 重启 gateway 生效\\n\\n### Dimension 3: Session 污染 (运行时数据层面)\\n- 旧的 TG session 文件中记录了大量工具报错历史（如 vision/TTS 错误）\\n- 新对话启动时，session 历史被注入作为上下文\\n- 模型看到之前的工具报错 → 倾向输出更谨慎/简短的回复（防御性行为）\\n- **关键指标**：用终端 python 解析 session jsonl/json 文件，看历史消息中的 tool error 模式\\n- **特殊陷阱**：gateway 重启后会**自动复用旧的 session ID**（session_20260426_105155*.json 会从旧 jsonl 重建），阻断后用 `rm session_*.json *.jsonl` 清理\\n\\n### Dimension 4: Provider Config 不一致 (配置层面)\\n- `model.default`（主模型）和 `custom_providers` 中的同名 provider 配置可能不一致\\n- 例如：主模型设为 `meta/llama-3.3-70b-instruct`（context_length 131072），但 custom_providers 中 NVIDIA NIM 仍指向 `meta/llama-3.1-8b-instruct`（context_length 32768）\\n- Hermes 在路由时可能使用 custom_providers 中的旧配置，导致：\\n  - context_length 被误判（某些模型如 8B 的 context_length < 64K，Hermes 拒绝使用 agent 能力）\\n  - TG 发图片时调用 vision 工具失败 → 模型回退英文\\n\\n## Diagnostic Steps\\n\\n### Step 0: Gather Core Metrics\\n\\n```bash\\n# 1. 查看最新的 TG session 文件 — 核心证据源\\ncd ~/.hermes/sessions\\nls -lt session_20260426_*.json | head -5\\n\\n# 2. 检查 TG 对话的 jsonl 文件 (TG 对话的详细记录)\\nls -lt 20260426_*.jsonl | head -5\\n\\n# 3. 查看 agent.log 中的 TG 对话\\ngrep -a 'TG\\\\\\\\|telegram\\\\\\\\|text_to_speech\\\\\\\\|vision' logs/agent.log | tail -20\\n\\n# 4. 检查 system_prompt 是否包含强制指令\\n# 这是快速发现\\\"模型过度工具化\\\"问题的关键步骤\\npython3 -c \\\"\\nimport json, glob\\nfiles = sorted(glob.glob('session_2026*.json'), reverse=True)\\nif files:\\n    with open(files[0]) as f:\\n        data = json.load(f)\\n    sp = data.get('system_prompt','')\\n    print(f'System prompt: {len(sp)} chars, {len(data.get(\\\\\\\"tools\\\\\\\",[]))} tools defined')\\n    for kw in ['你必须', '中文回复', '不要调用工具', 'directly answer']:\\n        print(f'  {kw}: {\\\\\\\"✓\\\\\\\" if kw in sp else \\\\\\\"✗\\\\\\\"}')\\n    # 检查模型行为模式 — 是否调用了不必要的工具\\n    msgs = data.get('messages',[])\\n    for m in msgs:\\n        tc = m.get('tool_calls',[])\\n        if tc:\\n            print(f'  TOOL CALL: {tc[0][\\\\\\\"function\\\\\\\"][\\\\\\\"name\\\\\\\"]} → args: {str(tc[0][\\\\\\\"function\\\\\\\"][\\\\\\\"arguments\\\\\\\"])[:100]}')\\n\\\"\\n```\\n\\n### Step 0b: 直接测试模型本身 (排除模型问题)\\n\\n不要假设模型有问题。先直接 API 测试：\\n\\n```bash\\ncurl -s -X POST \\\"https://integrate.api.nvidia.com/v1/chat/completions\\\" \\\\\\n  -H \\\"Authorization: Bearer $NVIDIA_NIM_API_KEY\\\" \\\\\\n  -H \\\"Content-Type: application/json\\\" \\\\\\n  -d '{\\n    \\\"model\\\": \\\"meta/llama-3.3-70b-instruct\\\",\\n    \\\"messages\\\": [{\\\"role\\\": \\\"user\\\", \\\"content\\\": \\\"苗族了解吗？用中文回答。\\\"}],\\n    \\\"max_tokens\\\": 2048\\n  }' | python3 -c \\\"import sys,json; print(json.load(sys.stdin)['choices'][0]['message']['content'][:300])\\\"\\n```\\n\\n如果 curl 测试中文回复正常 → **模型没问题，是 Hermes 配置/系统提示问题**。\\n\\n### Step 1: 确认模型本身是否正常\\n\\n不要假设模型有问题。先直接 API 测试：\\n\\n```bash\\n# 用 curl 直接调用模型 API 测试中文回复\\ncurl -s -X POST \\\"https://integrate.api.nvidia.com/v1/chat/completions\\\" \\\\\\n  -H \\\"Authorization: Bearer $NVIDIA_NIM_API_KEY\\\" \\\\\\n  -H \\\"Content-Type: application/json\\\" \\\\\\n  -d '{\\n    \\\"model\\\": \\\"meta/llama-3.3-70b-instruct\\\",\\n    \\\"messages\\\": [{\\\"role\\\": \\\"user\\\", \\\"content\\\": \\\"用中文回答：你是谁？\\\"}],\\n    \\\"max_tokens\\\": 4096\\n  }' | python3 -c \\\"import sys,json; print(json.load(sys.stdin)['choices'][0]['message']['content'])\\\"\\n```\\n\\n如果 curl 测试中文回复正常，说明模型本身 OK。\\n\\n### Step 2: 分析 TG 对话 Session — 找工具报错\\n\\n```bash\\ncd ~/.hermes/sessions\\n\\n# 方法 A: 看最新 session 中的 tool error 和英文回复\\npython3 << 'PYEOF'\\nimport json\\n\\n# 选最新的 session 文件\\nimport glob\\nfiles = sorted(glob.glob(\\\"session_2024*.json\\\"), reverse=True)\\nif not files:\\n    files = sorted(glob.glob(\\\"session_2026*.json\\\"), reverse=True)\\n\\nfor fname in files[:1]:\\n    with open(fname) as f:\\n        data = json.load(f)\\n    msgs = data.get('messages',[])\\n    \\n    # 找 tool errors\\n    for i,m in enumerate(msgs):\\n        role = m.get('role','')\\n        content = str(m.get('content',''))\\n        tool_calls = m.get('tool_calls', [])\\n        \\n        if role == 'tool' and ('error' in content.lower()):\\n            print(f\\\"--- TOOL ERROR MSG {i} ---\\\")\\n            print(f\\\"Content: {content[:300]}\\\")\\n            print()\\n        \\n        # 找英文回复（assistant 回复且内容短）\\n        if role == 'assistant' and len(content) > 0 and len(content) < 150:\\n            # 检查是否包含中文字符\\n            has_chinese = any('\\\\u4e00' <= c <= '\\\\u9fff' for c in content)\\n            if not has_chinese:\\n                # 找它前面的 user 消息\\n                for j in range(i-1, max(i-5, -1), -1):\\n                    if msgs[j].get('role') == 'user':\\n                        user_msg = str(msgs[j].get('content',''))[:100]\\n                        break\\n                print(f\\\"--- ENGLISH REPLY MSG {i} ---\\\")\\n                print(f\\\"User: {user_msg}\\\")\\n                print(f\\\"Reply: {content[:200]}\\\")\\n                print()\\nPYEOF\\n\\n# 方法 B: 查看 TG jsonl 对话记录\\npython3 << 'PYEOF'\\nimport json\\nwith open('20260426_105155_8e2a53f7.jsonl') as f:\\n    for line in f:\\n        if 'text_to_speech' in line or 'vision' in line or 'Error' in line:\\n            print(line[:400])\\n            print()\\nPYEOF\\n```\\n\\n### Step 3: 检查 config.yaml 配置一致性\\n\\n关注这三个配置点的关系：\\n\\n```bash\\n# 1. 主模型配置\\nhermes config get model.default\\nhermes config get model.model\\n\\n# 2. TG channel_prompts\\nread_file ~/.hermes/config.yaml | grep -A 10 \\\"telegram:\\\\n  channel_prompts\\\"\\n\\n# 3. custom_providers 中同名 provider 的配置\\nread_file ~/.hermes/config.yaml | grep -A 10 -E \\\"^- name: NVIDIA|^- name: DeepSeek\\\"\\n```\\n\\n### Step 4: 检查 context_length\\n\\nHermes 对 agent 模式有最低 context_length 要求（通常 64K）。某些模型（如 8B 模型）的 context_length 低于此阈值 → Hermes 在 TG 上不启用 agent 能力。\\n\\n如果 context_length < 64K 且模型没有上报 context_length，Hermes 会默认一个较低值。\\n\\n## Fix Strategies\\n\\n### Fix A: 更新 Provider Config 一致性\\n\\n确保 `custom_providers` 与 `model.default` 指向相同模型和 context_length：\\n\\n```yaml\\n# 错误的配置 — custom_providers 仍指向旧模型\\ncustom_providers:\\n- name: NVIDIA NIM\\n  model: meta/llama-3.1-8b-instruct  # ❌ 旧模型\\n  models:\\n    meta/llama-3.1-8b-instruct:\\n      context_length: 32768           # ❌ 低于 64K 阈值\\n\\n# 正确的配置 — 同步更新\\ncustom_providers:\\n- name: NVIDIA NIM\\n  model: meta/llama-3.3-70b-instruct  # ✅ 新模型\\n  models:\\n    meta/llama-3.3-70b-instruct:\\n      context_length: 131072           # ✅ 超过 64K 阈值\\n```\\n\\n同时设置 model 级别 context_length：\\n\\n```yaml\\nmodel:\\n  default: nvidia-nim\\n  provider: nvidia-nim\\n  model: meta/llama-3.3-70b-instruct\\n  max_context: 131072   # 手动设置，避免 context_length 检测问题\\n  max_tokens: 4096\\n```\\n\\n### Fix B: 将 Channel Prompts 放在正确的配置位置\\n\\n**关键修复**：channel_prompts 必须放在 `platforms.telegram.extra.channel_prompts` 下，而不是顶层 `telegram.channel_prompts`：\\n\\n```yaml\\n# 正确的配置位置\\nplatforms:\\n  telegram:\\n    enabled: true\\n    proxy_url: http://127.0.0.1:6478\\n    extra:\\n      channel_prompts:\\n        default: |\\n          你是一个中文AI助手，名叫贾维斯。必须严格遵守以下规则：\\n          \\n          1. 任何时候都必须用中文（简体）回复。绝不能用英文。\\n          2. 如果工具调用出错（比如图片分析失败、语音合成失败、天气查询失败等），\\n             你必须用中文向用户解释原因并提出解决方案。\\n          3. 绝对禁止输出「I'm not able to provide...」这种英文。\\n          4. 直接用中文回应问题，不说废话。\\n          5. 记住用户叫「老板」，你叫「贾维斯」。\\n```\\n\\n注意清理顶层废弃的「telegram:」配置段，避免今后误改。\\n\\n### Fix C: 从工具 schema 中彻底删除模型会幻觉的参数\\n\\n当工具报错堆栈显示某参数值为模型生成的**不合理值**（如 Linux 路径出现在 macOS 上），且非代码硬编码 — 这属于**模型幻觉参数值**。70B+ 模型看到 optional 参数就\\\"自作聪明\\\"往里填值。\\n\\n**修改 description 无效！必须从 schema 定义中彻底删除该参数：**\\n\\n```python\\n# ❌ 修复前 — 模型看到 output_path 就想填值\\n\\\"properties\\\": {\\n    \\\"text\\\": { \\\"type\\\": \\\"string\\\" },\\n    \\\"output_path\\\": {  # ← 就是这个字段惹的祸\\n        \\\"type\\\": \\\"string\\\",\\n        \\\"description\\\": \\\"DO NOT specify this...\\\"\\n    }\\n},\\n\\\"required\\\": [\\\"text\\\"]\\n\\n# ✅ 修复后 — 模型根本没机会传 output_path\\n\\\"properties\\\": {\\n    \\\"text\\\": { \\\"type\\\": \\\"string\\\" }\\n    # output_path 完全删除了\\n},\\n\\\"required\\\": [\\\"text\\\"]\\n```\\n\\n配套操作：handler 中硬编码传 None：\\n\\n```python\\nhandler=lambda args, **kw: text_to_speech_tool(\\n    text=args.get(\\\"text\\\", \\\"\\\"),\\n    output_path=None)  # 不给模型传参的机会，硬编码 None\\n```\\n\\n**何时用这个方法**：\\n- 工具报错中出现不合理的路径、URL、文件名（如 macOS 上的 `/home/user` 路径）\\n- 代码中搜索不到该路径的硬编码定义\\n- 模型生成的参数值明显是幻觉/编造\\n- 该参数是 optional 的（不必须）\\n\\n### Fix D: 清理旧 Session + 重启 Gateway\\n\\n旧 session 中的错误历史会污染新对话：\\n\\n```bash\\n# 1. 备份有问题的 session\\ncd ~/.hermes/sessions\\nmkdir -p ../old_sessions_backup\\ncp session_20260426_1*.json ../old_sessions_backup/\\ncp 20260426_1*.jsonl ../old_sessions_backup/\\n\\n# 2. 删除有问题的 session 文件\\nrm session_20260426_1*.json 20260426_1*.jsonl\\n\\n| 3. **也清理 sessions.json 索引** — 否则 gateway 重启后通过索引重建同名 session\\n```bash\\npython3 << 'PYEOF'\\nimport json\\nwith open('sessions.json') as f:\\n    data = json.load(f)\\n# 找出旧 TG session ID 并移除\\nold_id = \\\"20260426_105155\\\"  # 替换为实际 session ID\\ndata['sessions'] = [s for s in data['sessions'] if old_id not in s.get('session_id', '')]\\nwith open('sessions.json', 'w') as f:\\n    json.dump(data, f, indent=2)\\nprint(f\\\"Removed session {old_id} from sessions.json index\\\")\\nPYEOF\\n```\\n\\n4. 重启 gateway 让新配置生效\\n```bash\\nlaunchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist\\nsleep 1\\nlaunchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist\\nsleep 3\\n```\\n\\n5. 验证重启后\\\"Channel directory built\\\"显示 0 targets — 正常！说明会话索引已清空，需要用户发新消息才会重建。\\n\\n### Fix F (NEW!): 使用 agent.system_prompt 作为兜底的强制指令注入\\n\\n**场景**：当 channel_prompts 配置正确但模型仍然不听话（英文回复、过度工具化），说明指令没有被模型读到。\\n\\n**原理**：`agent.system_prompt` 通过 `_load_ephemeral_system_prompt()` → `combined_ephemeral` → `AIAgent(ephemeral_system_prompt=...)` 传递，比 channel_prompts 更可靠。\\n\\n**配置**：\\n\\n```yaml\\nagent:\\n  system_prompt: |\\n    你是一个中文AI助手，名叫贾维斯。必须严格遵守以下规则：\\n    1. 任何时候都必须用中文（简体）回复。绝不能用英文。\\n    2. 如果工具调用出错，你必须用中文向用户解释原因并提出解决方案。\\n    3. 绝对禁止输出「I'm not able to provide a response for the given function call」这种英文。\\n    4. 能用自身知识直接回答的问题（如常识、知识、文化、历史等），直接回答，不要调用任何工具。\\n    5. 记住用户叫「老板」，你叫「贾维斯」。\\n  max_turns: 90\\n```\\n\\n**注意**：第4点是本次排查中发现的最关键的补充 — 70B 模型在 TG 上看到 29 个工具列表，倾向于为每个问题调用工具，而不是直接回答。需要显式禁止。\\n\\n**最佳实践**：同时配置 `channel_prompts`（在 `platforms.telegram.extra` 下）和 `agent.system_prompt`。前者是 TG 专有，后者是全局兜底。\\n\\nmacOS launchd 进程如果不设置 HOME 环境变量，Python 的 `Path(\\\"~\\\").expanduser()` 可能展开到错误路径：\\n\\n```xml\\n<key>EnvironmentVariables</key>\\n<dict>\\n    <key>HOME</key>\\n    <string>/Users/mac</string>  <!-- 必须显式设置 -->\\n    <key>PATH</key>\\n    <string>...</string>\\n</dict>\\n```\\n\\n## Verification\\n\\n1. **模型端验证**：直接 API curl 确认模型本身中文回复正常\\n2. **TG 对话验证**：在 TG 上发文字消息 + 发图片，确认：\\n   - 回复用中文\\n   - 回复长度正常（>200 chars）\\n   - 记忆正常（记得老板/贾维斯的关系）\\n3. **Session 验证**：新生成的 session 文件中没有 tool error → 英文回复链\\n\\n## Pitfalls\\n\\n1. **不要只测试文字消息** — 发图测试 vision 工具链，发语音测试 TTS 工具链\\n2. **session 污染可能来自更早的记录** — 如果删除后问题复现，检查 session 保留策略（`sessions.retention_days`）\\n3. **channel_prompts 的生效范围** — 只对正常对话流生效，工具报错时模型走独立 fallback 路径\\n4. **重启顺序重要** — 先改配置 → 清 session → 再重启 gateway；顺序颠倒会导致新 session 又记录错误\\n5. **模型 context_length 上报问题** — NVIDIA NIM 上的某些模型（如 8B）不上报 context_length，Hermes 默认值可能过低；手动设置 `model.max_context` 绕过\\n6. **⚠️ 两个 telelgram: 配置段的致命陷阱** — config.yaml 中顶层约 245 行和 platforms.telegram 约 350 行都有 telegram 相关配置。改错位置 = 改了等于没改。修改前先明确 gateway 代码读的是哪个层级。\\n7. **description 防不住 70B+ 模型的参数幻觉** — 模型越强越\\\"主动\\\"。看到 optional 参数就会填，不读 description。唯一的修复是删掉该参数。\\n9. **channel_prompts 不是唯一方案** — 如果配置正确但依旧无效，直接在 `agent.system_prompt` 中写死指令。这不是绕过，而是必要的多重保障。gateway 代码中 `_load_ephemeral_system_prompt()` 的可靠性高于 `resolve_channel_prompt()`。\\n10. **模型过度工具化是新维度** — 70B+ 模型看到工具列表会倾向于使用它们，即使问题不需要。必须在 system_prompt 中明确告诉它\\\"直接回答\\\"。\\n\\n## Related Skills\\n\\n- `telegram-integration-configuration`: Basic TG bot setup\\n- `systematic-debugging`: General debugging methodology\\n\", \"path\": \"social-media/telegram-bot-dumb-down-diagnosis/SKILL.md\", \"skill_dir\": \"/Users/mac/.hermes/skills/social-media/telegram-bot-dumb-down-diagnosis\", \"linked_files\": null, \"usage_hint\": null, \"required_environment_variables\": [], \"required_commands\": [], \"missing_required_environment_variables\": [], \"missing_credential_files\": [], \"missing_required_commands\": [], \"setup_needed\": false, \"setup_skipped\": false, \"readiness_status\": \"available\"}",
+      "tool_call_id": "call_00_RYklEqOI3zAJq3eZD4269o1Q"
+    },
+    {
+      "role": "assistant",
+      "content": "现在让我看看有没有现有的 switch-provider 相关技能。",
+      "reasoning": null,
+      "finish_reason": "tool_calls",
+      "tool_calls": [
+        {
+          "id": "call_00_Xleiiy5JI81iRzQED4WN4Oyq",
+          "call_id": "call_00_Xleiiy5JI81iRzQED4WN4Oyq",
+          "response_item_id": "fc_00_Xleiiy5JI81iRzQED4WN4Oyq",
+          "type": "function",
+          "function": {
+            "name": "skills_list",
+            "arguments": "{\"category\": \"devops\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "content": "{\"success\": true, \"skills\": [{\"name\": \"inference-sh-cli\", \"description\": \"Run 150+ AI apps via inference.sh CLI (infsh) — image generation, video creation, LLMs, search, 3D, social automation. Uses the terminal tool. Triggers: inference.sh, infsh, ai apps, flux, veo, image generation, video generation, seedream, seedance, tavily\", \"category\": \"devops\"}, {\"name\": \"n8n-standalone-docker-deployment\", \"description\": \"Deploy n8n as standalone Docker service on macOS with one-click startup commands\", \"category\": \"devops\"}, {\"name\": \"n8n-workflow-integration\", \"description\": \"Integration skill for triggering n8n workflows via webhooks, creating new workflows, and managing n8n from Hermes CLI\", \"category\": \"devops\"}, {\"name\": \"webhook-subscriptions\", \"description\": \"Create and manage webhook subscriptions for event-driven agent activation, or for direct push notifications (zero LLM cost). Use when the user wants external services to trigger agent runs OR push notifications to chats.\", \"category\": \"devops\"}], \"categories\": [\"devops\"], \"count\": 4, \"hint\": \"Use skill_view(name) to see full content, tags, and linked files\"}",
+      "tool_call_id": "call_00_Xleiiy5JI81iRzQED4WN4Oyq"
+    },
+    {
+      "role": "assistant",
+      "content": "现在我有完整的情况。这个会话中做的工作是：**排查 switch-provider.sh 脚本与当前 config.yaml 格式不兼容的问题**，这是一个值得记录的发现。不过现有的 `telegram-bot-dumb-down-diagnosis` 技能已经非常详尽地覆盖了TG降智排查（包括脚本/配置问题）。我需要确认一下，这次新发现的\"脚本改了但没生效\"的具体问题是否已经在技能里覆盖了。\n\n看了现有技能，它已经覆盖了\"Provider Config 不一致 (Dimension 4)\"。但这次发现了一个新维度——**switch-provider.sh 脚本语法错误导致切换不生效**，加上**脚本写死 8B 模型**的问题。这属于运维脚本缺陷，不是 TG 降智诊断流程的一部分。而且这是一个一次性修复，不值得单独建一个技能。\n\n**Nothing to save.** 现有的 `telegram-bot-dumb-down-diagnosis` 技能已经覆盖了相关内容。这次发现的 switch-provider.sh 脚本格式不匹配问题是该脚本的维护漏洞，修复脚本本身就行，不需要额外创建技能。",
+      "reasoning": null,
+      "finish_reason": "stop"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+13:14:49 interrupt fired: msg='什么情况', children=0, parent._interrupt=True
+13:14:49 ENTER: queued interrupt msg='什么情况', agent_running=True
+13:26:39 ENTER: queued interrupt msg='把之前安装在openclaw中技能全部学会，再有几个延伸的技能就很好了', agent_running=True
+13:26:39 interrupt fired: msg='把之前安装在openclaw中技能全部学会，再有几个延伸的技能就很好了', children=0, parent._interrupt=True
+13:42:56 ENTER: queued interrupt msg='你好，介绍一下你自己，我俩要怎么配合，一起工作', agent_running=True
+13:42:56 interrupt fired: msg='你好，介绍一下你自己，我俩要怎么配合，一起工作', children=0, parent._interrupt=True
+14:03:50 ENTER: queued interrupt msg='Hello, 你能帮我做什么？', agent_running=True
+14:03:50 interrupt fired: msg='Hello, 你能帮我做什么？', children=0, parent._interrupt=True
+22:37:53 ENTER: queued interrupt msg='本地电脑配置', agent_running=True
+22:37:53 interrupt fired: msg='本地电脑配置', children=0, parent._interrupt=True
+18:50:27 interrupt fired: msg='ollama ps          # 查看当前正在运行的模型\nollama list\nfree -h        ', children=0, parent._interrupt=True
+18:50:27 ENTER: queued interrupt msg='ollama ps          # 查看当前正在运行的模型\nollama list\nfree -h        ', agent_running=True
+19:49:59 ENTER: queued interrupt msg='之前我安装量网页版，但是没法正常使用，你在修复吗', agent_running=True
+19:49:59 interrupt fired: msg='之前我安装量网页版，但是没法正常使用，你在修复吗', children=0, parent._interrupt=True
+19:53:52 ENTER: queued interrupt msg='什么情况？', agent_running=True
+19:53:52 interrupt fired: msg='什么情况？', children=0, parent._interrupt=True
+20:02:20 ENTER: queued interrupt msg='微信可以沟通吗，我之前扫码了', agent_running=True
+20:04:15 ENTER: queued interrupt msg='还有其他沟通渠道吗', agent_running=True
+22:30:20 interrupt fired: msg='完成了吗？现在可以web版使用吗', children=0, parent._interrupt=True
+22:30:20 ENTER: queued interrupt msg='完成了吗？现在可以web版使用吗', agent_running=True
+22:55:14 ENTER: queued interrupt msg='贾维斯，我现在想和你在微信中交流，怎么操作？', agent_running=True
+22:55:14 interrupt fired: msg='贾维斯，我现在想和你在微信中交流，怎么操作？', children=0, parent._interrupt=True
+23:30:25 ENTER: queued interrupt msg='我发了测试，你有收到吗', agent_running=True
+23:30:25 interrupt fired: msg='我发了测试，你有收到吗', children=0, parent._interrupt=True
+10:31:02 ENTER: queued interrupt msg='https://hermes-agent.nousresearch.com/docs/user-guide/messag', agent_running=True
+10:31:02 interrupt fired: msg='https://hermes-agent.nousresearch.com/docs/user-guide/messag', children=0, parent._interrupt=True
+10:49:19 ENTER: queued interrupt msg='怎么养，能搞定吗，要不我安网站有的，先操作一下', agent_running=True
+10:49:19 interrupt fired: msg='怎么养，能搞定吗，要不我安网站有的，先操作一下', children=0, parent._interrupt=True
+15:12:27 interrupt fired: msg='在企业微信中', children=0, parent._interrupt=True
+15:12:27 ENTER: queued interrupt msg='在企业微信中', agent_running=True
+15:57:19 ENTER: queued interrupt msg='什么', agent_running=True
+15:57:19 interrupt fired: msg='什么', children=0, parent._interrupt=True
+16:09:30 ENTER: queued interrupt msg='我刚看有个主播说要加入公网ip才可以', agent_running=True
+16:09:30 interrupt fired: msg='我刚看有个主播说要加入公网ip才可以', children=0, parent._interrupt=True
+16:11:05 interrupt fired: msg='[Pasted text #1: 12 lines → /Users/mac/.hermes/pastes/paste_', children=0, parent._interrupt=True
+16:11:05 ENTER: queued interrupt msg='[Pasted text #1: 12 lines → /Users/mac/.hermes/pastes/paste_', agent_running=True
+18:57:54 ENTER: queued interrupt msg='[Pasted text #3: 665 lines → /Users/mac/.hermes/pastes/paste', agent_running=True
+18:57:54 interrupt fired: msg='[Pasted text #3: 665 lines → /Users/mac/.hermes/pastes/paste', children=0, parent._interrupt=True
+18:58:38 interrupt fired: msg='这些我之前的一些想法，你汇总收集整理，有助于我们快速融合', children=0, parent._interrupt=True
+18:58:38 ENTER: queued interrupt msg='这些我之前的一些想法，你汇总收集整理，有助于我们快速融合', agent_running=True
+19:11:11 ENTER: queued interrupt msg='我们先沟通后，你再帮我实现各种想法，不要盲目进行', agent_running=True
+19:11:11 interrupt fired: msg='我们先沟通后，你再帮我实现各种想法，不要盲目进行', children=0, parent._interrupt=True
+21:35:23 ENTER: queued interrupt msg='不会设置，没找到，英文界面，之前合适的，换了VPN后就不合适了', agent_running=True
+21:35:23 interrupt fired: msg='不会设置，没找到，英文界面，之前合适的，换了VPN后就不合适了', children=0, parent._interrupt=True
+23:17:31 interrupt fired: msg='Use this token to access the HTTP API:\n8764424792:AAHz8bk97X', children=0, parent._interrupt=True
+23:17:31 ENTER: queued interrupt msg='Use this token to access the HTTP API:\n8764424792:AAHz8bk97X', agent_running=True
+23:45:59 ENTER: queued interrupt msg='Id: 1932005111', agent_running=True
+23:45:59 interrupt fired: msg='Id: 1932005111', children=0, parent._interrupt=True
+00:38:12 ENTER: queued interrupt msg='session_search: "recall: "telegram integration conf...""这是最后', agent_running=True
+00:38:12 interrupt fired: msg='session_search: "recall: "telegram integration conf...""这是最后', children=0, parent._interrupt=True
+12:13:41 interrupt fired: msg='修复合适 了，再tg里给我通知一下', children=0, parent._interrupt=True
+12:13:41 ENTER: queued interrupt msg='修复合适 了，再tg里给我通知一下', agent_running=True
+12:30:45 ENTER: queued interrupt msg='厉害，真棒', agent_running=True
+12:30:45 interrupt fired: msg='厉害，真棒', children=0, parent._interrupt=True
+15:27:55 ENTER: queued interrupt msg='http://localhost:8648/#/chat这个显示的错误信息', agent_running=True
+15:27:55 interrupt fired: msg='http://localhost:8648/#/chat这个显示的错误信息', children=0, parent._interrupt=True
+16:39:33 ENTER: queued interrupt msg='https://x.com/ddan_zai/status/2044901722771095767这个是我现在浏览器打开', agent_running=True
+16:39:33 interrupt fired: msg='https://x.com/ddan_zai/status/2044901722771095767这个是我现在浏览器打开', children=0, parent._interrupt=True
+22:46:56 ENTER: queued interrupt msg='[Pasted text #1: 16 lines → /Users/mac/.hermes/pastes/paste_', agent_running=True
+22:46:56 interrupt fired: msg='[Pasted text #1: 16 lines → /Users/mac/.hermes/pastes/paste_', children=0, parent._interrupt=True
+23:36:20 ENTER: queued interrupt msg='什么情况，测试结果怎么样？', agent_running=True
+23:36:20 interrupt fired: msg='什么情况，测试结果怎么样？', children=0, parent._interrupt=True
+19:45:21 ENTER: queued interrupt msg='刚看到，这个https://mp.weixin.qq.com/s/3G6Dw7Up_fFgu1gGzqrV2A，感觉很好', agent_running=True
+19:45:21 interrupt fired: msg='刚看到，这个https://mp.weixin.qq.com/s/3G6Dw7Up_fFgu1gGzqrV2A，感觉很好', children=0, parent._interrupt=True
+21:18:49 interrupt fired: msg='https://x.com/ResearchWang/status/2045812932538438001这个网址的技能', children=0, parent._interrupt=True
+21:18:49 ENTER: queued interrupt msg='https://x.com/ResearchWang/status/2045812932538438001这个网址的技能', agent_running=True
+22:54:14 interrupt fired: msg='tg中我发信信了，没回复，检查一下', children=0, parent._interrupt=True
+22:54:14 ENTER: queued interrupt msg='tg中我发信信了，没回复，检查一下', agent_running=True
+23:10:32 interrupt fired: msg='49fb2e89-c53f-4071-a579-1110e7db70e1:9cc04a45d497e29ea4b8472', children=0, parent._interrupt=True
+23:10:32 ENTER: queued interrupt msg='49fb2e89-c53f-4071-a579-1110e7db70e1:9cc04a45d497e29ea4b8472', agent_running=True
+23:42:31 ENTER: queued interrupt msg='怎么样', agent_running=True
+23:42:31 interrupt fired: msg='怎么样', children=0, parent._interrupt=True
+21:33:18 interrupt fired: msg='安装合适了吗', children=0, parent._interrupt=True
+21:33:18 ENTER: queued interrupt msg='安装合适了吗', agent_running=True
+22:12:54 interrupt fired: msg='还没有安装合适吗', children=0, parent._interrupt=True
+22:12:54 ENTER: queued interrupt msg='还没有安装合适吗', agent_running=True
+22:18:28 interrupt fired: msg='https://github.com/browser-use/browser-harness这个也学习安装了', children=0, parent._interrupt=True
+22:18:28 ENTER: queued interrupt msg='https://github.com/browser-use/browser-harness这个也学习安装了', agent_running=True
+22:18:37 interrupt fired: msg='很有用的', children=0, parent._interrupt=True
+22:18:37 ENTER: queued interrupt msg='很有用的', agent_running=True
+22:40:34 ENTER: queued interrupt msg='https://github.com/chatfire-AI/huobao-drama这个短剧的也安装了', agent_running=True
+23:34:32 ENTER: queued interrupt msg='现在把这几天的使用做个汇总，现在有哪些技能，都能干什么', agent_running=True
+23:50:05 ENTER: queued interrupt msg='我现在不知道你在干什么，也不知道你会干什么？', agent_running=True
+23:51:43 ENTER: queued interrupt msg='记得给我一个全面的报告', agent_running=True
+00:19:27 interrupt fired: msg='https://github.com/chatfire-AI/huobao-drama这个短剧的也安装了', children=0, parent._interrupt=True
+00:52:45 interrupt fired: msg='现在把这几天的使用做个汇总，现在有哪些技能，都能干什么', children=0, parent._interrupt=True
+06:22:32 interrupt fired: msg='我现在不知道你在干什么，也不知道你会干什么？', children=0, parent._interrupt=True
+08:31:30 ENTER: queued interrupt msg='早安', agent_running=True
+08:31:30 interrupt fired: msg='早安', children=0, parent._interrupt=True
+16:01:34 ENTER: queued interrupt msg='我身高172，体重71', agent_running=True
+16:01:34 interrupt fired: msg='我身高172，体重71', children=0, parent._interrupt=True
+22:23:58 ENTER: queued interrupt msg='我刚才安装了，没有成功', agent_running=True
+22:23:58 interrupt fired: msg='我刚才安装了，没有成功', children=0, parent._interrupt=True
+22:47:28 ENTER: queued interrupt msg='还有请修复我的tg通讯', agent_running=True
+22:47:28 interrupt fired: msg='还有请修复我的tg通讯', children=0, parent._interrupt=True
+22:58:02 ENTER: queued interrupt msg='tg可以通讯了吗，怎么测试', agent_running=True
+22:58:02 interrupt fired: msg='tg可以通讯了吗，怎么测试', children=0, parent._interrupt=True
+23:31:30 ENTER: queued interrupt msg='要不链接一下企业微信也可以', agent_running=True
+23:31:30 interrupt fired: msg='要不链接一下企业微信也可以', children=0, parent._interrupt=True
+00:15:35 ENTER: queued interrupt msg='https://hermes-agent.nousresearch.com/docs/skills这个网址', agent_running=True
+00:15:35 interrupt fired: msg='https://hermes-agent.nousresearch.com/docs/skills这个网址', children=0, parent._interrupt=True
+01:49:03 ENTER: queued interrupt msg='https://github.com/chatfire-AI/huobao-drama研究一下这个，是免费的吗，如果是就', agent_running=True
+01:49:03 interrupt fired: msg='https://github.com/chatfire-AI/huobao-drama研究一下这个，是免费的吗，如果是就', children=0, parent._interrupt=True
+11:38:48 ENTER: queued interrupt msg='就是英伟达的模型，之前dpsk好好的，但是切换后立刻出问题了', agent_running=True
+11:38:48 interrupt fired: msg='就是英伟达的模型，之前dpsk好好的，但是切换后立刻出问题了', children=0, parent._interrupt=True
+12:36:55 interrupt fired: msg='检查日志，恢复到昨晚1点的设置', children=0, parent._interrupt=True
+12:36:55 ENTER: queued interrupt msg='检查日志，恢复到昨晚1点的设置', agent_running=True
+13:43:54 interrupt fired: msg='我需要知道每个技能笔记，我们可以使用本地设施，完美实现', children=0, parent._interrupt=True
+13:43:54 ENTER: queued interrupt msg='我需要知道每个技能笔记，我们可以使用本地设施，完美实现', agent_running=True
+14:20:52 ENTER: queued interrupt msg='写一个 Gradio Web界面 (一行代码 pip install gradio)\n   - 一键出图, 比建筑学长的', agent_running=True
+14:20:52 interrupt fired: msg='写一个 Gradio Web界面 (一行代码 pip install gradio)\n   - 一键出图, 比建筑学长的', children=0, parent._interrupt=True
+14:53:43 ENTER: queued interrupt msg='好了吗', agent_running=True
+14:53:43 interrupt fired: msg='好了吗', children=0, parent._interrupt=True
+23:58:10 ENTER: queued interrupt msg='Model meta/llama-3.1-8b-instruct has a context window of 32,', agent_running=True
+23:58:10 interrupt fired: msg='Model meta/llama-3.1-8b-instruct has a context window of 32,', children=0, parent._interrupt=True
+15:37:34 ENTER: queued interrupt msg='检测到 Node.js v22.22.2，请升级到23以上版本。显示这个，怎么版', agent_running=True
+15:37:34 interrupt fired: msg='检测到 Node.js v22.22.2，请升级到23以上版本。显示这个，怎么版', children=0, parent._interrupt=True

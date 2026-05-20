@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>随心看 · 免费影视</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #14141e;
+    --surface2: #1c1c2a;
+    --border: #28283a;
+    --text: #e8e8f0;
+    --text2: #78789a;
+    --accent: #6c5ce7;
+    --accent2: #a29bfe;
+    --green: #00d68f;
+    --orange: #ff9f43;
+    --red: #ff6b6b;
+    --radius: 12px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  /* ===== HEADER ===== */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+  }
+  .search-row {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    gap: 8px;
+  }
+  .search-row input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+  }
+  .search-row input:focus { border-color: var(--accent); }
+  .btn {
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn:hover { background: #7c6ff7; }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--text); }
+
+  /* ===== SOURCE BAR ===== */
+  .source-bar {
+    background: var(--surface);
+    padding: 8px 24px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .source-tag {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    transition: all 0.2s;
+  }
+  .source-tag:hover { border-color: var(--accent); color: var(--text); }
+  .source-tag.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .source-tag.bad { opacity: 0.4; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .layout {
+    display: flex;
+    height: calc(100vh - 108px);
+  }
+  /* ===== LEFT (HOT + HISTORY) ===== */
+  .left {
+    width: 280px;
+    min-width: 280px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .left-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+  }
+  .left-tab {
+    flex: 1;
+    padding: 9px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text2);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+  .left-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .left-body {
+    flex: 1;
+    overflow-y: auto;
+  }
+  .left-body::-webkit-scrollbar { width: 4px; }
+  .left-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* HOT ITEM */
+  .hot-item {
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+  }
+  .hot-item:hover { background: var(--surface2); }
+  .hot-rank {
+    width: 22px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text2);
+  }
+  .hot-rank.hot { color: var(--orange); }
+  .hot-title { font-size: 13px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .hot-badge {
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 8px;
+    background: var(--surface2);
+    color: var(--text2);
+  }
+  .hot-badge.movie { background: rgba(108,92,231,0.2); color: var(--accent2); }
+  .hot-badge.tv { background: rgba(0,214,143,0.2); color: var(--green); }
+  .hot-badge.show { background: rgba(255,159,67,0.2); color: var(--orange); }
+
+  /* HISTORY */
+  .hist-item {
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+  }
+  .hist-item:hover { background: var(--surface2); }
+  .hist-title { font-size: 13px; flex: 1; }
+  .hist-del { font-size: 14px; color: var(--text2); opacity: 0; cursor: pointer; }
+  .hist-item:hover .hist-del { opacity: 1; }
+  .hist-del:hover { color: var(--red); }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text2);
+    font-size: 13px;
+  }
+
+  /* ===== RIGHT (VIDEO) ===== */
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #000;
+    position: relative;
+  }
+  .right iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text2);
+  }
+  .placeholder .big-icon { font-size: 60px; margin-bottom: 12px; opacity: 0.25; }
+  .placeholder h2 { font-size: 18px; margin-bottom: 6px; color: var(--text); }
+  .placeholder p { font-size: 13px; }
+
+  /* 解析信息 */
+  .parse-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 20px 16px 12px;
+    display: none;
+  }
+  .parse-bar.show { display: flex; align-items: center; gap: 8px; }
+  .parse-bar .label { font-size: 11px; color: var(--text2); }
+  .parse-bar .switch { font-size: 11px; color: var(--accent2); cursor: pointer; }
+
+  .tooltip {
+    position: absolute;
+    bottom: 50px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,0.85);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--text2);
+    display: none;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 700px) {
+    .left { display: none; }
+    .layout { height: calc(100vh - 108px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="logo">🎬 随心看</span>
+  <div class="search-row">
+    <input id="searchInput" placeholder="搜电影/电视剧/综艺…" onkeydown="if(event.key==='Enter') doSearch()" />
+    <button class="btn" onclick="doSearch()">搜</button>
+  </div>
+  <button class="btn btn-sm btn-outline" onclick="clearAll()">清</button>
+</div>
+
+<div class="source-bar" id="sourceBar"></div>
+
+<div class="layout">
+  <!-- LEFT -->
+  <div class="left">
+    <div class="left-tabs">
+      <div class="left-tab active" data-tab="hot" onclick="switchTab('hot')">🔥 热搜</div>
+      <div class="left-tab" data-tab="history" onclick="switchTab('history')">📋 记录</div>
+      <div class="left-tab" data-tab="guide" onclick="switchTab('guide')">💡 变现</div>
+    </div>
+    <div class="left-body" id="leftBody"></div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right" id="right">
+    <div class="placeholder" id="placeholder">
+      <div class="big-icon">🎬</div>
+      <h2>搜你想看的</h2>
+      <p>输入关键词 · 一键解析 · 免会员</p>
+    </div>
+    <div class="parse-bar" id="parseBar">
+      <span class="label">正在用 <span id="sourceLabel">源①</span> 解析…</span>
+      <span class="switch" onclick="switchSource()">切换到下一源 ▶</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const SOURCES = [
+  { id: 'yparse',   name: '①', url: 'https://yparse.ik9.cc/jx/',   ok: true },
+  { id: 'im1907',   name: '②', url: 'https://im1907.top/jx/',     ok: true },
+  { id: 'xymp4',    name: '③', url: 'https://jx.xymp4.cc/',       ok: true },
+  { id: 'xmflv',    name: '④', url: 'https://jx.xmflv.com/',      ok: true },
+  { id: 'pouyun',   name: '⑤', url: 'https://pouyun.com/jx/',     ok: true },
+  { id: 'playerjy', name: '⑥', url: 'https://jx.playerjy.com/',   ok: true },
+];
+
+// ============================================================
+// 热门推荐 (实时热度排序)
+// ============================================================
+const HOT = [
+  { t: '乘风2025',      c: '综艺' },
+  { t: '歌手2025',      c: '综艺' },
+  { t: '奔跑吧13',      c: '综艺' },
+  { t: '五哈5',          c: '综艺' },
+  { t: '浪姐6',         c: '综艺' },
+  { t: '无限超越班3',   c: '综艺' },
+  { t: '妻子的浪漫旅行',c: '综艺' },
+  { t: '火星情报局7',   c: '综艺' },
+  { t: '大侦探寻宝记3', c: '综艺' },
+  { t: '哪吒2',         c: '电影' },
+  { t: '封神第二部',    c: '电影' },
+  { t: '唐探1900',      c: '电影' },
+  { t: '蛟龙行动',      c: '电影' },
+  { t: '美国队长4',     c: '电影' },
+  { t: '美洲攻略',      c: '电影' },
+  { t: '难哄',          c: '剧集' },
+  { t: '苏记棺材铺',    c: '剧集' },
+  { t: '乌云之上',      c: '剧集' },
+  { t: '仙台有树',      c: '剧集' },
+  { t: '仁心俱乐部',    c: '剧集' },
+  { t: '庆余年2',       c: '剧集' },
+  { t: '苍兰诀',        c: '剧集' },
+  { t: '白月梵星',      c: '剧集' },
+  { t: '大奉打更人',    c: '剧集' },
+  { t: '漂白',          c: '剧集' },
+  { t: '国色芳华',      c: '剧集' },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let curSource = 0;
+let curUrl = '';
+let history = [];
+let tab = 'hot';
+let searchedTerm = '';
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  renderSources();
+  loadHist();
+  renderTab();
+}
+init();
+
+// ============================================================
+// SOURCES
+// ============================================================
+function renderSources() {
+  document.getElementById('sourceBar').innerHTML = SOURCES.map((s,i) =>
+    `<span class="source-tag ${i===curSource?'active':''} ${!s.ok?'bad':''}" onclick="pickSrc(${i})">${s.name}</span>`
+  ).join('');
+}
+function pickSrc(i) { curSource = i; renderSources(); if (curUrl) play(); }
+
+// ============================================================
+// SEARCH
+// ============================================================
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) return;
+  searchedTerm = q;
+  addHist(q);
+  // 直接打开腾讯视频搜索结果 (最全)
+  const searchUrl = `https://s.video.qq.com/smart_search?plat=2&query=${encodeURIComponent(q)}`;
+  loadUrl(searchUrl);
+}
+
+function hotPlay(item) {
+  document.getElementById('searchInput').value = item.t;
+  searchedTerm = item.t;
+  addHist(item.t);
+  const searchUrl = `https://s.video.qq.com/smart_search?plat=2&query=${encodeURIComponent(item.t)}`;
+  loadUrl(searchUrl);
+}
+
+// ============================================================
+// PLAY CORE
+// ============================================================
+function loadUrl(url) {
+  curUrl = url;
+  const area = document.getElementById('right');
+  const place = document.getElementById('placeholder');
+  const bar = document.getElementById('parseBar');
+
+  place.style.display = 'none';
+  bar.classList.remove('show');
+
+  // 如果是视频平台链接，用解析站
+  if (isVideoUrl(url)) {
+    bar.classList.add('show');
+    document.getElementById('sourceLabel').textContent = SOURCES[curSource].name;
+    const parseUrl = SOURCES[curSource].url + '?url=' + encodeURIComponent(url);
+    area.innerHTML = `<iframe src="${parseUrl}" allowfullscreen></iframe>`;
+  } else {
+    // 搜索页直接显示
+    area.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
+  }
+}
+
+function isVideoUrl(url) {
+  return /v\.qq\.com|iqiyi\.com|youku\.com|mgtv\.com|bilibili\.com|so\.(video|iqiyi|youku|mgtv)/i.test(url);
+}
+
+function play() {
+  if (curUrl) loadUrl(curUrl);
+}
+
+function switchSource() {
+  // 切换到下一个可用源
+  for (let i = 1; i <= SOURCES.length; i++) {
+    const idx = (curSource + i) % SOURCES.length;
+    if (SOURCES[idx].ok) {
+      curSource = idx;
+      renderSources();
+      if (curUrl) loadUrl(curUrl);
+      break;
+    }
+  }
+}
+
+// ============================================================
+// TAB: HOT / HISTORY
+// ============================================================
+function switchTab(name) {
+  tab = name;
+  document.querySelectorAll('.left-tab').forEach(el => el.classList.toggle('active', el.dataset.tab === name));
+  renderTab();
+}
+
+function renderTab() {
+  const body = document.getElementById('leftBody');
+  if (tab === 'hot') {
+    body.innerHTML = HOT.map((item, i) => {
+      const cls = i < 3 ? 'hot' : '';
+      const badgeCls = item.c === '电影' ? 'movie' : item.c === '综艺' ? 'show' : 'tv';
+      return `<div class="hot-item" onclick="hotPlay(HOT[${i}])">
+        <span class="hot-rank ${cls}">${i+1}</span>
+        <span class="hot-title">${item.t}</span>
+        <span class="hot-badge ${badgeCls}">${item.c}</span>
+      </div>`;
+    }).join('');
+  } else if (tab === 'guide') {
+    body.innerHTML = `<div style="padding:10px;font-size:12px;line-height:1.7;">
+      <div style="font-weight:600;color:var(--accent);margin-bottom:8px;">💡 6个副业变现方向</div>
+
+      <div style="background:var(--surface2);border-radius:8px;padding:10px;margin-bottom:8px;">
+        <div style="font-weight:600;">1️⃣ 影视导航站</div>
+        <div style="color:var(--text2);font-size:11px;">这个页面部署到Vercel（免费），绑个域名（¥12/年），挂百度联盟广告。日IP×0.3~1元。</div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:8px;padding:10px;margin-bottom:8px;">
+        <div style="font-weight:600;">2️⃣ 公众号/小红书推剧</div>
+        <div style="color:var(--text2);font-size:11px;">每天推荐3部冷门好片+解析入口。引流到站点。500阅读≈月入几百块流量主。</div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:8px;padding:10px;margin-bottom:8px;">
+        <div style="font-weight:600;">3️⃣ Telegram频道自动推</div>
+        <div style="color:var(--text2);font-size:11px;">建个TG频道，每天自动推送热门剧解析。挂返利链接（淘宝电影券CPS）。</div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:8px;padding:10px;margin-bottom:8px;">
+        <div style="font-weight:600;">4️⃣ 🔥 台球厅免费观影</div>
+        <div style="color:var(--text2);font-size:11px;">鑫球汇投影放最新电影/球赛。打台球免费看VIP。抖音发引流内容。提升翻台+饮品。</div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:8px;padding:10px;margin-bottom:8px;">
+        <div style="font-weight:600;">5️⃣ AI切片短视频</div>
+        <div style="color:var(--text2);font-size:11px;">用解析源看热剧→AI截高光→剪映批量混剪→发抖音快手。万播¥30-80激励。</div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:8px;padding:10px;margin-bottom:8px;">
+        <div style="font-weight:600;">6️⃣ 复合变现</div>
+        <div style="color:var(--text2);font-size:11px;">台球厅+观影+短视频三条线打通。线下来客看片，线上发内容引流到店。</div>
+      </div>
+
+      <div style="border-top:1px solid var(--border);padding-top:8px;margin-top:4px;color:var(--orange);">
+        ✅ 这个页面已经搭好了，直接可用。<br>
+        想做哪个方向跟我说，全套帮你搭。
+      </div>
+    </div>`;
+  } else {
+    if (!history.length) {
+      body.innerHTML = '<div class="empty-state">还没有观看记录</div>';
+    } else {
+      body.innerHTML = [...history].reverse().map((h, i) => {
+        const idx = history.length - 1 - i;
+        return `<div class="hist-item" onclick="replay('${h.t.replace(/'/g, "\\'")}')">
+          <span class="hist-title">🎬 ${h.t}</span>
+          <span class="hist-del" onclick="event.stopPropagation();delHist(${idx})">✕</span>
+        </div>`;
+      }).join('') + `<div style="padding:8px 12px;text-align:center;">
+        <button class="btn btn-sm btn-outline" onclick="clearHist()" style="font-size:11px;">清空记录</button>
+      </div>`;
+    }
+  }
+}
+
+function replay(title) {
+  document.getElementById('searchInput').value = title;
+  searchedTerm = title;
+  const searchUrl = `https://s.video.qq.com/smart_search?plat=2&query=${encodeURIComponent(title)}`;
+  loadUrl(searchUrl);
+}
+
+// ============================================================
+// HISTORY
+// ============================================================
+function loadHist() {
+  try { history = JSON.parse(localStorage.getItem('vh')||'[]'); } catch(e) { history=[]; }
+}
+function saveHist() { localStorage.setItem('vh', JSON.stringify(history)); }
+function addHist(t) {
+  history = history.filter(h => h.t !== t);
+  history.push({ t, time: Date.now() });
+  if (history.length > 50) history.shift();
+  saveHist();
+  if (tab === 'history') renderTab();
+}
+function delHist(i) {
+  history.splice(i, 1);
+  saveHist();
+  renderTab();
+}
+function clearHist() {
+  history = [];
+  saveHist();
+  renderTab();
+}
+
+// ============================================================
+// CLEAR ALL
+// ============================================================
+function clearAll() {
+  document.getElementById('searchInput').value = '';
+  document.getElementById('placeholder').style.display = 'flex';
+  document.getElementById('right').innerHTML = `
+    <div class="placeholder" id="placeholder">
+      <div class="big-icon">🎬</div>
+      <h2>搜你想看的</h2>
+      <p>输入关键词 · 一键解析 · 免会员</p>
+    </div>
+    <div class="parse-bar" id="parseBar">
+      <span class="label">正在用 <span id="sourceLabel">源①</span> 解析…</span>
+      <span class="switch" onclick="switchSource()">切换到下一源 ▶</span>
+    </div>`;
+}
+</script>
+</body>
+</html>

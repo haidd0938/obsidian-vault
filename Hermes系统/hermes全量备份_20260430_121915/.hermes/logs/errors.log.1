@@ -1,0 +1,372 @@
+2026-04-26 00:07:50,613 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              20005  95.0  0.2 68744668  67232   ??  S    12:07AM   0:00.94 python3 run-gateway-noproxy.py
+  mac              17607   4.2  1.1 69733008 354720 s000  S+   11:32PM   1:43.79 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac                541   1.3  0.7 91439288 245860   ??  S    18Apr26   4:29.10 openclaw-gateway    
+  mac              19995   0.1  0.0 67796224   1468   ??  Ss   12:07AM   0:00.02 /bin/bash -lic set +m; cd /Users/mac/.hermes && source hermes-agent/venv/bin/activate && python3 run-gateway-noproxy.py
+  mac              19778   0.0  0.3 80622608  94536   ??  Ss   12:06AM   0:01.53 node /Users/mac/.hermes/hermes-agent/node_modules/agent-browser/bin/../dist/daemon.js
+2026-04-26 00:07:54,196 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 00:07:55,298 ERROR gateway.platforms.api_server: [Api_Server] Port 8642 already in use. Set a different port in config.yaml: platforms.api_server.port
+2026-04-26 00:07:55,298 WARNING gateway.run: ✗ api_server failed to connect
+2026-04-26 00:07:55,519 ERROR gateway.platforms.base: [Telegram] Telegram bot token already in use (PID 20005). Stop the other gateway first.
+2026-04-26 00:07:55,520 WARNING gateway.run: ✗ telegram failed to connect
+2026-04-26 00:07:55,521 ERROR gateway.run: Gateway hit a non-retryable startup conflict: telegram: Telegram bot token already in use (PID 20005). Stop the other gateway first.
+2026-04-26 00:07:55,522 ERROR gateway.run: Gateway exiting cleanly: telegram: Telegram bot token already in use (PID 20005). Stop the other gateway first.
+2026-04-26 00:08:42,010 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 00:10:02,568 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 00:29:04,252 ERROR [20260426_001247_06cf8dcd] tools.tts_tool: TTS generation failed (edge): No audio was received. Please verify that your parameters are correct.
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1066, in text_to_speech_tool
+    ).result(timeout=60)
+      ^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1065, in <lambda>
+    lambda: asyncio.run(_generate_edge_tts(text, file_str, tts_config))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 296, in _generate_edge_tts
+    await communicate.save(output_path)
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/edge_tts/communicate.py", line 613, in save
+    async for message in self.stream():
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/edge_tts/communicate.py", line 588, in stream
+    async for message in self.__stream():
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/edge_tts/communicate.py", line 562, in __stream
+    raise NoAudioReceived(
+edge_tts.exceptions.NoAudioReceived: No audio was received. Please verify that your parameters are correct.
+2026-04-26 00:29:08,093 ERROR [20260426_001247_06cf8dcd] tools.tts_tool: TTS generation failed (edge): No audio was received. Please verify that your parameters are correct.
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1066, in text_to_speech_tool
+    ).result(timeout=60)
+      ^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1065, in <lambda>
+    lambda: asyncio.run(_generate_edge_tts(text, file_str, tts_config))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/asyncio/runners.py", line 190, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 296, in _generate_edge_tts
+    await communicate.save(output_path)
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/edge_tts/communicate.py", line 613, in save
+    async for message in self.stream():
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/edge_tts/communicate.py", line 588, in stream
+    async for message in self.__stream():
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/edge_tts/communicate.py", line 562, in __stream
+    raise NoAudioReceived(
+edge_tts.exceptions.NoAudioReceived: No audio was received. Please verify that your parameters are correct.
+2026-04-26 00:52:09,580 ERROR gateway.run: Another gateway instance is already running (PID 20186, HERMES_HOME=/Users/mac/.hermes). Use 'hermes gateway restart' to replace it, or 'hermes gateway stop' first.
+2026-04-26 00:52:23,935 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 00:59:16,288 WARNING gateway.platforms.base: [Telegram] Failed to send media (): File file not found: <path>
+2026-04-26 00:59:16,288 WARNING gateway.platforms.base: [Telegram] Failed to send media (): File file not found: \\s*\\S+[`\"']?
+2026-04-26 00:59:16,289 WARNING gateway.platforms.base: [Telegram] Failed to send media (): File file not found: <path>
+2026-04-26 00:59:16,289 WARNING gateway.platforms.base: [Telegram] Failed to send media (): File file not found: \
+2026-04-26 00:59:16,290 WARNING gateway.platforms.base: [Telegram] Failed to send media (.ogg): Audio file not found: /path/to/audio.ogg
+2026-04-26 00:59:16,290 WARNING gateway.platforms.base: [Telegram] Failed to send media (.(?:png|jpe?g|gif|webp|mp4|mov|avi|mkv|webm|ogg|opus|mp3|wav|m4a|epub|pdf|zip|rar|7z|docx?|xlsx?|pptx?|txt|csv|apk|ipa)(?=[\\s`\"',;:)\\]}]|$)|\\s+)[`\"']?): File file not found: \\s*(?P<path>`[^`\\n]+`|\"[^\"\\n]+\"|'[^'\\n]+'|(?:~/|/)\\S+(?:[^\\S\\n]+\\S+)*?\\.(?:png|jpe?g|gif|webp|mp4|mov|avi|mkv|webm|ogg|opus|mp3|wav|m4a|epub|pdf|zip|rar|7z|docx?|xlsx?|pptx?|txt|csv|apk|ipa)(?=[\\s`\"',;:)\\]}]|$)|\\S+)[`\"']?
+2026-04-26 00:59:16,291 WARNING gateway.platforms.base: [Telegram] Failed to send media (): File file not found: \\s*\\S+\
+2026-04-26 01:01:25,948 WARNING gateway.platforms.base: [Telegram] Failed to send media (.ogg\n): File file not found: /path/to/audio.ogg\n
+2026-04-26 01:08:25,860 ERROR tools.vision_tools: Error analyzing image: Error code: 400 - {'error': {'message': 'Failed to deserialize the JSON body into the target type: messages[0]: unknown variant `image_url`, expected `text` at line 1 column 136192', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/vision_tools.py", line 580, in vision_analyze_tool
+    response = await async_call_llm(**call_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/agent/auxiliary_client.py", line 3042, in async_call_llm
+    await client.chat.completions.create(**kwargs), task)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2714, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/openai/_base_client.py", line 1913, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/openai/_base_client.py", line 1698, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': 'Failed to deserialize the JSON body into the target type: messages[0]: unknown variant `image_url`, expected `text` at line 1 column 136192', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}
+2026-04-26 01:08:31,055 ERROR [20260426_001247_06cf8dcd] tools.vision_tools: Error analyzing image: Error code: 400 - {'error': {'message': 'Failed to deserialize the JSON body into the target type: messages[0]: unknown variant `image_url`, expected `text` at line 1 column 136247', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/vision_tools.py", line 580, in vision_analyze_tool
+    response = await async_call_llm(**call_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/agent/auxiliary_client.py", line 3042, in async_call_llm
+    await client.chat.completions.create(**kwargs), task)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 2714, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/openai/_base_client.py", line 1913, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/venv/lib/python3.11/site-packages/openai/_base_client.py", line 1698, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': 'Failed to deserialize the JSON body into the target type: messages[0]: unknown variant `image_url`, expected `text` at line 1 column 136247', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}
+2026-04-26 01:14:49,059 WARNING gateway.platforms.base: [Telegram] Failed to send media (.mp3): Audio file not found: /Users/mac/.hermes/audio_cache/tts_20260426_003657.mp3
+2026-04-26 01:16:27,399 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              25215  36.1  0.2 69150104  75256   ??  S     1:16上午   0:02.81 /Users/mac/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main gateway run --replace
+  mac              17607   0.5  1.0 69729936 332988 s000  S+   11:32下午   3:33.83 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac              24979   0.1  0.5 69488372 176816   ??  S     1:09上午   0:13.81 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.hermes/hermes-agent/venv/bin/hermes dashboard --no-open
+  mac                541   0.0  0.7 91439288 231484   ??  S    18 4月26   4:37.76 openclaw-gateway    
+  mac              24969   0.0  0.0 67800320   1576   ??  Ss    1:09上午   0:00.02 /bin/bash -lic set +m; cd /Users/mac/.hermes && source hermes-agent/venv/bin/activate && HERMES_WEB_DIST=/Users/mac/.hermes/hermes-agent/hermes_cli/web_dist hermes dashboard --no-open 2>&1
+  mac              23888   0.0  0.0 68243940  14388   ??  S    12:55上午   0:00.06 /Users/mac/.hermes/hermes-agent/venv/bin/python3 -c from multiprocessing.resource_tracker import main;main(25)
+  mac              23809   0.0  0.0 67799296   1568   ??  Ss   12:52上午   0:00.02 /bin/bash -lic set +m; cd /Users/mac/.hermes && source hermes-agent/venv/bin/activate && python3 -m hermes_cli.main gateway run
+2026-04-26 01:16:32,013 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              24979   0.2  0.5 69488372 176828   ??  S     1:09上午   0:13.82 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.hermes/hermes-agent/venv/bin/hermes dashboard --no-open
+  mac                541   0.0  0.7 91439288 231484   ??  S    18 4月26   4:37.84 openclaw-gateway    
+  mac              25215   0.0  0.2 69150104  75256   ??  S     1:16上午   0:02.81 /Users/mac/.hermes/hermes-agent/venv/bin/python -m hermes_cli.main gateway run --replace
+  mac              24969   0.0  0.0 67800320   1576   ??  Ss    1:09上午   0:00.02 /bin/bash -lic set +m; cd /Users/mac/.hermes && source hermes-agent/venv/bin/activate && HERMES_WEB_DIST=/Users/mac/.hermes/hermes-agent/hermes_cli/web_dist hermes dashboard --no-open 2>&1
+  mac              23888   0.0  0.0 68243940  14388   ??  S    12:55上午   0:00.06 /Users/mac/.hermes/hermes-agent/venv/bin/python3 -c from multiprocessing.resource_tracker import main;main(25)
+  mac              23809   0.0  0.0 67799296   1568   ??  Ss   12:52上午   0:00.02 /bin/bash -lic set +m; cd /Users/mac/.hermes && source hermes-agent/venv/bin/activate && python3 -m hermes_cli.main gateway run
+  mac              17607   0.0  1.0 69729936 332988 s000  S+   11:32下午   3:33.85 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+2026-04-26 01:16:35,762 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 09:06:15,176 WARNING gateway.platforms.telegram: [Telegram] Telegram network error, scheduling reconnect: httpx.RemoteProtocolError: Server disconnected without sending a response.
+2026-04-26 09:06:15,178 WARNING gateway.platforms.telegram: [Telegram] Telegram network error (attempt 1/10), reconnecting in 5s. Error: httpx.RemoteProtocolError: Server disconnected without sending a response.
+2026-04-26 10:52:10,798 ERROR gateway.run: Agent error in session agent:main:telegram:dm:1932005111
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 4516, in _handle_message_with_agent
+    agent_result = await self._run_agent(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 10479, in _run_agent
+    response = _executor_task.result()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 8235, in _run_in_executor_with_context
+    return await loop.run_in_executor(None, ctx.run, func, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 9843, in run_sync
+    agent = AIAgent(
+            ^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/run_agent.py", line 1737, in __init__
+    raise ValueError(
+ValueError: Model meta/llama-3.1-8b-instruct has a context window of 32,768 tokens, which is below the minimum 64,000 required by Hermes Agent.  Choose a model with at least 64K context, or set model.context_length in config.yaml to override.
+2026-04-26 10:52:28,891 ERROR gateway.run: Agent error in session agent:main:telegram:dm:1932005111
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 4516, in _handle_message_with_agent
+    agent_result = await self._run_agent(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 10479, in _run_agent
+    response = _executor_task.result()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 8235, in _run_in_executor_with_context
+    return await loop.run_in_executor(None, ctx.run, func, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 9843, in run_sync
+    agent = AIAgent(
+            ^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/run_agent.py", line 1737, in __init__
+    raise ValueError(
+ValueError: Model meta/llama-3.1-8b-instruct has a context window of 32,768 tokens, which is below the minimum 64,000 required by Hermes Agent.  Choose a model with at least 64K context, or set model.context_length in config.yaml to override.
+2026-04-26 10:55:13,992 ERROR gateway.run: Agent error in session agent:main:telegram:dm:1932005111
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 4516, in _handle_message_with_agent
+    agent_result = await self._run_agent(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 10479, in _run_agent
+    response = _executor_task.result()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 8235, in _run_in_executor_with_context
+    return await loop.run_in_executor(None, ctx.run, func, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 9843, in run_sync
+    agent = AIAgent(
+            ^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/run_agent.py", line 1737, in __init__
+    raise ValueError(
+ValueError: Model meta/llama-3.1-8b-instruct has a context window of 32,768 tokens, which is below the minimum 64,000 required by Hermes Agent.  Choose a model with at least 64K context, or set model.context_length in config.yaml to override.
+2026-04-26 10:55:29,265 ERROR gateway.run: Agent error in session agent:main:telegram:dm:1932005111
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 4516, in _handle_message_with_agent
+    agent_result = await self._run_agent(
+                   ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 10479, in _run_agent
+    response = _executor_task.result()
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 8235, in _run_in_executor_with_context
+    return await loop.run_in_executor(None, ctx.run, func, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/gateway/run.py", line 9843, in run_sync
+    agent = AIAgent(
+            ^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/run_agent.py", line 1737, in __init__
+    raise ValueError(
+ValueError: Model meta/llama-3.1-8b-instruct has a context window of 32,768 tokens, which is below the minimum 64,000 required by Hermes Agent.  Choose a model with at least 64K context, or set model.context_length in config.yaml to override.
+2026-04-26 10:56:26,415 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              17607  24.1  1.1 69779144 363116 s000  S+   11:32PM   6:21.00 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac                541   1.3  0.3 91439288 115456   ??  S    18Apr26   4:51.15 openclaw-gateway    
+  mac              28015   0.0  0.4 78773908 122220   ??  Ss    1:48AM   0:03.96 /usr/local/node23/bin/node /Users/mac/hermes-web-ui/dist/server/index.js
+  mac              25272   0.0  0.0 68552164   5156   ??  S     1:17AM   0:00.08 /Users/mac/.hermes/hermes-agent/venv/bin/python -c from multiprocessing.resource_tracker import main;main(25)
+  mac              24979   0.0  0.4 69505808 127260   ??  S     1:09AM   0:29.90 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.hermes/hermes-agent/venv/bin/hermes dashboard --no-open
+  mac              24969   0.0  0.0 67800320    732   ??  Ss    1:09AM   0:00.02 /bin/bash -lic set +m; cd /Users/mac/.hermes && source hermes-agent/venv/bin/activate && HERMES_WEB_DIST=/Users/mac/.hermes/hermes-agent/hermes_cli/web_dist hermes dashboard --no-open 2>&1
+  mac              32232   0.0  0.0 67786744   1144   ??  Ss   10:56AM   0:00.01 /bin/bash -c source /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-e96a57d7acdb.sh 2>/dev/null || true\012builtin cd /Users/mac/.hermes || exit 126\012eval 'kill 25215 2>/dev/null; sleep 2; ps aux | grep -i gateway | grep -v grep | grep -v openclaw'\012__hermes_ec=$?\012export -p > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-e96a57d7acdb.sh 2>/dev/null || true\012pwd -P > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-cwd-e96a57d7acdb.txt 2>/dev/null || true\012printf '\n__HERMES_CWD_e96a57d7acdb__%s__HERMES_CWD_e96a57d7acdb__\n' "$(pwd -P)"\012exit $__hermes_ec
+2026-04-26 10:56:30,792 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 10:57:32,096 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              17607  11.5  1.1 69760684 361084 s000  S+   11:32PM   6:23.42 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac              32282   3.1  0.0 67778552   1156   ??  Ss   10:57AM   0:00.01 /bin/bash -c source /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-e96a57d7acdb.sh 2>/dev/null || true\012builtin cd /Users/mac/.hermes || exit 126\012eval 'pkill -f "hermes_cli.main gateway" 2>/dev/null; sleep 3; ps aux | grep -i gateway | grep -v grep | grep -v openclaw'\012__hermes_ec=$?\012export -p > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-e96a57d7acdb.sh 2>/dev/null || true\012pwd -P > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-cwd-e96a57d7acdb.txt 2>/dev/null || true\012printf '\n__HERMES_CWD_e96a57d7acdb__%s__HERMES_CWD_e96a57d7acdb__\n' "$(pwd -P)"\012exit $__hermes_ec
+  mac              28015   0.0  0.4 78773908 122224   ??  Ss    1:48AM   0:03.97 /usr/local/node23/bin/node /Users/mac/hermes-web-ui/dist/server/index.js
+  mac                541   0.0  0.3 91439288 115500   ??  S    18Apr26   4:51.24 openclaw-gateway    
+2026-04-26 10:57:36,631 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 10:59:30,959 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              17607   6.8  1.1 69762732 363316 s000  S+   11:32PM   6:32.20 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac              28015   0.0  0.4 78778324 129984   ??  Ss    1:48AM   0:04.16 /usr/local/node23/bin/node /Users/mac/hermes-web-ui/dist/server/index.js
+  mac                541   0.0  0.3 91439288 115628   ??  S    18Apr26   4:51.62 openclaw-gateway    
+  mac              32457   0.0  0.0 67777528   1128   ??  Ss   10:59AM   0:00.01 /bin/bash -c source /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-3382c90d9427.sh 2>/dev/null || true\012builtin cd /Users/mac || exit 126\012eval 'pkill -f "hermes_cli.main gateway" 2>/dev/null; sleep 5; cd ~/.hermes && tail -5 logs/agent.log'\012__hermes_ec=$?\012export -p > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-3382c90d9427.sh 2>/dev/null || true\012pwd -P > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-cwd-3382c90d9427.txt 2>/dev/null || true\012printf '\n__HERMES_CWD_3382c90d9427__%s__HERMES_CWD_3382c90d9427__\n' "$(pwd -P)"\012exit $__hermes_ec
+2026-04-26 10:59:35,092 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 11:00:34,212 ERROR [20260426_105155_8e2a53f7] tools.vision_tools: Error analyzing image: Invalid image source. Provide an HTTP/HTTPS URL or a valid local file path.
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/vision_tools.py", line 491, in vision_analyze_tool
+    raise ValueError(
+ValueError: Invalid image source. Provide an HTTP/HTTPS URL or a valid local file path.
+2026-04-26 11:02:00,446 ERROR [20260426_105155_8e2a53f7] tools.vision_tools: Error analyzing image: Invalid image source. Provide an HTTP/HTTPS URL or a valid local file path.
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/vision_tools.py", line 491, in vision_analyze_tool
+    raise ValueError(
+ValueError: Invalid image source. Provide an HTTP/HTTPS URL or a valid local file path.
+2026-04-26 11:08:59,934 WARNING agent.auxiliary_client: resolve_provider_client: custom/main requested but no endpoint credentials found
+2026-04-26 11:09:44,827 ERROR [20260426_105155_8e2a53f7] tools.registry: Tool text_to_speech dispatch error: [Errno 45] Operation not supported: '/home/user'
+Traceback (most recent call last):
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/voice-memos'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/registry.py", line 306, in dispatch
+    return entry.handler(args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1510, in <lambda>
+    handler=lambda args, **kw: text_to_speech_tool(
+                               ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 977, in text_to_speech_tool
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1120, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+OSError: [Errno 45] Operation not supported: '/home/user'
+2026-04-26 11:26:52,076 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              17607  15.1  1.1 69761708 368488 s000  S+   11:32PM   7:29.67 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac              33830   2.6  0.0 67796984   1288   ??  Ss   11:26AM   0:00.01 /bin/bash -c source /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-6bfcaed134ed.sh 2>/dev/null || true\012builtin cd /Users/mac/.hermes/sessions || exit 126\012eval '# 先停止当前的 gateway，然后重新加载 launchd\012# 看看当前的 gateway 进程\012echo "当前 gateway 进程:"\012ps aux | grep -E '\''hermes.*gateway|openclaw.*gateway'\'' | grep -v grep\012\012echo "---"\012\012# 通过 launchctl 卸载并重新加载 hermes gateway\012launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 1\012launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 2\012\012echo "--- 重启后 ---"\012ps aux | grep -E '\''hermes.*gateway'\'' | grep -v grep'\012__hermes_ec=$?\012export -p > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-6bfcaed134ed.sh 2>/dev/null || true\012pwd -P > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-cwd-6bfcaed134ed.txt 2>/dev/null || true\012printf '\n__HERMES_CWD_6bfcaed134ed__%s__HERMES_CWD_6bfcaed134ed__\n' "$(pwd -P)"\012exit $__hermes_ec
+  mac              33836   2.3  0.0 67646472   2096   ??  S    11:26AM   0:00.01 launchctl bootout gui/501 /Users/mac/Library/LaunchAgents/ai.hermes.gateway.plist
+  mac                541   0.6  0.4 91439288 118628   ??  S    18Apr26   4:55.10 openclaw-gateway    
+  mac              28015   0.0  0.4 78778324 131072   ??  Ss    1:48AM   0:04.46 /usr/local/node23/bin/node /Users/mac/hermes-web-ui/dist/server/index.js
+  mac              32928   0.0  0.0 68422116  14828   ??  S    11:09AM   0:00.09 /Users/mac/.hermes/hermes-agent/venv/bin/python -c from multiprocessing.resource_tracker import main;main(33)
+2026-04-26 11:26:58,749 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 11:29:37,539 ERROR [20260426_105155_8e2a53f7] tools.registry: Tool text_to_speech dispatch error: [Errno 45] Operation not supported: '/home/user'
+Traceback (most recent call last):
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/voice-memos'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/registry.py", line 306, in dispatch
+    return entry.handler(args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1510, in <lambda>
+    handler=lambda args, **kw: text_to_speech_tool(
+                               ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 977, in text_to_speech_tool
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1120, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+OSError: [Errno 45] Operation not supported: '/home/user'
+2026-04-26 11:32:56,371 WARNING agent.auxiliary_client: resolve_provider_client: custom/main requested but no endpoint credentials found
+2026-04-26 11:34:12,439 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              17607  15.6  1.1 69761708 369448 s000  S+   11:32PM   7:51.04 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac              34235   3.5  0.0 67805176   1272   ??  Ss   11:34AM   0:00.01 /bin/bash -c source /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-7407fa672585.sh 2>/dev/null || true\012builtin cd /Users/mac/.hermes/sessions || exit 126\012eval '# 重启 gateway\012echo "当前 gateway PID: $(ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'')"\012\012launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 2\012\012# 确保进程已停止\012ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9 2>/dev/null\012sleep 1\012\012launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 3\012\012echo "新 gateway PID: $(ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'')"'\012__hermes_ec=$?\012export -p > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-7407fa672585.sh 2>/dev/null || true\012pwd -P > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-cwd-7407fa672585.txt 2>/dev/null || true\012printf '\n__HERMES_CWD_7407fa672585__%s__HERMES_CWD_7407fa672585__\n' "$(pwd -P)"\012exit $__hermes_ec
+  mac                541   0.5  0.4 91439288 118984   ??  S    18Apr26   4:56.87 openclaw-gateway    
+  mac              28015   0.0  0.4 78778324 131132   ??  Ss    1:48AM   0:04.54 /usr/local/node23/bin/node /Users/mac/hermes-web-ui/dist/server/index.js
+  mac              34243   0.0  0.0 67645448   2068   ??  S    11:34AM   0:00.01 launchctl bootout gui/501 /Users/mac/Library/LaunchAgents/ai.hermes.gateway.plist
+  mac              33925   0.0  0.0 68553188  14988   ??  S    11:29AM   0:00.08 /Users/mac/.hermes/hermes-agent/venv/bin/python -c from multiprocessing.resource_tracker import main;main(25)
+2026-04-26 11:34:19,891 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 11:36:36,716 ERROR [20260426_105155_8e2a53f7] tools.registry: Tool text_to_speech dispatch error: [Errno 45] Operation not supported: '/home/user'
+Traceback (most recent call last):
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/voice-memos'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/registry.py", line 306, in dispatch
+    return entry.handler(args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1510, in <lambda>
+    handler=lambda args, **kw: text_to_speech_tool(
+                               ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 977, in text_to_speech_tool
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1120, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+OSError: [Errno 45] Operation not supported: '/home/user'
+2026-04-26 12:10:49,984 ERROR [20260426_105155_8e2a53f7] tools.registry: Tool text_to_speech dispatch error: [Errno 45] Operation not supported: '/home/user'
+Traceback (most recent call last):
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/voice-memos'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/registry.py", line 306, in dispatch
+    return entry.handler(args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1510, in <lambda>
+    handler=lambda args, **kw: text_to_speech_tool(
+                               ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 977, in text_to_speech_tool
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1120, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+OSError: [Errno 45] Operation not supported: '/home/user'
+2026-04-26 12:10:55,242 WARNING agent.auxiliary_client: resolve_provider_client: custom/main requested but no endpoint credentials found
+2026-04-26 12:13:34,305 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              17607  15.2  1.0 69761708 350944 s000  S+   11:32PM   8:24.26 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac              35341   2.7  0.0 67786744   1196   ??  Ss   12:13PM   0:00.01 /bin/bash -c source /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-f1cf1a75a55c.sh 2>/dev/null || true\012builtin cd /Users/mac/.hermes || exit 126\012eval '# 重启 gateway 让新 TTS schema 生效\012cd ~/.hermes\012echo "当前 gateway PID: $(ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'')"\012\012launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 2\012\012# 确保进程已停止\012ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9 2>/dev/null\012sleep 1\012\012launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 3\012\012echo "新 gateway PID: $(ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'')"'\012__hermes_ec=$?\012export -p > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-f1cf1a75a55c.sh 2>/dev/null || true\012pwd -P > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-cwd-f1cf1a75a55c.txt 2>/dev/null || true\012printf '\n__HERMES_CWD_f1cf1a75a55c__%s__HERMES_CWD_f1cf1a75a55c__\n' "$(pwd -P)"\012exit $__hermes_ec
+  mac                541   0.5  0.4 91439288 125716   ??  S    18Apr26   5:01.39 openclaw-gateway    
+  mac              28015   0.0  0.4 78780392 118752   ??  Ss    1:48AM   0:05.28 /usr/local/node23/bin/node /Users/mac/hermes-web-ui/dist/server/index.js
+  mac              35349   0.0  0.0 67645448   2064   ??  S    12:13PM   0:00.01 launchctl bootout gui/501 /Users/mac/Library/LaunchAgents/ai.hermes.gateway.plist
+  mac              34317   0.0  0.0 68552164   6844   ??  S    11:36AM   0:00.07 /Users/mac/.hermes/hermes-agent/venv/bin/python -c from multiprocessing.resource_tracker import main;main(25)

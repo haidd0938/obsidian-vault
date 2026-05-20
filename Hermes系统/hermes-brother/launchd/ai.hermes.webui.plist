@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>ai.hermes.webui</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/mac/.local/bin/hermes</string>
+        <string>webui</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/Users/mac/.hermes/logs/webui.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/mac/.hermes/logs/webui.error.log</string>
+    <key>WorkingDirectory</key>
+    <string>/Users/mac</string>
+</dict>
+</plist>

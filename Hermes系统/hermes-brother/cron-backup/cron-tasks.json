@@ -1,0 +1,76 @@
+# 贾维斯二弟 Cron 任务清单
+# 以下10个任务需要在二弟的 Hermes 中手动创建
+# 用法: hermes cron create --prompt "..." --schedule "..."
+# 或者用 hermes cron import 直接导入 JSON
+
+[
+  {
+    "name": "顾比交易大脑-每日早报",
+    "schedule": "30 7 * * 1-5",
+    "skills": ["stock-robot"],
+    "script": "checkers/check_gubi.py",
+    "prompt": "现在是北京时间早上7:30。执行顾比交易大脑的今日交易流程并生成日报。\n\n⚠️ 注意：先看上方运行脚本的输出。\n- 如果 `HAS_OUTPUT=true` → 说明今日顾比早报已有产出，直接回复\"今日顾比早报已完成\"即可。\n- 否则执行交易流程：市场概览 → 决策评分卡 → 技术分析 → 顾比均线信号 → 输出日报"
+  },
+  {
+    "name": "每日EPC建筑行业热点视频",
+    "schedule": "0 8 * * *",
+    "skills": ["daily-epc-video-production"],
+    "script": "checkers/check_epc.py",
+    "prompt": "执行每日建筑行业/EPC热点视频制作流程。\n\n先看上方运行脚本的输出。\n- HAS_OUTPUT=true → 今日已有EPC视频产出，直接回复。\n- 否则：web_search建筑热点 → 生成脚本 → 制作视频"
+  },
+  {
+    "name": "DeepSeek余额监控 - 低于5元提醒",
+    "schedule": "0 9 * * *",
+    "skills": [],
+    "script": "checkers/check_deepseek.py",
+    "prompt": "检查DeepSeek账户余额。先看上方检查脚本输出（会从~/.hermes/.env读取API Key查余额）。HAS_OUTPUT=true说明余额低于5元，通知老板充值。"
+  },
+  {
+    "name": "每周一项目进度汇总",
+    "schedule": "0 9 * * 1",
+    "skills": [],
+    "prompt": "现在是周一早上9点，执行每周项目进度汇总。\n汇总以下项目的最新进展、待办事项和风险点：\n1. 常记咩咩项目（借款已办完？生产进展？）\n2. 鑫球汇台球俱乐部（经营数据、视频产线运行情况）\n3. 近期EPC项目进展\n4. 小红书\"AI副业研究所\"运营数据"
+  },
+  {
+    "name": "AI副业研究所-每日变现内容",
+    "schedule": "0 10 * * *",
+    "skills": ["opc-growth-xiaohongshu-fusion"],
+    "enabled_toolsets": ["web", "terminal", "file", "skills"],
+    "prompt": "你是小红书账号\"AI副业研究所\"的自动运营，目标是变现赚钱。\n每日工作流：\n1. 选（web_search当天AI/科技热点，选普通人能用的AI工具方向）\n2. 写一条小红书笔记\n3. 通过MCP发布\n4. 完成"
+  },
+  {
+    "name": "鑫球汇台球每日视频 - 4路线轮换",
+    "schedule": "30 10 * * *",
+    "skills": ["video-script-to-production"],
+    "script": "checkers/check_xinqiuhui.py",
+    "prompt": "现在是北京时间10:30，执行鑫球汇台球俱乐部视频每日生产。\n\n先看上方检查脚本输出。HAS_OUTPUT=true跳过。否则按4路线轮换规则生成当日视频。"
+  },
+  {
+    "name": "甘肃投资项目每日抓取",
+    "schedule": "0 11 * * *",
+    "skills": ["gansu-project-crawler"],
+    "script": "checkers/check_gansu.py",
+    "prompt": "执行甘肃投资项目抓取。\n先看上方检查脚本输出。HAS_OUTPUT=true跳过。否则搜索甘肃地区建筑/工程类项目。"
+  },
+  {
+    "name": "股票机器人-每日收盘复盘",
+    "schedule": "30 15 * * 1-5",
+    "skills": ["stock-robot"],
+    "script": "checkers/check_stock.py",
+    "prompt": "现在是北京时间下午3:30，A股已经收盘。执行股票机器人完整复盘。\n先看上方检查脚本输出。HAS_OUTPUT=true跳过。否则执行技术分析+决策评分卡+顾比信号。"
+  },
+  {
+    "name": "GitHub Trending副业监控",
+    "schedule": "0 22 * * *",
+    "skills": [],
+    "script": "checkers/check_trending.py",
+    "enabled_toolsets": ["terminal", "web"],
+    "prompt": "执行GitHub Trending副业监控。\n先看上方检查脚本输出。HAS_OUTPUT=true跳过。否则爬Trending找有价值的开源项目。"
+  },
+  {
+    "name": "0点提醒睡觉-带今日汇总",
+    "schedule": "0 0 * * *",
+    "skills": [],
+    "prompt": "现在是0点了，生成今日睡前提醒，包含当天所有定时任务的执行汇总情况。"
+  }
+]

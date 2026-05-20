@@ -1,0 +1,204 @@
+2026-04-26 11:32:55,151 INFO gateway.run: Queued follow-up for session agent:main:telegram:: final stream delivery not confirmed; sending first response before continuing.
+2026-04-26 11:32:56,371 WARNING agent.auxiliary_client: resolve_provider_client: custom/main requested but no endpoint credentials found
+2026-04-26 11:33:06,880 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:33:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:33:36,874 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:33:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:33:39,753 INFO gateway.run: response ready: platform=telegram chat=1932005111 time=74.3s api_calls=2 response=1081 chars
+2026-04-26 11:33:39,798 INFO gateway.platforms.base: [Telegram] Sending response (1081 chars) to 1932005111
+2026-04-26 11:34:06,855 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:34:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:34:12,264 INFO gateway.run: Received SIGTERM/SIGINT — initiating shutdown
+2026-04-26 11:34:12,439 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              17607  15.6  1.1 69761708 369448 s000  S+   11:32PM   7:51.04 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac              34235   3.5  0.0 67805176   1272   ??  Ss   11:34AM   0:00.01 /bin/bash -c source /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-7407fa672585.sh 2>/dev/null || true\012builtin cd /Users/mac/.hermes/sessions || exit 126\012eval '# 重启 gateway\012echo "当前 gateway PID: $(ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'')"\012\012launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 2\012\012# 确保进程已停止\012ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9 2>/dev/null\012sleep 1\012\012launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 3\012\012echo "新 gateway PID: $(ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'')"'\012__hermes_ec=$?\012export -p > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-7407fa672585.sh 2>/dev/null || true\012pwd -P > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-cwd-7407fa672585.txt 2>/dev/null || true\012printf '\n__HERMES_CWD_7407fa672585__%s__HERMES_CWD_7407fa672585__\n' "$(pwd -P)"\012exit $__hermes_ec
+  mac                541   0.5  0.4 91439288 118984   ??  S    18Apr26   4:56.87 openclaw-gateway    
+  mac              28015   0.0  0.4 78778324 131132   ??  Ss    1:48AM   0:04.54 /usr/local/node23/bin/node /Users/mac/hermes-web-ui/dist/server/index.js
+  mac              34243   0.0  0.0 67645448   2068   ??  S    11:34AM   0:00.01 launchctl bootout gui/501 /Users/mac/Library/LaunchAgents/ai.hermes.gateway.plist
+  mac              33925   0.0  0.0 68553188  14988   ??  S    11:29AM   0:00.08 /Users/mac/.hermes/hermes-agent/venv/bin/python -c from multiprocessing.resource_tracker import main;main(25)
+2026-04-26 11:34:12,444 INFO gateway.run: Stopping gateway...
+2026-04-26 11:34:12,446 INFO gateway.platforms.api_server: [Api_Server] API server stopped
+2026-04-26 11:34:12,446 INFO gateway.run: ✓ api_server disconnected
+2026-04-26 11:34:13,847 INFO telegram.ext.Application: Application is stopping. This might take a moment.
+2026-04-26 11:34:13,848 INFO telegram.ext.Application: Application.stop() complete
+2026-04-26 11:34:13,851 INFO gateway.platforms.telegram: [Telegram] Disconnected from Telegram
+2026-04-26 11:34:13,851 INFO gateway.run: ✓ telegram disconnected
+2026-04-26 11:34:13,855 INFO gateway.run: Gateway stopped
+2026-04-26 11:34:13,856 INFO gateway.run: Cron ticker stopped
+2026-04-26 11:34:13,856 INFO gateway.run: Exiting with code 1 (signal-initiated shutdown without restart request) so systemd Restart=on-failure can revive the gateway.
+2026-04-26 11:34:18,067 INFO hermes_cli.plugins: Plugin 'openai' registered image_gen provider: openai
+2026-04-26 11:34:18,068 INFO hermes_cli.plugins: Plugin 'openai-codex' registered image_gen provider: openai-codex
+2026-04-26 11:34:18,132 INFO hermes_cli.plugins: Plugin 'xai' registered image_gen provider: xai
+2026-04-26 11:34:18,132 INFO hermes_cli.plugins: Plugin discovery complete: 4 found, 3 enabled
+2026-04-26 11:34:19,771 INFO gateway.run: Starting Hermes Gateway...
+2026-04-26 11:34:19,771 INFO gateway.run: Session storage: /Users/mac/.hermes/sessions
+2026-04-26 11:34:19,817 INFO gateway.run: Previous gateway exited cleanly — skipping session suspension
+2026-04-26 11:34:19,884 INFO gateway.run: Connecting to api_server...
+2026-04-26 11:34:19,891 WARNING gateway.platforms.api_server: [Api_Server] ⚠️  No API key configured (API_SERVER_KEY / platforms.api_server.key). All requests will be accepted without authentication. Set an API key for production deployments to prevent unauthorized access to sessions, responses, and cron jobs.
+2026-04-26 11:34:19,892 INFO gateway.platforms.api_server: [Api_Server] API server listening on http://127.0.0.1:8642 (model: hermes-agent)
+2026-04-26 11:34:19,893 INFO gateway.run: ✓ api_server connected
+2026-04-26 11:34:20,125 INFO gateway.run: Connecting to telegram...
+2026-04-26 11:34:21,197 INFO gateway.platforms.telegram: [Telegram] Auto-discovered Telegram fallback IPs: 149.154.166.110
+2026-04-26 11:34:21,198 INFO gateway.platforms.telegram: [Telegram] Proxy detected; passing explicitly to HTTPXRequest: http://127.0.0.1:6478
+2026-04-26 11:34:22,914 INFO telegram.ext.Application: Application started
+2026-04-26 11:34:24,529 INFO gateway.platforms.telegram: [Telegram] Telegram menu: 100 commands registered, 41 hidden (over 100 limit). Use /commands for full list.
+2026-04-26 11:34:24,531 INFO gateway.platforms.telegram: [Telegram] Connected to Telegram (polling mode)
+2026-04-26 11:34:24,531 INFO gateway.run: ✓ telegram connected
+2026-04-26 11:34:24,532 INFO gateway.run: 1 hook(s) loaded
+2026-04-26 11:34:24,533 INFO gateway.run: Gateway running with 2 platform(s)
+2026-04-26 11:34:24,539 INFO gateway.run: Channel directory built: 1 target(s)
+2026-04-26 11:34:24,539 INFO gateway.run: Press Ctrl+C to stop
+2026-04-26 11:34:24,540 INFO gateway.run: Cron ticker started (interval=60s)
+2026-04-26 11:34:36,884 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:34:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:35:06,842 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:35:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:35:36,850 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:35:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:35:46,869 INFO gateway.platforms.telegram: [Telegram] Flushing text batch agent:main:telegram:dm:1932005111 (11 chars)
+2026-04-26 11:35:46,870 INFO gateway.run: inbound message: platform=telegram user=坦克✈ 0938 chat=1932005111 msg='你记忆中的我是什么样子'
+2026-04-26 11:35:47,809 INFO run_agent: Loaded environment variables from /Users/mac/.hermes/.env
+2026-04-26 11:35:50,372 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider custom (meta/llama-3.3-70b-instruct)
+2026-04-26 11:36:02,302 INFO gateway.run: response ready: platform=telegram chat=1932005111 time=15.4s api_calls=2 response=63 chars
+2026-04-26 11:36:02,335 INFO gateway.platforms.base: [Telegram] Sending response (63 chars) to 1932005111
+2026-04-26 11:36:06,932 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:36:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:36:22,775 INFO gateway.platforms.telegram: [Telegram] Cached user voice at /Users/mac/.hermes/audio_cache/audio_7d02e7297cae.ogg
+2026-04-26 11:36:22,776 INFO gateway.run: inbound message: platform=telegram user=坦克✈ 0938 chat=1932005111 msg=''
+2026-04-26 11:36:25,604 INFO [20260426_105155_8e2a53f7] faster_whisper: Processing audio with duration 00:03.994
+2026-04-26 11:36:26,288 INFO [20260426_105155_8e2a53f7] faster_whisper: Detected language 'zh' with probability 1.00
+2026-04-26 11:36:36,716 ERROR [20260426_105155_8e2a53f7] tools.registry: Tool text_to_speech dispatch error: [Errno 45] Operation not supported: '/home/user'
+Traceback (most recent call last):
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/voice-memos'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/registry.py", line 306, in dispatch
+    return entry.handler(args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1510, in <lambda>
+    handler=lambda args, **kw: text_to_speech_tool(
+                               ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 977, in text_to_speech_tool
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1120, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+OSError: [Errno 45] Operation not supported: '/home/user'
+2026-04-26 11:36:36,863 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:36:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:36:44,136 INFO gateway.run: response ready: platform=telegram chat=1932005111 time=21.4s api_calls=2 response=63 chars
+2026-04-26 11:36:48,883 INFO gateway.platforms.base: [Telegram] Sending response (63 chars) to 1932005111
+2026-04-26 11:37:06,887 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:37:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:37:36,833 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:37:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:38:06,841 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:38:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:38:36,863 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:38:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:39:06,944 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:39:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:39:36,896 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:39:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:40:06,813 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:40:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:40:36,800 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:40:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:41:06,804 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:41:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:41:36,796 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:41:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:42:06,815 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:42:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:42:36,830 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:42:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:43:06,812 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:43:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:43:36,820 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:43:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:44:06,808 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:44:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:44:36,839 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:44:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:45:06,816 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:45:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:45:36,824 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:45:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:46:06,790 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:46:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:46:36,825 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:46:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:47:06,802 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:47:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:47:36,810 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:47:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:48:06,811 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:48:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:48:36,839 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:48:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:49:06,798 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:49:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:49:36,797 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:49:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:50:06,773 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:50:06 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:50:36,767 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:50:36 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:51:07,096 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:51:07 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:51:41,063 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:51:41 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:52:54,086 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:52:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:53:54,132 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:53:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:54:54,540 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:54:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:55:54,570 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:55:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:56:54,223 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:56:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:57:54,668 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:57:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:58:54,493 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:58:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 11:59:54,322 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:11:59:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:00:32,479 INFO agent.auxiliary_client: Auxiliary auto-detect: using main provider custom (meta/llama-3.3-70b-instruct)
+2026-04-26 12:00:54,030 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:00:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:01:11,032 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:01:11 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:01:41,726 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:01:41 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:02:11,512 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:02:11 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:02:54,586 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:02:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:03:54,425 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:03:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:04:54,371 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:04:54 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:05:52,497 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:05:52 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:06:11,175 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:06:11 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:06:40,800 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:06:40 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:07:11,159 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:07:11 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:07:40,797 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:07:40 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:08:11,045 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:08:11 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:08:41,012 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:08:41 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:09:10,998 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:09:10 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:09:23,447 INFO gateway.platforms.telegram: [Telegram] Flushing text batch agent:main:telegram:dm:1932005111 (15 chars)
+2026-04-26 12:09:23,449 INFO gateway.run: inbound message: platform=telegram user=坦克✈ 0938 chat=1932005111 msg='你好，现在几点了，吃午饭可以吗'
+2026-04-26 12:09:37,716 INFO gateway.run: response ready: platform=telegram chat=1932005111 time=14.3s api_calls=2 response=63 chars
+2026-04-26 12:09:37,790 INFO gateway.platforms.base: [Telegram] Sending response (63 chars) to 1932005111
+2026-04-26 12:09:41,021 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:09:41 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:10:11,007 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:10:11 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:10:11,616 INFO gateway.platforms.telegram: [Telegram] Flushing text batch agent:main:telegram:dm:1932005111 (6 chars)
+2026-04-26 12:10:11,617 INFO gateway.run: inbound message: platform=telegram user=坦克✈ 0938 chat=1932005111 msg='回答我的问题'
+2026-04-26 12:10:19,968 INFO gateway.run: response ready: platform=telegram chat=1932005111 time=8.4s api_calls=2 response=63 chars
+2026-04-26 12:10:20,042 INFO gateway.platforms.base: [Telegram] Sending response (63 chars) to 1932005111
+2026-04-26 12:10:41,195 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:10:41 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:10:42,136 INFO gateway.platforms.telegram: [Telegram] Cached user voice at /Users/mac/.hermes/audio_cache/audio_6b48d436d4d4.ogg
+2026-04-26 12:10:42,137 INFO gateway.run: inbound message: platform=telegram user=坦克✈ 0938 chat=1932005111 msg=''
+2026-04-26 12:10:43,356 INFO [20260426_105155_8e2a53f7] faster_whisper: Processing audio with duration 00:07.414
+2026-04-26 12:10:44,760 INFO [20260426_105155_8e2a53f7] faster_whisper: Detected language 'zh' with probability 0.99
+2026-04-26 12:10:49,984 ERROR [20260426_105155_8e2a53f7] tools.registry: Tool text_to_speech dispatch error: [Errno 45] Operation not supported: '/home/user'
+Traceback (most recent call last):
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/home/user/voice-memos'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mac/.hermes/hermes-agent/tools/registry.py", line 306, in dispatch
+    return entry.handler(args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 1510, in <lambda>
+    handler=lambda args, **kw: text_to_speech_tool(
+                               ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mac/.hermes/hermes-agent/tools/tts_tool.py", line 977, in text_to_speech_tool
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1120, in mkdir
+    self.parent.mkdir(parents=True, exist_ok=True)
+  File "/Users/mac/.local/share/uv/python/cpython-3.11.15-macos-x86_64-none/lib/python3.11/pathlib.py", line 1116, in mkdir
+    os.mkdir(self, mode)
+OSError: [Errno 45] Operation not supported: '/home/user'
+2026-04-26 12:10:53,634 INFO gateway.run: response ready: platform=telegram chat=1932005111 time=11.5s api_calls=2 response=63 chars
+2026-04-26 12:10:55,242 WARNING agent.auxiliary_client: resolve_provider_client: custom/main requested but no endpoint credentials found
+2026-04-26 12:10:58,750 INFO gateway.platforms.base: [Telegram] Sending response (63 chars) to 1932005111
+2026-04-26 12:11:11,061 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:11:11 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:11:41,031 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:11:41 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:12:11,043 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:12:11 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:12:41,127 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:12:41 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:13:10,946 INFO aiohttp.access: 127.0.0.1 [26/Apr/2026:12:13:10 +0800] "GET /health HTTP/1.1" 200 266 "-" "node"
+2026-04-26 12:13:34,043 INFO gateway.run: Received SIGTERM/SIGINT — initiating shutdown
+2026-04-26 12:13:34,305 WARNING gateway.run: Shutdown diagnostic — other hermes processes running:
+  mac              17607  15.2  1.0 69761708 350944 s000  S+   11:32PM   8:24.26 /Users/mac/.hermes/hermes-agent/venv/bin/python3 /Users/mac/.local/bin/hermes
+  mac              35341   2.7  0.0 67786744   1196   ??  Ss   12:13PM   0:00.01 /bin/bash -c source /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-f1cf1a75a55c.sh 2>/dev/null || true\012builtin cd /Users/mac/.hermes || exit 126\012eval '# 重启 gateway 让新 TTS schema 生效\012cd ~/.hermes\012echo "当前 gateway PID: $(ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'')"\012\012launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 2\012\012# 确保进程已停止\012ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'' | xargs kill -9 2>/dev/null\012sleep 1\012\012launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.hermes.gateway.plist 2>&1\012sleep 3\012\012echo "新 gateway PID: $(ps aux | grep '\''hermes.*gateway'\'' | grep -v grep | awk '\''{print $2}'\'')"'\012__hermes_ec=$?\012export -p > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-snap-f1cf1a75a55c.sh 2>/dev/null || true\012pwd -P > /var/folders/1x/qcplfbgn4430v6l9gltk_7v00000gn/T/hermes-cwd-f1cf1a75a55c.txt 2>/dev/null || true\012printf '\n__HERMES_CWD_f1cf1a75a55c__%s__HERMES_CWD_f1cf1a75a55c__\n' "$(pwd -P)"\012exit $__hermes_ec
+  mac                541   0.5  0.4 91439288 125716   ??  S    18Apr26   5:01.39 openclaw-gateway    
+  mac              28015   0.0  0.4 78780392 118752   ??  Ss    1:48AM   0:05.28 /usr/local/node23/bin/node /Users/mac/hermes-web-ui/dist/server/index.js
+  mac              35349   0.0  0.0 67645448   2064   ??  S    12:13PM   0:00.01 launchctl bootout gui/501 /Users/mac/Library/LaunchAgents/ai.hermes.gateway.plist
+  mac              34317   0.0  0.0 68552164   6844   ??  S    11:36AM   0:00.07 /Users/mac/.hermes/hermes-agent/venv/bin/python -c from multiprocessing.resource_tracker import main;main(25)
+2026-04-26 12:13:34,311 INFO gateway.run: Stopping gateway...
+2026-04-26 12:13:34,313 INFO gateway.platforms.api_server: [Api_Server] API server stopped
+2026-04-26 12:13:34,314 INFO gateway.run: ✓ api_server disconnected
+2026-04-26 12:13:35,853 INFO telegram.ext.Application: Application is stopping. This might take a moment.
+2026-04-26 12:13:35,853 INFO telegram.ext.Application: Application.stop() complete
+2026-04-26 12:13:35,857 INFO gateway.platforms.telegram: [Telegram] Disconnected from Telegram
+2026-04-26 12:13:35,857 INFO gateway.run: ✓ telegram disconnected
+2026-04-26 12:13:35,861 INFO gateway.run: Gateway stopped
+2026-04-26 12:13:35,862 INFO gateway.run: Cron ticker stopped
+2026-04-26 12:13:35,862 INFO gateway.run: Exiting with code 1 (signal-initiated shutdown without restart request) so systemd Restart=on-failure can revive the gateway.

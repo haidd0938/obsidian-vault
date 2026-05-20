@@ -1,0 +1,14 @@
+# 停止 Hermes
+# 然后修复配置
+cat > ~/.hermes/config.yaml << 'EOF'
+model:
+  provider: custom
+  api_base: http://localhost:11434/v1
+  api_key: ollama
+  name: gemma4:e4b
+  max_context: 4096
+  max_tokens: 1024
+EOF
+
+# 或者运行 doctor 修复
+hermes doctor
