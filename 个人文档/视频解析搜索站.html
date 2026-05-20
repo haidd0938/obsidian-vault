@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🎬 随心看 · 免费视频解析</title>
+<style>
+  :root {
+    --bg: #0f0f14;
+    --surface: #1a1a24;
+    --surface2: #22222f;
+    --border: #2e2e40;
+    --text: #e8e8f0;
+    --text2: #8888a0;
+    --accent: #6c5ce7;
+    --accent2: #a29bfe;
+    --green: #00d68f;
+    --orange: #ff9f43;
+    --radius: 12px;
+    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  /* ===== HEADER ===== */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .logo {
+    font-size: 20px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+  }
+  .search-box {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    gap: 8px;
+  }
+  .search-box input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 16px;
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s;
+  }
+  .search-box input:focus {
+    border-color: var(--accent);
+  }
+  .search-box input::placeholder { color: var(--text2); }
+  .btn {
+    background: var(--accent);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn:hover { background: #7c6ff7; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    background: rgba(108,92,231,0.1);
+  }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+  .btn-green { background: var(--green); }
+  .btn-green:hover { background: #00e699; }
+  .btn-orange { background: var(--orange); }
+  .btn-orange:hover { background: #ffb065; }
+
+  /* ===== SOURCE SELECTOR ===== */
+  .source-bar {
+    background: var(--surface);
+    padding: 10px 24px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .source-bar::-webkit-scrollbar { height: 3px; }
+  .source-bar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .source-tag {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .source-tag:hover { border-color: var(--accent); color: var(--text); }
+  .source-tag.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .source-tag.offline { opacity: 0.4; text-decoration: line-through; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .main {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 120px);
+  }
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 320px;
+    min-width: 320px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .sidebar-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text2);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .sidebar-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+  }
+  .sidebar-content::-webkit-scrollbar { width: 4px; }
+  .sidebar-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  /* 热搜项 */
+  .hot-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s;
+    margin-bottom: 4px;
+  }
+  .hot-item:hover { background: var(--surface2); }
+  .hot-rank {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text2);
+    width: 24px;
+    text-align: center;
+  }
+  .hot-rank.top3 { color: var(--orange); }
+  .hot-title {
+    font-size: 13px;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .hot-type {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--surface2);
+    color: var(--text2);
+  }
+  .hot-type.movie { background: rgba(108,92,231,0.2); color: var(--accent2); }
+  .hot-type.tv { background: rgba(0,214,143,0.2); color: var(--green); }
+  .hot-type.variety { background: rgba(255,159,67,0.2); color: var(--orange); }
+
+  /* 历史记录 */
+  .history-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s;
+    margin-bottom: 4px;
+  }
+  .history-item:hover { background: var(--surface2); }
+  .history-title { font-size: 13px; flex: 1; }
+  .history-time { font-size: 11px; color: var(--text2); white-space: nowrap; }
+  .history-del {
+    font-size: 16px;
+    color: var(--text2);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .history-item:hover .history-del { opacity: 1; }
+  .history-del:hover { color: #ff6b6b; }
+
+  /* ===== VIDEO AREA ===== */
+  .video-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    position: relative;
+  }
+  .video-area iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .placeholder {
+    text-align: center;
+    color: var(--text2);
+  }
+  .placeholder .icon { font-size: 64px; margin-bottom: 16px; opacity: 0.3; }
+  .placeholder h2 { font-size: 20px; margin-bottom: 8px; color: var(--text); }
+  .placeholder p { font-size: 14px; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .header { padding: 12px 16px; }
+    .source-bar { padding: 8px 12px; }
+    .main { height: calc(100vh - 110px); }
+  }
+
+  /* ===== 历史记录清空按钮 ===== */
+  .clear-history {
+    padding: 6px 12px;
+    font-size: 11px;
+    color: var(--text2);
+    cursor: pointer;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    transition: color 0.2s;
+  }
+  .clear-history:hover { color: #ff6b6b; }
+
+  /* 解析状态提示 */
+  .parse-status {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.8);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text2);
+    pointer-events: none;
+    display: none;
+  }
+  .parse-status.show { display: block; }
+
+  .platform-icons {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .platform-icon {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: var(--surface2);
+    color: var(--text2);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">🎬 随心看</div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="搜索你想看的影视剧名…" />
+    <button class="btn" onclick="doSearch()">搜索</button>
+  </div>
+  <button class="btn btn-outline btn-sm" onclick="clearStorage()">🧹 清空</button>
+</div>
+
+<!-- SOURCE BAR -->
+<div class="source-bar" id="sourceBar"></div>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-tabs">
+      <div class="sidebar-tab active" data-tab="hot" onclick="switchTab('hot')">🔥 热搜</div>
+      <div class="sidebar-tab" data-tab="history" onclick="switchTab('history')">📋 记录</div>
+      <div class="sidebar-tab" data-tab="guide" onclick="switchTab('guide')">💡 变现</div>
+    </div>
+    <div class="sidebar-content" id="sidebarContent">
+      <!-- 动态填充 -->
+    </div>
+  </div>
+
+  <!-- VIDEO AREA -->
+  <div class="video-area" id="videoArea">
+    <div class="placeholder" id="placeholder">
+      <div class="icon">🎬</div>
+      <h2>搜索你想看的</h2>
+      <p>输入影视剧名，一键解析 · 无需会员</p>
+    </div>
+    <div class="parse-status" id="parseStatus">正在解析…</div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 解析源配置
+// ============================================================
+const SOURCES = [
+  { id: 'yparse',    name: '源①', url: 'https://yparse.ik9.cc/jx/',    icon: '🟣', type: 'iframe', ok: true },
+  { id: 'im1907',    name: '源②', url: 'https://im1907.top/jx/',      icon: '🔵', type: 'iframe', ok: true },
+  { id: 'xymp4',     name: '源③', url: 'https://jx.xymp4.cc/',        icon: '🟢', type: 'iframe', ok: true },
+  { id: 'xmflv',     name: '源④', url: 'https://jx.xmflv.com/',       icon: '🟡', type: 'iframe', ok: true },
+  { id: 'pouyun',    name: '源⑤', url: 'https://pouyun.com/jx/',      icon: '🔴', type: 'iframe', ok: true },
+  { id: 'playerjy',  name: '源⑥', url: 'https://jx.playerjy.com/',    icon: '🟠', type: 'iframe', ok: true },
+];
+
+// ============================================================
+// 热搜数据 + 智能推荐分类
+// ============================================================
+const HOT_LIST = [
+  { title: '乘风2025',      type: '综艺', hot: 98, platform: '🥝' },
+  { title: '浪姐6',         type: '综艺', hot: 96, platform: '🥝' },
+  { title: '歌手2025',       type: '综艺', hot: 95, platform: '🥭' },
+  { title: '奔跑吧13',       type: '综艺', hot: 92, platform: '🥝' },
+  { title: '五哈5',          type: '综艺', hot: 88, platform: '🥝' },
+  { title: '哪吒2',          type: '电影', hot: 97, platform: '🐧' },
+  { title: '封神第二部',     type: '电影', hot: 91, platform: '🐧' },
+  { title: '唐探1900',       type: '电影', hot: 89, platform: '🥝' },
+  { title: '蛟龙行动',       type: '电影', hot: 85, platform: '🥝' },
+  { title: '难哄',           type: '剧集', hot: 94, platform: '🐧' },
+  { title: '苏记棺材铺',     type: '剧集', hot: 87, platform: '🥝' },
+  { title: '乌云之上',       type: '剧集', hot: 83, platform: '🥝' },
+  { title: '仙台有树',       type: '剧集', hot: 80, platform: '🥝' },
+  { title: '仁心俱乐部',     type: '剧集', hot: 78, platform: '🥭' },
+  { title: '大侦探寻宝记',   type: '综艺', hot: 76, platform: '🥝' },
+  { title: '妻子的浪漫旅行', type: '综艺', hot: 74, platform: '🥭' },
+  { title: '无限超越班3',    type: '综艺', hot: 72, platform: '🥝' },
+  { title: '美洲攻略',       type: '电影', hot: 70, platform: '🐧' },
+  { title: '苍兰诀',         type: '剧集', hot: 68, platform: '🥝' },
+  { title: '庆余年2',        type: '剧集', hot: 66, platform: '🐧' },
+  { title: '白月梵星',       type: '剧集', hot: 64, platform: '🥝' },
+  { title: '大奉打更人',     type: '剧集', hot: 62, platform: '🐧' },
+  { title: '国色芳华',       type: '剧集', hot: 60, platform: '🥭' },
+  { title: '火星情报局7',    type: '综艺', hot: 58, platform: '🥝' },
+  { title: '漂白',           type: '剧集', hot: 56, platform: '🥝' },
+];
+
+// 平台到域名映射（用于自动生成搜索关键词）
+const PLATFORM_SEARCH = {
+  '🐧': { name: '腾讯视频', url: 'v.qq.com' },
+  '🥝': { name: '爱奇艺',   url: 'iqiyi.com' },
+  '🥭': { name: '芒果TV',  url: 'mgtv.com' },
+  '👖': { name: '优酷',    url: 'youku.com' },
+  '📺': { name: 'B站',     url: 'bilibili.com' },
+};
+
+// ============================================================
+// 状态
+// ============================================================
+let activeSource = 0;
+let currentUrl = '';
+let historyList = [];
+let tabActive = 'hot';
+
+// ============================================================
+// 初始化
+// ============================================================
+function init() {
+  loadSources();
+  loadHistory();
+  renderSidebar();
+  renderSources();
+  // 回车搜索
+  document.getElementById('searchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doSearch();
+  });
+}
+
+// ============================================================
+// 渲染解析源标签
+// ============================================================
+function renderSources() {
+  const bar = document.getElementById('sourceBar');
+  bar.innerHTML = SOURCES.map((s, i) =>
+    `<span class="source-tag ${i === activeSource ? 'active' : ''} ${!s.ok ? 'offline' : ''}"
+          onclick="selectSource(${i})">${s.icon} ${s.name}</span>`
+  ).join('');
+}
+
+function selectSource(i) {
+  activeSource = i;
+  renderSources();
+  if (currentUrl) loadVideo(currentUrl);
+}
+
+// ============================================================
+// 搜索逻辑
+// ============================================================
+const SEARCH_ENGINES = [
+  { name: '腾讯', url: 'https://s.video.qq.com/smart_search?plat=2&query=' },
+  { name: '爱奇艺', url: 'https://so.iqiyi.com/so/q_' },
+  { name: '芒果', url: 'https://so.mgtv.com/so/k-' },
+  { name: '优酷', url: 'https://so.youku.com/search_video/q_' },
+];
+
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  if (!q) return;
+  addHistory(q);
+  // 直接打开搜索页，让用户选具体视频
+  // 用腾讯视频搜索结果（覆盖最全）
+  searchAndPlay(q);
+}
+
+function searchAndPlay(q) {
+  // 对于热门影视，直接尝试在腾讯/爱奇艺找视频链接
+  // 策略：拼接常见平台URL格式，尝试解析
+  // 更实用：直接打开搜索结果页让用户选择
+  const searchUrl = `https://s.video.qq.com/smart_search?plat=2&query=${encodeURIComponent(q)}`;
+  // 在iframe中打开搜索页
+  loadVideo(searchUrl);
+}
+
+// ============================================================
+// 加载视频 / 搜索页面
+// ============================================================
+function loadVideo(url) {
+  currentUrl = url;
+  const area = document.getElementById('videoArea');
+  const place = document.getElementById('placeholder');
+  const status = document.getElementById('parseStatus');
+  const source = SOURCES[activeSource];
+
+  // 构建解析URL
+  let parseUrl;
+  if (url.includes('v.qq.com') || url.includes('iqiyi.com') || url.includes('youku.com') ||
+      url.includes('mgtv.com') || url.includes('bilibili.com') || url.includes('so.') || url.includes('s.video.qq.com')) {
+    // 已经是视频站或搜索页链接，直接解析
+    parseUrl = source.url + '?url=' + encodeURIComponent(url);
+  } else {
+    // 普通搜索词，跳转到搜索
+    parseUrl = `https://s.video.qq.com/smart_search?plat=2&query=${encodeURIComponent(url)}`;
+  }
+
+  // 检查是否是搜索页（直接显示）
+  if (parseUrl.includes('s.video.qq.com') || parseUrl.includes('so.')) {
+    place.style.display = 'none';
+    area.innerHTML = `<iframe src="${parseUrl}" allowfullscreen></iframe>`;
+    status.classList.remove('show');
+    return;
+  }
+
+  status.classList.add('show');
+  place.style.display = 'none';
+  area.innerHTML = `<iframe src="${parseUrl}" allowfullscreen></iframe>`;
+
+  // 3秒后隐藏状态
+  setTimeout(() => status.classList.remove('show'), 3000);
+
+  // 保存最后播放到记录
+  saveLastPlayed(url);
+}
+
+// 用解析站直接播放
+function playWithSource(videoUrl) {
+  const source = SOURCES[activeSource];
+  const area = document.getElementById('videoArea');
+  const place = document.getElementById('placeholder');
+  place.style.display = 'none';
+  const parseUrl = source.url + '?url=' + encodeURIComponent(videoUrl);
+  area.innerHTML = `<iframe src="${parseUrl}" allowfullscreen></iframe>`;
+  currentUrl = videoUrl;
+  saveLastPlayed(videoUrl);
+}
+
+// ============================================================
+// 热搜点击
+// ============================================================
+function clickHot(item) {
+  document.getElementById('searchInput').value = item.title;
+  addHistory(item.title);
+  // 根据平台构造视频链接
+  const platformMap = { '🐧': 'v.qq.com', '🥝': 'iqiyi.com', '🥭': 'mgtv.com', '👖': 'youku.com' };
+  const domain = platformMap[item.platform] || 'v.qq.com';
+  const videoUrl = `https://${domain}/search?query=${encodeURIComponent(item.title)}`;
+  loadVideo(videoUrl);
+}
+
+// 直接解析播放（跳过搜索）
+function hotDirectPlay(item) {
+  document.getElementById('searchInput').value = item.title;
+  addHistory(item.title);
+  const source = SOURCES[activeSource];
+  const area = document.getElementById('videoArea');
+  const place = document.getElementById('placeholder');
+  place.style.display = 'none';
+  // 尝试用腾讯视频直接解析
+  const guessUrl = `https://v.qq.com/x/search/?q=${encodeURIComponent(item.title)}`;
+  const parseUrl = source.url + '?url=' + encodeURIComponent(guessUrl);
+  area.innerHTML = `<iframe src="${parseUrl}" allowfullscreen></iframe>`;
+  currentUrl = guessUrl;
+  saveLastPlayed(guessUrl);
+}
+
+// ============================================================
+// 侧边栏渲染
+// ============================================================
+function renderSidebar() {
+  const content = document.getElementById('sidebarContent');
+  if (tabActive === 'hot') {
+    content.innerHTML = HOT_LIST.map((item, i) => {
+      const rankClass = i < 3 ? 'top3' : '';
+      const typeClass = item.type === '电影' ? 'movie' : item.type === '综艺' ? 'variety' : 'tv';
+      return `<div class="hot-item" onclick="clickHot(HOT_LIST[${i}])">
+        <span class="hot-rank ${rankClass}">${i + 1}</span>
+        <span class="hot-title">${item.title}</span>
+        <span class="platform-icons"><span class="platform-icon">${item.platform}</span></span>
+        <span class="hot-type ${typeClass}">${item.type}</span>
+      </div>`;
+    }).join('');
+  } else if (tabActive === 'history') {
+    if (historyList.length === 0) {
+      content.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text2);font-size:13px;">暂无观看记录</div>`;
+    } else {
+      content.innerHTML = [...historyList].reverse().map((item, i) =>
+        `<div class="history-item" onclick="searchAndPlay('${item.title.replace(/'/g, "\\'")}')">
+          <span class="history-title">🎬 ${item.title}</span>
+          <span class="history-time">${item.time}</span>
+          <span class="history-del" onclick="event.stopPropagation();removeHistory(${historyList.length - 1 - i})">✕</span>
+        </div>`
+      ).join('');
+      content.innerHTML += `<div class="clear-history" onclick="clearHistory()">🗑️ 清空所有记录</div>`;
+    }
+  } else if (tabActive === 'guide') {
+    content.innerHTML = `
+      <div style="padding:12px;font-size:13px;line-height:1.8;">
+        <h3 style="color:var(--accent);margin-bottom:12px;">💡 副业变现方向</h3>
+
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-weight:600;margin-bottom:4px;">1️⃣ 影视导航站 · 流量变现</div>
+          <div style="color:var(--text2);font-size:12px;">
+            搭个影视导航站，聚合这些解析源。挂百度联盟/Google AdSense广告。<br>
+            <span style="color:var(--green);">成本：0（Vercel免费部署）</span>
+            <span style="color:var(--orange);"> 收益：日IP×0.3~1元</span>
+          </div>
+        </div>
+
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-weight:600;margin-bottom:4px;">2️⃣ 影视推荐公众号/小红书</div>
+          <div style="color:var(--text2);font-size:12px;">
+            每天推荐3部冷门好片 + 解析入口。引流到个人站。<br>
+            <span style="color:var(--green);">公众号流量主，一篇500-2000阅读≈月入几百</span>
+          </div>
+        </div>
+
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-weight:600;margin-bottom:4px;">3️⃣ Telegram频道 · 自动推送</div>
+          <div style="color:var(--text2);font-size:12px;">
+            TG频道每天自动推送热门剧集解析链接。加返利链接（淘宝/拼多多电影券）。<br>
+            <span style="color:var(--green);">几百粉开始有CPS收益</span>
+          </div>
+        </div>
+
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-weight:600;margin-bottom:4px;">4️⃣ 台球厅 · 免费观影引流</div>
+          <div style="color:var(--text2);font-size:12px;">
+            鑫球汇摆个投影，放热门电影/综艺。客人边打球边看。<br>
+            <span style="color:var(--green);">提升翻台率 + 饮品消费</span>
+          </div>
+        </div>
+
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-weight:600;margin-bottom:4px;">5️⃣ 短视频切片 · AI批量生产</div>
+          <div style="color:var(--text2);font-size:12px;">
+            用解析源看热剧 → AI自动截取高光片段 → 剪映/必剪批量混剪 → 发抖音快手。<br>
+            <span style="color:var(--green);">万次播放≈30-80元创作者激励</span>
+          </div>
+        </div>
+
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div style="font-weight:600;margin-bottom:4px;">6️⃣ 台球+影视 · 复合变现</div>
+          <div style="color:var(--text2);font-size:12px;">
+            鑫球汇搞"打台球免费看VIP"活动，用解析站投屏。<br>
+            抖音发"在台球厅看最新大片"内容引流。<br>
+            <span style="color:var(--green);">线下引流 + 线上内容双线</span>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:8px;">
+          <h3 style="color:var(--accent);margin-bottom:8px;">🚀 立即可以做的</h3>
+          <div style="color:var(--text2);font-size:12px;">
+            <div>✅ 这个页面直接部署到 Vercel/Netlify —— 免费</div>
+            <div>✅ 绑定自己的域名（十几块一年）</div>
+            <div>✅ 挂百度联盟广告 —— 先养站</div>
+            <div>✅ 每天朋友圈/群发"今日热剧推荐"</div>
+            <div style="margin-top:8px;color:var(--orange);">想做哪个方向，跟我说，我帮你把全套东西搭好</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function switchTab(tab) {
+  tabActive = tab;
+  document.querySelectorAll('.sidebar-tab').forEach(el => el.classList.toggle('active', el.dataset.tab === tab));
+  renderSidebar();
+}
+
+// ============================================================
+// 历史记录
+// ============================================================
+function loadHistory() {
+  try {
+    const h = localStorage.getItem('videoHistory');
+    historyList = h ? JSON.parse(h) : [];
+  } catch (e) { historyList = []; }
+}
+
+function saveHistory() {
+  localStorage.setItem('videoHistory', JSON.stringify(historyList));
+}
+
+function addHistory(title) {
+  if (!title) return;
+  // 去重
+  historyList = historyList.filter(h => h.title !== title);
+  const now = new Date();
+  const time = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+  historyList.push({ title, time });
+  // 最多保留50条
+  if (historyList.length > 50) historyList.shift();
+  saveHistory();
+  if (tabActive === 'history') renderSidebar();
+}
+
+function removeHistory(idx) {
+  historyList.splice(idx, 1);
+  saveHistory();
+  renderSidebar();
+}
+
+function clearHistory() {
+  if (confirm('确定清空所有观看记录？')) {
+    historyList = [];
+    saveHistory();
+    renderSidebar();
+  }
+}
+
+// ============================================================
+// 最后播放记录（用于页面恢复）
+// ============================================================
+function saveLastPlayed(url) {
+  localStorage.setItem('lastPlayedUrl', url);
+  localStorage.setItem('lastPlayedTime', Date.now());
+}
+
+function loadLastPlayed() {
+  try {
+    const url = localStorage.getItem('lastPlayedUrl');
+    if (url) loadVideo(url);
+  } catch(e) {}
+}
+
+// ============================================================
+// 清空存储
+// ============================================================
+function clearStorage() {
+  if (confirm('确定清空所有数据？（搜索记录会保留）')) {
+    localStorage.removeItem('videoHistory');
+    localStorage.removeItem('lastPlayedUrl');
+    historyList = [];
+    renderSidebar();
+    document.getElementById('searchInput').value = '';
+  }
+}
+
+// ============================================================
+// 启动
+// ============================================================
+init();
+</script>
+</body>
+</html>

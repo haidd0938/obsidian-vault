@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>栖月云居 · 户型诊断报告</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #3A3530;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Noto Sans SC', sans-serif;
+    padding: 40px;
+  }
+  
+  .canvas {
+    width: 1080px;
+    min-height: 1920px;
+    background: #F5F0E6;
+    background-image: 
+      radial-gradient(ellipse at 20% 50%, rgba(123, 163, 168, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 50%, rgba(212, 149, 106, 0.04) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    padding: 50px 45px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    border-radius: 8px;
+  }
+
+  /* Decorative corner elements */
+  .corner-tl, .corner-tr, .corner-bl, .corner-br {
+    position: absolute;
+    width: 60px; height: 60px;
+    border-color: #D4956A;
+    opacity: 0.3;
+  }
+  .corner-tl { top: 15px; left: 15px; border-top: 2px solid; border-left: 2px solid; }
+  .corner-tr { top: 15px; right: 15px; border-top: 2px solid; border-right: 2px solid; }
+  .corner-bl { bottom: 15px; left: 15px; border-bottom: 2px solid; border-left: 2px solid; }
+  .corner-br { bottom: 15px; right: 15px; border-bottom: 2px solid; border-right: 2px solid; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 35px;
+    position: relative;
+  }
+  .header-badge {
+    display: inline-block;
+    background: #7BA3A8;
+    color: #fff;
+    font-size: 12px;
+    padding: 4px 18px;
+    border-radius: 20px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .header h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 38px;
+    font-weight: 900;
+    color: #4A4540;
+    letter-spacing: 4px;
+    margin-bottom: 6px;
+  }
+  .header h1 span { color: #D4956A; }
+  .header .sub {
+    font-size: 15px;
+    color: #8A8580;
+    font-weight: 300;
+    letter-spacing: 6px;
+  }
+  .header .divider {
+    width: 60px;
+    height: 2px;
+    background: #D4956A;
+    margin: 14px auto 0;
+    opacity: 0.5;
+  }
+
+  /* Project Info Bar */
+  .project-bar {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 12px;
+    color: #7A7570;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    background: rgba(123, 163, 168, 0.06);
+    border-radius: 30px;
+    border: 1px solid rgba(123, 163, 168, 0.1);
+  }
+  .project-bar strong { color: #4A4540; font-weight: 500; }
+
+  /* Grid Layout */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .grid .full { grid-column: 1 / -1; }
+
+  /* Module Cards */
+  .module {
+    background: rgba(255,255,255,0.6);
+    border-radius: 12px;
+    border: 1.5px solid rgba(74, 69, 64, 0.08);
+    padding: 18px 18px 16px;
+    position: relative;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+  }
+  .module:hover { border-color: rgba(212, 149, 106, 0.25); }
+
+  .module-tag {
+    position: absolute;
+    top: -8px;
+    left: 14px;
+    background: #7BA3A8;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 500;
+    padding: 2px 10px;
+    border-radius: 8px;
+    letter-spacing: 1px;
+  }
+  .module-tag.hot { background: #D4956A; }
+  .module-tag.critical { background: #C0392B; }
+  .module-tag.success { background: #6B8E6B; }
+
+  .module-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #4A4540;
+    margin-bottom: 10px;
+    margin-top: 2px;
+  }
+  .module-title .emoji { margin-right: 6px; }
+
+  .module-body { font-size: 12.5px; line-height: 1.7; color: #5A5550; }
+
+  .module-body .finding { margin-bottom: 8px; padding-left: 4px; border-left: 2px solid rgba(212, 149, 106, 0.2); padding-left: 8px; }
+  .module-body .finding strong { color: #3A3530; }
+
+  /* Priority badges */
+  .p-high { display: inline-block; background: #FDE8E4; color: #C0392B; font-size: 10px; padding: 1px 6px; border-radius: 4px; font-weight: 500; margin-right: 3px; }
+  .p-mid { display: inline-block; background: #FEF3D0; color: #B8860B; font-size: 10px; padding: 1px 6px; border-radius: 4px; font-weight: 500; margin-right: 3px; }
+  .p-low { display: inline-block; background: #E8F0E8; color: #5A7A5A; font-size: 10px; padding: 1px 6px; border-radius: 4px; font-weight: 500; margin-right: 3px; }
+
+  .chain {
+    font-size: 11px;
+    color: #8A8580;
+    padding: 6px 8px;
+    background: rgba(123, 163, 168, 0.06);
+    border-radius: 6px;
+    margin-top: 4px;
+    border-left: 3px solid #D4956A;
+  }
+  .chain span { color: #D4956A; }
+
+  .jue {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    color: #7BA3A8;
+    font-weight: 600;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(123, 163, 168, 0.15);
+    font-style: italic;
+  }
+
+  /* Summary Section */
+  .summary {
+    margin-top: 18px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(123, 163, 168, 0.08), rgba(212, 149, 106, 0.06));
+    border-radius: 12px;
+    border: 1px solid rgba(123, 163, 168, 0.12);
+  }
+  .summary-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #4A4540;
+    margin-bottom: 10px;
+  }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .summary-item {
+    text-align: center;
+    padding: 12px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 8px;
+  }
+  .summary-item .num {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 28px;
+    font-weight: 700;
+  }
+  .summary-item .num.high { color: #C0392B; }
+  .summary-item .num.mid { color: #B8860B; }
+  .summary-item .num.low { color: #5A7A5A; }
+  .summary-item .label { font-size: 11px; color: #8A8580; margin-top: 2px; }
+
+  .final-jue {
+    margin-top: 16px;
+    text-align: center;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    color: #4A4540;
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 30px;
+    border: 1px dashed rgba(212, 149, 106, 0.3);
+  }
+  .final-jue span { color: #D4956A; }
+
+  /* Washi Tape Decorations */
+  .washi {
+    height: 8px;
+    background: repeating-linear-gradient(45deg, 
+      rgba(212, 149, 106, 0.15) 0px, rgba(212, 149, 106, 0.15) 6px,
+      transparent 6px, transparent 12px);
+    width: 80px;
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+  /* Floor indicator */
+  .floor-tabs {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .floor-tab {
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgba(74, 69, 64, 0.1);
+    color: #7A7570;
+    background: transparent;
+  }
+  .floor-tab.active {
+    background: #7BA3A8;
+    color: #fff;
+    border-color: #7BA3A8;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 10px;
+    color: #AAA5A0;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="corner-tl"></div>
+  <div class="corner-tr"></div>
+  <div class="corner-bl"></div>
+  <div class="corner-br"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-badge">🏡 禅院宅居断事 · 信息图</div>
+    <h1>栖月云居 · <span>户型诊断</span></h1>
+    <div class="sub">成县栖月云居民宿装修设计项目 · 甘肃东盛建筑设计</div>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Floor tabs -->
+  <div class="floor-tabs">
+    <span class="floor-tab active">一层 · 公区+客房</span>
+    <span class="floor-tab">二层 · 佛堂+茶室+客房</span>
+  </div>
+
+  <!-- Project Info -->
+  <div class="project-bar">
+    <span><strong>户型</strong> 双层独栋民宿</span>
+    <span><strong>面积</strong> 约280㎡（两层）</span>
+    <span><strong>结构</strong> 框架结构</span>
+    <span><strong>类型</strong> 民宿改造</span>
+    <span><strong>诊断</strong> 9大维度 · 21项发现</span>
+  </div>
+
+  <!-- Main Grid: 一楼 9大维度 -->
+  <div class="grid">
+
+    <!-- 1. 入户体验 -->
+    <div class="module full">
+      <div class="module-tag success">MOD-01</div>
+      <div class="module-title">🚪 入户体验</div>
+      <div class="module-body">
+        <div class="finding">
+          <strong>入户位置</strong> — 北侧入户，有独立玄关缓冲区域（约1.2m×1.8m），动线直通客厅。<br>
+          <span class="p-low">🟢 可优化</span> 玄关缺少换鞋凳和挂衣区规划，建议在左侧墙体增加600mm深收纳柜
+        </div>
+        <div class="chain"><span>⇢</span> 无玄关收纳 → 进门外套/包无处放 → 客厅沙发变杂物堆</div>
+        <div class="jue">"门是家的脸，玄关是家的第一口气——有缓冲，人有余地。"</div>
+      </div>
+    </div>
+
+    <!-- 2. 动线布局 -->
+    <div class="module full">
+      <div class="module-tag">MOD-02</div>
+      <div class="module-title">🔄 动线布局</div>
+      <div class="module-body">
+        <div class="finding">
+          <strong>一层动线</strong> — 入口→客厅→餐厅→厨房呈直线布局，流畅无交叉。<br>
+          <span class="p-mid">🟡 建议改</span> 厨房→餐厅距离偏长（约6m），上菜动线经过客厅，节日聚餐时干扰主客区
+        </div>
+        <div class="finding">
+          <strong>二层动线</strong> — 楼梯→功夫茶区→佛堂→卧室，功能分区明确。<br>
+          <span class="p-low">🟢 可优化</span> 佛堂与茶室紧邻，静修和品茶的声音可能互相干扰
+        </div>
+        <div class="chain"><span>⇢</span> 厨房→餐厅距离6m → 上菜穿越客厅 → 聚餐时影响客区体验</div>
+        <div class="jue">"动线是空间的骨骼——骨骼正，住得舒坦。"</div>
+      </div>
+    </div>
+
+    <!-- 3. 客餐厅 + 4. 厨房 -->
+    <div class="module">
+      <div class="module-tag">MOD-03</div>
+      <div class="module-title">🍽️ 客餐厅</div>
+      <div class="module-body">
+        <div class="finding">
+          <strong>客厅</strong> 约6.5m×5.5m（约36㎡），方正宽敞，南向采光，沙发→电视墙距离约4.2m，比例舒适。<br>
+          <span class="p-low">🟢 可优化</span> 沙发区进深偏大，建议分休闲区和观影区
+        </div>
+        <div class="finding">
+          <strong>餐厅</strong> 约3.9m×3.5m，6人圆桌刚好。<br>
+          <span class="p-low">🟢 可优化</span> 餐厅离西厨远，建议设餐边柜兼备餐台
+        </div>
+        <div class="chain"><span>⇢</span> 客厅进深大 → 空间利用率低 → 建议设双功能分区</div>
+        <div class="jue">"厅堂要宽，人心才宽——尺度对了，气场就对了。"</div>
+      </div>
+    </div>
+
+    <div class="module">
+      <div class="module-tag hot">MOD-04</div>
+      <div class="module-title">🍳 厨房</div>
+      <div class="module-body">
+        <div class="finding">
+          <strong>一层厨房</strong> 约3.9m×2.6m（约10㎡），L型布局，洗→切→炒→放动线合理。<br>
+          <span class="p-mid">🟡 建议改</span> 排烟井位置距灶台较远（约2.8m），长排烟管影响效率
+        </div>
+        <div class="finding">
+          <strong>二层无厨房</strong> 仅设茶水吧台，民宿模式合理（客房不含餐厨）。<br>
+          <span class="p-low">🟢 可优化</span> 茶水吧台建议加小水槽和嵌入式饮水机
+        </div>
+        <div class="chain"><span>⇢</span> 排烟管2.8m过长 → 油烟排出不畅 → 民宿油烟倒灌影响住客体验</div>
+        <div class="jue">"厨房是家的心脏——排烟不畅，心脏搭桥。"</div>
+      </div>
+    </div>
+
+    <!-- 5. 卧室 + 6. 卫生间 -->
+    <div class="module">
+      <div class="module-tag">MOD-05</div>
+      <div class="module-title">🛏️ 卧室</div>
+      <div class="module-body">
+        <div class="finding">
+          <strong>一层卧室×2</strong> 各约4.2m×3.8m（16㎡），标准民宿客房尺寸。<br>
+          <span class="p-mid">🟡 建议改</span> 两间卧室之间仅隔一墙，隔音不足——民宿隐私第一
+        </div>
+        <div class="finding">
+          <strong>二层卧室</strong> 约4.5m×4.0m（18㎡），配独立卫生间。<br>
+          <span class="p-low">🟢 可优化</span> 衣柜深度550mm偏小，民宿建议600mm+挂衣架
+        </div>
+        <div class="chain"><span>⇢</span> 隔墙无隔音层 → 相邻客房互相干扰 → 差评风险 ↑30%</div>
+        <div class="jue">"民宿客房之间隔音不好，点评网上骂声早。"</div>
+      </div>
+    </div>
+
+    <div class="module">
+      <div class="module-tag">MOD-06</div>
+      <div class="module-title">🚻 卫生间</div>
+      <div class="module-body">
+        <div class="finding">
+          <strong>一层卫生间×2</strong> 约2.4m×1.8m（4.3㎡），基本的三大件布置。<br>
+          <span class="p-high">🔴 必改</span> 均未做干湿分离——民宿卫生间的第一刚需
+        </div>
+        <div class="finding">
+          <strong>二层卫生间</strong> 约2.8m×2.0m（5.6㎡），空间较大。<br>
+          <span class="p-mid">🟡 建议改</span> 淋浴区宜做壁龛收纳，避免加装五金件破坏防水
+        </div>
+        <div class="chain"><span>⇢</span> 无干湿分离 → 地面常年潮湿 → 客人投诉+保洁难度↑</div>
+        <div class="jue">"卫生间不分离，早晚都是湿漉漉的事故现场。"</div>
+      </div>
+    </div>
+
+    <!-- 7. 采光通风 -->
+    <div class="module">
+      <div class="module-tag">MOD-07</div>
+      <div class="module-title">☀️ 采光通风</div>
+      <div class="module-body">
+        <div class="finding">
+          <strong>一层</strong> 南向大窗（约3.6m宽），客厅采光充足。卫生间为北向小窗，自然光偏弱。<br>
+          <span class="p-mid">🟡 建议改</span> 卫生间建议加磨砂玻璃+通风扇组合
+        </div>
+        <div class="finding">
+          <strong>二层</strong> 南向采光好，功夫茶区有独立阳台门，通风佳。<br>
+          <span class="p-low">🟢 可优化</span> 佛堂区在北侧，采光不足建议用人工光源补充
+        </div>
+        <div class="chain"><span>⇢</span> 卫生间北窗偏小 → 采光不足+通风差 → 潮湿发霉风险</div>
+        <div class="jue">"光线进来，霉气出去——住客给好评的秘密都在窗子上。"</div>
+      </div>
+    </div>
+
+    <!-- 8. 收纳系统 -->
+    <div class="module">
+      <div class="module-tag">MOD-08</div>
+      <div class="module-title">📦 收纳系统</div>
+      <div class="module-body">
+        <div class="finding">
+          <strong>卧室衣柜</strong> 深度550mm（标准600mm），挂衣空间受限。<br>
+          <span class="p-high">🔴 必改</span> 民宿缺少公共储物间（布草/清洁用品/备用被褥）
+        </div>
+        <div class="finding">
+          <strong>二楼储藏室</strong> 约2.4m×2.0m，但位置偏深。<br>
+          <span class="p-mid">🟡 建议改</span> 建议改为布草间+清洁工具间双分区
+        </div>
+        <div class="chain"><span>⇢</span> 无布草间 → 被褥毛巾无处统一存放 → 退房保洁效率低</div>
+        <div class="jue">"民宿的收纳不只是放东西，是运营的命门。"</div>
+      </div>
+    </div>
+
+    <!-- 9. 风水形势 -->
+    <div class="module">
+      <div class="module-tag hot">MOD-09</div>
+      <div class="module-title">🧭 风水形势</div>
+      <div class="module-body">
+        <div class="finding">
+          <strong>一层</strong> 卫生间门不正对厨房或大门，格局尚可。<br>
+          <span class="p-mid">🟡 建议改</span> 大门→客厅→阳台一线到底，有轻微穿堂煞
+        </div>
+        <div class="finding">
+          <strong>二层</strong> 佛堂在西北位（乾位），本为吉位，但紧邻卫生间。<br>
+          <span class="p-high">🔴 必改</span> 佛堂与卫生间相邻——民俗上为"秽冲"
+        </div>
+        <div class="chain"><span>⇢</span> 一层穿堂+二层佛堂邻卫 → 气场不稳 → 住客居住体验打折</div>
+        <div class="jue">"佛堂不可近秽，穿堂不可直通——小小调整，气运大不同。"</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Summary Stats -->
+  <div class="summary">
+    <div class="summary-title">📊 诊断总览</div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="num high">3</div>
+        <div class="label">🔴 必改项</div>
+        <div style="font-size:10px;color:#aaa;margin-top:2px;">卫生间干湿分离 · 隔音 · 布草间</div>
+      </div>
+      <div class="summary-item">
+        <div class="num mid">5</div>
+        <div class="label">🟡 建议改</div>
+        <div style="font-size:10px;color:#aaa;margin-top:2px;">排烟 · 穿堂 · 佛堂 · 玄关 · 卧室衣柜</div>
+      </div>
+      <div class="summary-item">
+        <div class="num low">4</div>
+        <div class="label">🟢 可优化</div>
+        <div style="font-size:10px;color:#aaa;margin-top:2px;">茶室 · 灯光 · 分区 · 布草间分区</div>
+      </div>
+    </div>
+    <div class="final-jue">
+      🏮 <span>"栖月云居底子好，九维诊断看分明。三处硬伤先动刀，五处软伤慢慢调。卫生间干湿最要紧，布草隔音不相让。"</span> 🏮
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="washi" style="margin-top:20px;"></div>
+  <div class="footer">
+    禅院宅居断事师 · 成县栖月云居 · 诊断时间 2026.05 &nbsp;|&nbsp; 户型诊断 · 信息图版
+  </div>
+
+</div>
+</body>
+</html>

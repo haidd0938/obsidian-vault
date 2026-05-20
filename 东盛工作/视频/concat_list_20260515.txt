@@ -1,0 +1,7 @@
+file '/Users/mac/Desktop/东盛建筑视频/clip_20260515_00.mp4'
+file '/Users/mac/Desktop/东盛建筑视频/clip_20260515_01.mp4'
+file '/Users/mac/Desktop/东盛建筑视频/clip_20260515_02.mp4'
+file '/Users/mac/Desktop/东盛建筑视频/clip_20260515_03.mp4'
+file '/Users/mac/Desktop/东盛建筑视频/clip_20260515_04.mp4'
+file '/Users/mac/Desktop/东盛建筑视频/clip_20260515_05.mp4'
+file '/Users/mac/Desktop/东盛建筑视频/clip_20260515_06.mp4'

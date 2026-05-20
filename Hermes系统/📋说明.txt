@@ -1,0 +1,7 @@
+Hermes AI系统相关
+- OpenClaude-Portable
+- hermes全量备份
+- 贾维斯分身安装包
+- node_modules依赖
+- ai-image-tool
+- 各类.md笔记/指南
