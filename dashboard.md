@@ -24,7 +24,7 @@ Welcome to Apex Dashboard! Click here to edit your first memo.
 
 ### Getting Started
 id: demo-todo-1
-- [ ] Try adding a new card
+- [x] Try adding a new card
 - [ ] Drag cards between sections
 - [ ] Edit the banner quote
 - [ ] Add a quick link
