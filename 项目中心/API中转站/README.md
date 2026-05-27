@@ -11,19 +11,21 @@
 - [x] 落地页 HTML：`~/.hermes/web-ui-api-landing/index.html`
 - [x] 引流文章：`~/东盛工作/API中转站/引流文章.md`
 
-### 还需要你的批准
+### 已上线
 
-**1. Cloudflare Tunnel 对外暴露**
+- [x] One API 管理后台密码已改为：**oneAPI8836**
+- [x] 操作教程已保存：`项目中心/API中转站/实施操作教程.md`
+- [x] Tunnel 启动脚本：`~/.hermes/scripts/start-tunnel.sh`
 
-把 One API 通过 Cloudflare Tunnel 暴露到公网。
+### Cloudflare Tunnel（需你自己执行）
+
+执行一次：
 
 ```bash
-# 一键启动
-docker run -d --name cloudflared-tunnel --restart unless-stopped \
-  cloudflare/cloudflared:latest tunnel --url http://host.docker.internal:3001
-# 查看公网地址
-docker logs cloudflared-tunnel | grep -o 'https://[a-z0-9.-]*.trycloudflare.com'
+bash ~/.hermes/scripts/start-tunnel.sh
 ```
+
+看到 `https://xxx.trycloudflare.com` 就是公网地址。
 
 **2. 创建用户账号**
 
