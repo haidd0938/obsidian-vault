@@ -12,9 +12,10 @@
   ✅ 竖屏 1080×1920
 """
 
-import asyncio, json, os, subprocess, tempfile, math, random, shutil, urllib.request, textwrap
+import asyncio, json, os, subprocess, tempfile, math, random, shutil, time, urllib.request
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps
+from edge_tts import Communicate
 
 # ================== 可配置区域 ==================
 VIDEO_TITLE = "总投13.4亿！唐山智慧停车EPC项目落地，开启城市基建新范式"
@@ -251,7 +252,7 @@ async def synthesize_video(scene_images):
     tts_files = []
     for i, text in enumerate(SCENES_TEXTS):
         tts_path = os.path.join(OUTPUT_DIR, f"tts_{i:02d}.mp3")
-        communicate = edge_tts.Communicate(text, TTS_VOICE)
+        communicate = Communicate(text, TTS_VOICE)
         await communicate.save(tts_path)
         tts_files.append(tts_path)
         print(f"    ✓ 配音{i+1} ({len(text)}字)")
@@ -304,17 +305,18 @@ async def synthesize_video(scene_images):
         zoom_start = 1.02 if i % 2 == 0 else 1.06
         zoom_end = 1.06 if i % 2 == 0 else 1.02
         
+        # 简单的Ken Burns动效：scale+pad保持宽高比
         cmd = [
             "ffmpeg", "-y",
             "-loop", "1", "-i", resized_img,
             "-i", tts_files[i],
             "-loop", "1", "-i", subtitle_images[i],
             "-filter_complex",
-            f"[0:v]format=rgba,scale=iw*{zoom_end}:ih*{zoom_end}:flags=lanczos,"
-            f"zoompan=z='if(eq(on,1),{zoom_start},{zoom_start}+({zoom_end}-{zoom_start})*(on-1)/{int(FPS*dur-1)})'"
-            f":d={int(FPS*dur)}:s={WIDTH}x{HEIGHT}:fps={FPS}[v0];"
-            f"[2:v]format=rgba,scale={WIDTH}:{HEIGHT},setpts=PTS-STARTPTS[sub];"
-            f"[v0][sub]overlay=0:0:format=auto,shortest=1,format=yuv420p[v]",
+            f"[0:v]scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=decrease,"
+            f"pad={WIDTH}:{HEIGHT}:(ow-iw)/2:(oh-ih)/2:color=#0A1423,"
+            f"format=yuv420p[v0];"
+            f"[2:v]scale={WIDTH}:{HEIGHT},setpts=PTS-STARTPTS,format=rgba[sub];"
+            f"[v0][sub]overlay=0:0:format=auto:shortest=1,format=yuv420p[v]",
             "-map", "[v]",
             "-map", "1:a",
             "-c:v", "h264_videotoolbox",
