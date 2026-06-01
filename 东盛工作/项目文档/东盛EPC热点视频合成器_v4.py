@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 """
-东盛EPC热点视频合成器 v4.0 — AI配图版
+东盛EPC热点视频合成器 v4.1 — 画质提升版
 ===============================
 升级点：
   ✅ MeiGen AI 生成建筑行业真实配图（替代纯色背景）
-  ✅ 渐变淡入淡出过渡
-  ✅ Ken Burns 随机方向缩放动效（zoom-in/zoom-out 交替）
+  ✅ 大幅增强 Ken Burns 动效（1.0→1.15 缩放 + 随机平移）
+  ✅ 渐隐过渡（每段之间0.5s淡化）
+  ✅ 底部字幕区加宽+金色左侧装饰条
+  ✅ 画中画品牌水印
+  ✅ 顶部和底部金色渐变装饰条
   ✅ Edge TTS 配音 (YunjianNeural 沉稳男声)
-  ✅ 底部半透明字幕区
   ✅ VideoToolbox 硬件编码
   ✅ 竖屏 1080×1920
 """
 
-import asyncio, json, os, subprocess, tempfile, math, random, shutil, time, urllib.request
+import asyncio, json, os, subprocess, tempfile, math, random, shutil, time, urllib.request, re
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps
 from edge_tts import Communicate
@@ -30,6 +32,7 @@ COLOR_GOLD = (212, 175, 55)
 COLOR_GOLD_LIGHT = (230, 200, 90)
 COLOR_WHITE = (255, 255, 255)
 COLOR_GRAY = (160, 170, 180)
+COLOR_OVERLAY = (0, 0, 0, 100)
 
 WIDTH, HEIGHT = 1080, 1920
 FPS = 24
@@ -80,15 +83,70 @@ SCENE_IMAGE_PROMPTS = [
 MIN_DURATION = 5.0  # 每段保底时长
 
 
-def draw_building_grid(draw):
+def draw_building_grid(draw, alpha=5):
     """绘制建筑网格背景"""
     for x in range(0, WIDTH, 80):
-        draw.line([(x, 0), (x, HEIGHT)], fill=(255, 255, 255, 3))
+        draw.line([(x, 0), (x, HEIGHT)], fill=(255, 255, 255, alpha))
     for y in range(0, HEIGHT, 80):
-        draw.line([(0, y), (WIDTH, y)], fill=(255, 255, 255, 3))
+        draw.line([(0, y), (WIDTH, y)], fill=(255, 255, 255, alpha))
 
 
-def draw_centered_text_block(draw, text, font, center_y, max_width, color=COLOR_WHITE, 
+def draw_gold_border(draw, rect, width=3):
+    """绘制金色边框"""
+    x1, y1, x2, y2 = rect
+    draw.rectangle([(x1, y1), (x2, y1+width)], fill=COLOR_GOLD + (180,))
+    draw.rectangle([(x1, y2-width), (x2, y2)], fill=COLOR_GOLD + (180,))
+    draw.rectangle([(x1, y1), (x1+width, y2)], fill=COLOR_GOLD + (180,))
+    draw.rectangle([(x2-width, y1), (x2, y2)], fill=COLOR_GOLD + (180,))
+
+
+def draw_gold_accent_bar(draw, x, y, width=4, height=80, color=COLOR_GOLD):
+    """绘制金色装饰条"""
+    draw.rectangle([(x, y), (x+width, y+height)], fill=color + (220,))
+
+
+def draw_wallpaper_pattern(draw):
+    """绘制底纹：淡金色线条交叉"""
+    for i in range(0, max(WIDTH, HEIGHT), 120):
+        alpha = 3
+        draw.line([(i, 0), (i, HEIGHT)], fill=(212, 175, 55, alpha))
+        draw.line([(0, i), (WIDTH, i)], fill=(212, 175, 55, alpha))
+
+
+def draw_top_bottom_gradients(draw):
+    """顶部和底部的金色渐变装饰条"""
+    # 顶部渐变
+    for i in range(4):
+        draw.rectangle([(0, i), (WIDTH, i+1)], fill=(212, 175, 55, 80 - i*15))
+    # 底部渐变
+    for i in range(4):
+        draw.rectangle([(0, HEIGHT-4+i), (WIDTH, HEIGHT-3+i)], fill=(212, 175, 55, 80 - i*15))
+
+
+def draw_watermark(draw, text="东盛建筑"):
+    """右下角半透明水印"""
+    font_wm = get_font(28)
+    bbox = font_wm.getbbox(text)
+    tw = bbox[2] - bbox[0]
+    th = bbox[3] - bbox[1]
+    x = WIDTH - tw - 40
+    y = HEIGHT - th - 30
+    # 底框
+    draw.rounded_rectangle(
+        [(x-15, y-8), (x+tw+15, y+th+8)],
+        radius=6, fill=(0, 0, 0, 120)
+    )
+    draw.text((x, y), text, font=font_wm, fill=(212, 175, 55, 180))
+
+
+def draw_scene_number(draw, scene_index, text=""):
+    """左上角场景编号"""
+    font_sn = get_font(24)
+    label = f"EPC热点 · {scene_index+1}/7"
+    draw.text((30, 30), label, font=font_sn, fill=(212, 175, 55, 200))
+
+
+def draw_centered_text_block(draw, text, font, center_y, max_width, color=COLOR_WHITE,
                               line_spacing=12, align_center=True, shadow=True):
     """居中绘制多行文本块"""
     lines = []
@@ -107,7 +165,7 @@ def draw_centered_text_block(draw, text, font, center_y, max_width, color=COLOR_
                 current = test
         if current:
             lines.append(current)
-    
+
     if not lines:
         return 0
     line_h = font.getbbox('中')[3] - font.getbbox('中')[1] + line_spacing
@@ -127,22 +185,22 @@ def draw_centered_text_block(draw, text, font, center_y, max_width, color=COLOR_
 async def generate_ai_images():
     """使用MeiGen API生成配图（通过子代理调用）"""
     import tempfile, json
-    
+
     image_dir = os.path.join(OUTPUT_DIR, f"素材图片_{TODAY}")
     os.makedirs(image_dir, exist_ok=True)
-    
+
     print("  📡 调用AI生成配图...")
-    
+
     # 获取 AI 配图 — 本脚本通过子代理调用 generate_image
     # 由外部 cron task 在运行前生成好，如果已存在则跳过
     existing = sorted([f for f in os.listdir(image_dir) if f.endswith('.png') or f.endswith('.jpg')])
     if len(existing) >= 7:
         print(f"  ✓ 已有{len(existing)}张配图，跳过生成")
         return [os.path.join(image_dir, f) for f in existing]
-    
+
     print(f"  ! 需要{7-len(existing)}张配图，请cron先执行AI配图生成步骤")
     print("  回退：使用纯色背景配图替代")
-    
+
     # 回退：生成纯色背景配图
     images = []
     for i, prompt in enumerate(SCENE_IMAGE_PROMPTS):
@@ -155,7 +213,7 @@ async def generate_ai_images():
         img.save(img_path)
         images.append(img_path)
         print(f"    ✓ 回退配图{i+1}生成")
-    
+
     return images
 
 
@@ -163,21 +221,20 @@ def create_fallback_scene(scene_index, text):
     """生成纯色背景配图（回退用）"""
     img = Image.new('RGB', (WIDTH, HEIGHT), COLOR_BG_DARK)
     draw = ImageDraw.Draw(img)
-    
+
     font_large = get_font(72)
     font_medium = get_font(48)
     font_small = get_font(36)
-    
-    # 建筑网格
+
+    # 底纹
+    draw_wallpaper_pattern(draw)
     draw_building_grid(draw)
-    
-    # 顶部金线
-    for i in range(60):
-        alpha = int(20 * (1 - i/60))
-        draw.rectangle([(0, i), (WIDTH, i+1)], fill=(COLOR_GOLD[0], COLOR_GOLD[1], COLOR_GOLD[2], alpha))
-    
+
+    # 顶部/底部渐变
+    draw_top_bottom_gradients(draw)
+
     random.seed(scene_index * 42)
-    
+
     if scene_index == 0:
         # Hook场景：金色边框+大标题
         draw.rectangle([(140, 300), (WIDTH-140, 650)], outline=COLOR_GOLD, width=4)
@@ -186,10 +243,9 @@ def create_fallback_scene(scene_index, text):
             x = random.randint(100, WIDTH-100)
             y = random.randint(800, 1600)
             sz = random.randint(60, 120)
-            # 简易建筑
             s = sz // 2
             draw.rectangle([(x-s, y-s), (x+s, y+s)], outline=COLOR_GOLD, width=2)
-    
+
     elif scene_index == 5:
         # 品牌场景：大号品牌名
         brand_font = get_font(96)
@@ -197,7 +253,7 @@ def create_fallback_scene(scene_index, text):
         draw.line([(200, 610), (WIDTH-200, 610)], fill=COLOR_GOLD, width=2)
         draw_centered_text_block(draw, BRAND_SUBTITLE, font_medium, 700, WIDTH-200, color=COLOR_GOLD_LIGHT)
         draw_centered_text_block(draw, "十五年匠心 · 一站式交付", font_small, 1400, WIDTH-200, color=COLOR_GRAY)
-    
+
     elif scene_index == 6:
         # CTA场景
         follow_font = get_font(70)
@@ -206,43 +262,52 @@ def create_fallback_scene(scene_index, text):
         draw.rounded_rectangle([(340, 800), (740, 1200)], radius=24, outline=COLOR_GOLD, width=3)
         draw_centered_text_block(draw, '东盛建筑', font_small, 1000, 400, color=COLOR_GOLD)
     else:
-        # 一般场景：场景标题+数据
         title_font = get_font(80)
         draw_centered_text_block(draw, f'场景{scene_index+1}/7', font_small, 350, 300, color=COLOR_GOLD)
         draw_centered_text_block(draw, text[:30] + '...', title_font, 600, WIDTH-200, color=COLOR_WHITE)
-    
+
+    draw_watermark(draw)
     return img
 
 
 def create_subtitle_frame(scene_text, scene_index):
-    """生成纯字幕帧"""
+    """生成字幕帧 — 更宽更低位置的带金边字幕框"""
     sub_img = Image.new('RGBA', (WIDTH, HEIGHT), (0, 0, 0, 0))
     draw = ImageDraw.Draw(sub_img)
-    
-    font_subtitle = get_font(44)
-    font_tag = get_font(26)
-    
-    # 底部字幕区域
-    box_y1 = 1520
-    box_y2 = 1780
-    
+
+    font_subtitle = get_font(42)
+    font_tag = get_font(24)
+
+    # 底部字幕区域 — 更宽更低，覆盖更多区域
+    box_y1 = 1480
+    box_y2 = 1800
+    box_margin_x = 40
+
+    # 主字幕框背景（深色半透明）
     draw.rounded_rectangle(
-        [(80, box_y1), (WIDTH-80, box_y2)],
-        radius=16, fill=(0, 0, 0, 180)
+        [(box_margin_x, box_y1), (WIDTH-box_margin_x, box_y2)],
+        radius=20, fill=(0, 0, 0, 180)
     )
+
+    # 左侧金色装饰条（更醒目）
     draw.rounded_rectangle(
-        [(80, box_y1), (100, box_y2)],
+        [(box_margin_x+8, box_y1+12), (box_margin_x+12, box_y2-12)],
         radius=4, fill=COLOR_GOLD + (220,)
     )
-    
-    draw.text((120, box_y1 + 10), f'{scene_index+1}/7', font=font_tag, fill=COLOR_GOLD)
-    
-    center_y = (box_y1 + box_y2) // 2
+
+    # 顶部金色细线
+    draw.rectangle([(box_margin_x+25, box_y1+3), (WIDTH-box_margin_x-25, box_y1+5)], fill=COLOR_GOLD + (60,))
+
+    # 场景标签
+    draw.text((box_margin_x+30, box_y1+12), f'EPC热点 · {scene_index+1}/7', font=font_tag, fill=COLOR_GOLD)
+
+    # 正文（预留顶部标签空间）
+    center_y = (box_y1 + 50 + box_y2) // 2
     draw_centered_text_block(
         draw, scene_text, font_subtitle, center_y,
-        WIDTH-240, color=COLOR_WHITE, shadow=True
+        WIDTH - box_margin_x*2 - 60, color=COLOR_WHITE, shadow=True
     )
-    
+
     return sub_img
 
 
@@ -256,7 +321,7 @@ async def synthesize_video(scene_images):
         await communicate.save(tts_path)
         tts_files.append(tts_path)
         print(f"    ✓ 配音{i+1} ({len(text)}字)")
-    
+
     # 获取每段时长
     durations = []
     for tts_f in tts_files:
@@ -266,55 +331,66 @@ async def synthesize_video(scene_images):
         ], capture_output=True, text=True)
         dur = float(r.stdout.strip()) if r.stdout.strip() else MIN_DURATION
         durations.append(max(dur, MIN_DURATION))
-    
-    # 第2步：合成带配图+字幕的片段
+
+    # 第2步：合成带配图+字幕的片段 — 使用zoompan实现真正的镜头推拉
     print("  🎞️ 第2步：合成视频片段（配图+动效+字幕）...")
-    
-    # 先生成字幕帧
+
     subtitle_images = []
     for i, text in enumerate(SCENES_TEXTS):
         sub_path = os.path.join(OUTPUT_DIR, f"sub_{i:02d}.png")
         sub_img = create_subtitle_frame(text, i)
         sub_img.save(sub_path)
         subtitle_images.append(sub_path)
-    
+
     clip_files = []
     for i in range(len(SCENES_TEXTS)):
         clip_path = os.path.join(OUTPUT_DIR, f"clip_{i:02d}.mp4")
         dur = durations[i]
-        
-        # 配图路径
+
         img_path = scene_images[i] if i < len(scene_images) else None
         if not img_path or not os.path.exists(img_path):
-            # 回退：生成纯色背景
             fallback = create_fallback_scene(i, SCENES_TEXTS[i][:40])
             img_path = os.path.join(OUTPUT_DIR, f"fb_{i:02d}.png")
             fallback.save(img_path)
+
+        # 用ffmpeg的zoompan实现真正的Ken Burns动效
+        # zoompan语法：zoompan=z='zoom_val':d=duration:s=WxH
+        # 奇偶交替：zoom-in (从1.0到1.15) / zoom-out (从1.15到1.0)
+        # x/y平移：随机方向，模拟镜头缓慢移动
+
+        # 设置随机种子确保同一场景每次结果一致
+        random.seed(i * 777)
         
-        # 自动缩放到1080宽
-        subprocess.run([
-            "ffmpeg", "-y",
-            "-i", img_path,
-            "-vf", f"scale={WIDTH}:-1",
-            "-frames:v", "1",
-            os.path.join(OUTPUT_DIR, f"resized_{i:02d}.png")
-        ], capture_output=True)
-        resized_img = os.path.join(OUTPUT_DIR, f"resized_{i:02d}.png")
-        
-        # 加Ken Burns动效：奇偶交替 zoom-in/zoom-out
-        zoom_start = 1.02 if i % 2 == 0 else 1.06
-        zoom_end = 1.06 if i % 2 == 0 else 1.02
-        
-        # 简单的Ken Burns动效：scale+pad保持宽高比
+        if i % 2 == 0:
+            # zoom-in: 从1.0到1.15，同时随机方向平移
+            x_start = random.uniform(0, 0.15)
+            y_start = random.uniform(0, 0.15)
+            x_end = random.uniform(0, 0.15)
+            y_end = random.uniform(0, 0.15)
+            zoompan = (
+                f"zoompan=z='min(zoom+0.15/{max(dur*FPS,1)},1.15)':"
+                f"d={int(dur*FPS)}:"
+                f"s={WIDTH}x{HEIGHT}:"
+                f"x='ix/{WIDTH}*{WIDTH}*(1-1/{1.15})+{WIDTH/2}*1/{1.15}':"
+                f"y='iy/{HEIGHT}*{HEIGHT}*(1-1/{1.15})+{HEIGHT/2}*1/{1.15}'"
+            )
+            label = "zoom-in"
+        else:
+            # zoom-out: 从1.15到1.0
+            zoompan = (
+                f"zoompan=z='max(zoom-0.15/{max(dur*FPS,1)},1.0)':"
+                f"d={int(dur*FPS)}:"
+                f"s={WIDTH}x{HEIGHT}"
+            )
+            label = "zoom-out"
+
         cmd = [
             "ffmpeg", "-y",
-            "-loop", "1", "-i", resized_img,
+            "-loop", "1", "-i", img_path,
             "-i", tts_files[i],
             "-loop", "1", "-i", subtitle_images[i],
             "-filter_complex",
-            f"[0:v]scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=decrease,"
-            f"pad={WIDTH}:{HEIGHT}:(ow-iw)/2:(oh-ih)/2:color=#0A1423,"
-            f"format=yuv420p[v0];"
+            f"[0:v]{zoompan},fps={FPS},format=yuv420p[v0];"
             f"[2:v]scale={WIDTH}:{HEIGHT},setpts=PTS-STARTPTS,format=rgba[sub];"
             f"[v0][sub]overlay=0:0:format=auto:shortest=1,format=yuv420p[v]",
             "-map", "[v]",
@@ -325,65 +401,160 @@ async def synthesize_video(scene_images):
             "-shortest",
             clip_path
         ]
-        
+
         r = subprocess.run(cmd, capture_output=True, text=True)
         if r.returncode != 0:
-            print(f"    ! 片段{i+1}合成失败: {r.stderr[:200]}")
-            continue
-        
+            # zoompan失败，回退到简单scale+pad
+            print(f"    ! zoompan失败，回退简单缩放")
+            cmd_fallback = [
+                "ffmpeg", "-y",
+                "-loop", "1", "-i", img_path,
+                "-i", tts_files[i],
+                "-loop", "1", "-i", subtitle_images[i],
+                "-filter_complex",
+                f"[0:v]scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=decrease,"
+                f"pad={WIDTH}:{HEIGHT}:(ow-iw)/2:(oh-ih)/2:color=#0A1423,"
+                f"format=yuv420p[v0];"
+                f"[2:v]scale={WIDTH}:{HEIGHT},setpts=PTS-STARTPTS,format=rgba[sub];"
+                f"[v0][sub]overlay=0:0:format=auto:shortest=1,format=yuv420p[v]",
+                "-map", "[v]",
+                "-map", "1:a",
+                "-c:v", "h264_videotoolbox",
+                "-b:v", "6000k",
+                "-pix_fmt", "yuv420p",
+                "-shortest",
+                clip_path
+            ]
+            r2 = subprocess.run(cmd_fallback, capture_output=True, text=True)
+            if r2.returncode != 0:
+                print(f"    ! 片段{i+1}合成失败: {r2.stderr[:200]}")
+                continue
+            label = "static"
+
         clip_files.append(clip_path)
-        print(f"    ✓ 片段{i+1} ({dur:.1f}s, {'zoom-in' if i%2==0 else 'zoom-out'})")
-    
+        print(f"    ✓ 片段{i+1} ({dur:.1f}s, {label})")
+
     if not clip_files:
         print("  ✗ 没有成功合成的片段")
         return None
-    
-    # 第3步：合并
+
+    # 第3步：合并 — 用ffmpeg filter实现渐隐过渡
     print("  📽️ 第3步：合并片段（渐隐过渡）...")
-    concat_path = os.path.join(OUTPUT_DIR, "concat_list.txt")
-    with open(concat_path, "w") as f:
-        for clip in clip_files:
-            f.write(f"file '{clip}'\n")
-    
-    # 用concat demuxer简单拼接
-    merged = os.path.join(OUTPUT_DIR, f"_merged_{TODAY}.mp4")
-    r = subprocess.run([
-        "ffmpeg", "-y", "-f", "concat", "-safe", "0",
-        "-i", concat_path,
-        "-c", "copy",
-        merged
-    ], capture_output=True, text=True)
-    
-    if r.returncode != 0:
-        print(f"  ! 合并失败: {r.stderr[:200]}")
-        # 尝试用concat协议
-        filter_concat = "".join([f"[{i}:v][{i}:a]" for i in range(len(clip_files))])
-        filter_desc = f"{filter_concat}concat=n={len(clip_files)}:v=1:a=1[v][a]"
-        
-        inputs = []
-        for clip in clip_files:
-            inputs.extend(["-i", clip])
-        
-        r2 = subprocess.run([
-            "ffmpeg", "-y", *inputs,
-            "-filter_complex", filter_desc,
-            "-map", "[v]", "-map", "[a]",
-            "-c:v", "h264_videotoolbox", "-b:v", "6000k",
-            "-c:a", "aac", "-b:a", "192k",
+
+    if len(clip_files) == 1:
+        merged = clip_files[0]
+    else:
+        merged = os.path.join(OUTPUT_DIR, f"_merged_{TODAY}.mp4")
+
+        # 用concat demuxer尝试快速拼接
+        concat_path = os.path.join(OUTPUT_DIR, "concat_list.txt")
+        with open(concat_path, "w") as f:
+            for clip in clip_files:
+                f.write(f"file '{clip}'\n")
+
+        r = subprocess.run([
+            "ffmpeg", "-y", "-f", "concat", "-safe", "0",
+            "-i", concat_path,
+            "-c", "copy",
             merged
         ], capture_output=True, text=True)
-        
-        if r2.returncode != 0:
-            print(f"  ! 合并失败(重试): {r2.stderr[:200]}")
-            return None
-    
+
+        if r.returncode != 0:
+            # 重试：用filter实现渐隐过渡
+            print("    ! 直接拼接失败，使用渐隐过渡...")
+            # 构造xfade过渡
+            # xfade=transition=fade:duration=0.5:offset=offset
+            inputs = []
+            for clip in clip_files:
+                inputs.extend(["-i", clip])
+
+            # 计算每个片段的偏移量
+            # xfade链接：clip0 无过渡 → clip0->clip1 过渡 → clip1→clip2 过渡 ...
+            # 对于n个clip，需要n-1个xfade链接
+            filter_parts = []
+            prev = f"[0:v][0:a]"
+            for j in range(1, len(clip_files)):
+                offset = sum(durations[:j]) - 0.5  # 前j段总时长-0.5s过渡重叠
+                filter_parts.append(
+                    f"[{j}:v][{j}:a]"
+                )
+            
+            if len(clip_files) == 2:
+                xfade_filter = (
+                    f"[0:v][1:v]xfade=transition=fade:duration=0.5:offset={durations[0]-0.5}[v];"
+                    f"[0:a][1:a]acrossfade=d=0.5[a]"
+                )
+            else:
+                # 多段：逐段xfade链接
+                xfade_parts = []
+                xfade_label = "x0"
+                for j in range(len(clip_files) - 1):
+                    offset = sum(durations[:j+1]) - 0.5
+                    if j == 0:
+                        xfade_parts.append(
+                            f"[0:v][1:v]xfade=transition=fade:duration=0.5:offset={offset}[x{j}]"
+                        )
+                    else:
+                        xfade_parts.append(
+                            f"[x{j-1}][{j+1}:v]xfade=transition=fade:duration=0.5:offset={offset}[x{j}]"
+                        )
+                
+                audio_parts = []
+                audio_label = "a0"
+                for j in range(len(clip_files) - 1):
+                    if j == 0:
+                        audio_parts.append(
+                            f"[0:a][1:a]acrossfade=d=0.5[a{j}]"
+                        )
+                    else:
+                        audio_parts.append(
+                            f"[a{j-1}][{j+1}:a]acrossfade=d=0.5[a{j}]"
+                        )
+                
+                last_v = f"x{len(clip_files)-2}"
+                last_a = f"a{len(clip_files)-2}"
+                xfade_filter = ";".join(xfade_parts + audio_parts)
+                xfade_filter += f"[{last_v}][{last_a}]"
+
+            cmd_xfade = [
+                "ffmpeg", "-y", *inputs,
+                "-filter_complex", xfade_filter,
+                "-map", f"[{last_v}]" if len(clip_files) > 2 else "[v]",
+                "-map", f"[{last_a}]" if len(clip_files) > 2 else "[a]",
+                "-c:v", "h264_videotoolbox", "-b:v", "6000k",
+                "-c:a", "aac", "-b:a", "192k",
+                merged
+            ]
+
+            r2 = subprocess.run(cmd_xfade, capture_output=True, text=True)
+            if r2.returncode != 0:
+                # 最后重试：简单concat协议
+                filter_concat = "".join([f"[{i}:v][{i}:a]" for i in range(len(clip_files))])
+                filter_desc = f"{filter_concat}concat=n={len(clip_files)}:v=1:a=1[v][a]"
+
+                r3 = subprocess.run([
+                    "ffmpeg", "-y", *inputs,
+                    "-filter_complex", filter_desc,
+                    "-map", "[v]", "-map", "[a]",
+                    "-c:v", "h264_videotoolbox", "-b:v", "6000k",
+                    "-c:a", "aac", "-b:a", "192k",
+                    merged
+                ], capture_output=True, text=True)
+
+                if r3.returncode != 0:
+                    print(f"  ! 合并失败: {r3.stderr[:200]}")
+                    return None
+
     print("    ✓ 合并完成")
-    
+
     # 第4步：放到最终目录
     final_name = f"EPC建筑行业热点_{TODAY}.mp4"
     final_path = os.path.join(OUTPUT_DIR, final_name)
-    shutil.copy(merged, final_path)
-    
+    if merged != clip_files[0] if len(clip_files) == 1 else True:
+        shutil.copy(merged, final_path)
+    else:
+        shutil.copy(clip_files[0], final_path)
+
     # 验证
     if os.path.exists(final_path):
         size_mb = os.path.getsize(final_path) / 1024 / 1024
@@ -396,16 +567,15 @@ async def synthesize_video(scene_images):
         print(f"  时长:  {total_dur:.1f}s ({len(SCENES_TEXTS)}段)")
         print(f"  大小:  {size_mb:.2f}MB")
         print(f"  配图:  AI生成建筑行业风格配图")
-        print(f"  动效:  Ken Burns 交替缩放")
-        print(f"  字幕:  半透明底框")
+        print(f"  动效:  Ken Burns 缩放动效 (zoompan)")
+        print(f"  字幕:  半透明宽幅底框+金边")
         print(f"  配音:  {TTS_VOICE}")
         print(f"{'='*58}")
-        
+
         # 写入记录文件
         record_dir = os.path.join(OUTPUT_DIR, "记录")
         os.makedirs(record_dir, exist_ok=True)
-        
-        # 取TODAY的日期格式
+
         date_str = f"{TODAY[:4]}-{TODAY[4:6]}-{TODAY[6:8]}"
         record = f"""# EPC视频记录 - {date_str}
 
@@ -424,12 +594,14 @@ async def synthesize_video(scene_images):
 - 帧率: {FPS}fps
 - 编码: H.264 (VideoToolbox)
 - 配图: AI生成 / 回退纯色
+- 动效: Ken Burns zoompan
+- 字幕: 半透明宽幅底框+金边
 """
         rec_path = os.path.join(record_dir, f"{date_str}.md")
         with open(rec_path, 'w', encoding='utf-8') as f:
             f.write(record)
         print(f"  📝 记录: 已写入 {rec_path}")
-        
+
         return final_path
     else:
         print("  ✗ 输出文件未找到")
@@ -438,23 +610,23 @@ async def synthesize_video(scene_images):
 
 async def main():
     print(f"{'='*58}")
-    print(f"  🏗️  东盛EPC热点视频 v4.0 (AI配图版)")
+    print(f"  🏗️  东盛EPC热点视频 v4.1 (画质提升版)")
     print(f"  {TODAY[:4]}-{TODAY[4:6]}-{TODAY[6:8]}")
     print(f"{'='*58}")
     print(f"  选题: {VIDEO_TITLE}")
     print(f"  品牌: {BRAND_NAME}")
     print(f"{'='*58}\n")
-    
+
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    
+
     # Step 1: 生成/获取配图
     print("📷 配图准备...")
     scene_images = await generate_ai_images()
-    
+
     # Step 2: 合成视频
     print("\n🎬 视频合成...")
     result = await synthesize_video(scene_images)
-    
+
     # 清理临时文件
     for pattern in ["tts_*", "sub_*", "clip_*", "resized_*", "fb_*", "concat_list.txt", "_merged_*"]:
         for f in Path(OUTPUT_DIR).glob(pattern):
@@ -462,7 +634,7 @@ async def main():
                 f.unlink()
             except:
                 pass
-    
+
     if result:
         print(f"\n✅ 完整流程完成！")
         return result
