@@ -1,4 +1,5 @@
 https://work.yibiao.pro/login
+最新版本下载地址：  https://github.com/FB208/OpenBidKit_Yibiao/releases/tag/v2.5.2
 
 **易标投标工具箱 / OpenBidKit_Yibiao**
 
