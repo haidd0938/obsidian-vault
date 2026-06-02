@@ -77,3 +77,22 @@ API：https://open.bigmodel.cn/api/paas/v4
 免费模型：Qwen2.5 / DeepSeek等部分开源模型免费
 新用户：14元（约1亿Token）
 已配置 ✅
+
+## 2026-06-02 智谱GLM渠道配置
+
+渠道ID: 12
+渠道类型: 50 (自定义渠道/OpenAI兼容)
+Base URL: https://open.bigmodel.cn/api/paas/v4
+模型: glm-4-flash (免费), glm-4v-flash (免费视觉)
+状态: 已启用，测试通过
+
+### 已切换到智谱免费模型的Cron任务
+1. 甘肃项目日报 - glm-4-flash
+2. GitHub Trending 副业监控 - glm-4-flash
+3. AI副业研究所每日内容 - glm-4-flash
+4. AI工具日报-公众号素材 - glm-4-flash
+
+### 仍保留DeepSeek的任务
+- EPC每日视频 (需创意质量)
+- 顾比交易大脑 (金融判断)
+- Hermes主力对话 (复杂推理)
