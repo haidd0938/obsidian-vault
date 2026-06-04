@@ -1,0 +1,52 @@
+```json
+{
+  "_meta": {
+    "app": "易标投标工具箱",
+    "version": "2.6.1",
+    "source": "反编译 app.asar",
+    "date": "2026-06-05"
+  },
+  "routes": {
+    "首页": "state='documents', tab='tender'",
+    "提取页": "b8 组件, oc(mode) 筛选提取项",
+    "目录生成": "Vb → Yb(full) | Gb(fallback)",
+    "正文生成": "依赖 outline, Jl 状态机",
+    "编排配图": "正文编辑器 + AI配图",
+    "Word导出": "fileService → docx"
+  },
+  "extraction_items": {
+    "required": ["projectOverview", "techRequirements"],
+    "optional": [
+      "projectInfo", "partAInfo", "agentInfo", "keyInfo",
+      "marginInfo", "qualificationReview", "complianceCheck",
+      "openBid", "evaluationBid", "businessScoring",
+      "discardedBids", "signingProcess", "terminationCondition"
+    ]
+  },
+  "ai_interfaces": {
+    "hx.chat()": "通用文本对话 → string",
+    "hx.requestJson()": "结构化输出 → Object",
+    "response_format": "支持 json_object"
+  },
+  "directory_generation": {
+    "mode_full": "Yb → 一次性生成完整outline",
+    "mode_step": "Gb → KS(一级) → WS(二三级)",
+    "fallback": "full 失败自动切 step",
+    "verify": "$S → {passed, suggestions}"
+  },
+  "status_map": {
+    "idle": "待生成",
+    "running": "生成中",
+    "success": "已生成",
+    "error": "失败",
+    "partial": "部分生成",
+    "planning": "编排中"
+  },
+  "config_keys": {
+    "ai_model": "{provider, model, api_key, base_url}",
+    "image_model": "{provider, api_key, model, status}",
+    "file_parser": "{provider}",
+    "flags": ["use_mermaid_images", "use_ai_images"]
+  }
+}
+```
