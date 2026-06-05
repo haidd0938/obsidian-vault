@@ -1,0 +1,32 @@
+=== 2026-05-28 (周四) compare ===
+状态: ❌ 发布失败(代理不可用) - 已保存桌面待手动发布
+方向: compare (工具对比)
+标题: AI写作工具实测！苹果vs Grammarly谁更强
+封面: cover_compare_0528_1002.png (58650 bytes)
+失败原因: port 6478 无HTTP代理监听, ERR_PROXY_CONNECTION_FAILED
+---
+
+=== 2026-05-31 (周日) review ===
+状态: ❌ 发布失败(publish_content DOM损坏) - 已保存桌面待手动发布
+方向: review (复盘总结)
+标题: 这周AI副业圈发生了啥
+封面: cover_review_0531_1134.png (59197 bytes)
+失败原因: mustClickPublishTab panic - 小红书页面DOM结构变化导致MCP的CSS选择器失效
+---
+
+=== 2026-06-01 (周一) tool_test ===
+状态: ❌ 发布失败(publish_content DOM损坏) - 已保存桌面待手动发布
+方向: tool_test (AI工具实测)
+标题: 谷歌偷偷上线的AI绘图神了！免费白嫖
+封面: cover_tool_test_0601_1005.png (78888 bytes)
+失败原因: mustClickPublishTab panic - `context deadline exceeded` at mustClickPublishTab. 代理6478工作正常(check_login_status正常), 但小红书发布页DOM选择器不匹配.
+---
+
+=== 2026-06-02 (周二) money_case ===
+状态: 发布失败(publish_content DOM损坏 + Cookie过期) - 已保存桌面待手动发布
+方向: money_case (搞钱案例)
+标题: 靠一个开源AI工具，在家躺赚5000+
+封面: cover_money_case_0602_1007.png (68818 bytes)
+失败原因: mustClickPublishTab panic（自2026-05-29起结构性损坏）+ Cookie过期(23天)。代理6478正常。已保存桌面待手动发布
+桌面文件: /Users/mac/Desktop/.hermes/小红书笔记_20260602_周二搞钱案例.md
+---
