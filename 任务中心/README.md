@@ -1,94 +1,34 @@
-# 任务中心 — Cron 任务看板
+# 任务中心
 
-> 任务由 Hermes Agent 自动调度执行
-> 点击任务名可直达产出文件
+## 分类体系（4大类）
 
----
+| 分类 | Obsidian汇总页 | 产出目录 | 涵盖任务 |
+|------|---------------|---------|---------|
+| 📈 股票投资 | `01-股票投资.md` | `01-股票投资/` | 顾比早报、收盘复盘、UZI验证 |
+| 🏗️ 建筑主业 | `02-建筑主业.md` | `02-建筑主业/` | EPC视频、甘肃项目 |
+| 💡 副业增收 | `03-副业增收.md` | `03-副业增收/` | GitHub监控、AI工具日报、鑫球汇视频 |
+| 📋 汇总复盘 | `04-汇总复盘.md` | `04-汇总复盘/` | 周项目进度、0点汇总 |
 
-## 正在运行（5个）
+## 产出流程
 
-### ① 0点提醒睡觉+当日汇总
-- **时间**：每天 00:00 | ✅ 运行中
-- **说明**：推送当日工作汇总和休息提醒
-- **最近产出**：[2026-05-08-晚安提醒](file:///Users/mac/PROJECTS/任务中心/08-0点提醒/2026-05-08-晚安提醒.md)
-- 📂 [所有产出](file:///Users/mac/PROJECTS/任务中心/08-0点提醒)
+1. Cron任务执行 → Python脚本直接写 .md 文件到对应产出目录
+2. 每晚23:55 → 同步脚本自动更新各分类的汇总页
+3. Obsidian 中打开对应分类汇总页即可查看最新产出
 
-### ② DeepSeek余额监控
-- **时间**：每天 09:00 | ✅ 运行中
-- **说明**：检测 DeepSeek API 余额，不足时告警
-- **最近产出**：[2026-05-09-余额检查](file:///Users/mac/PROJECTS/任务中心/03-DeepSeek余额/2026-05-09-余额检查.md)
-- 📂 [所有产出](file:///Users/mac/PROJECTS/任务中心/03-DeepSeek余额)
+## 目录结构
 
-### ③ GitHub Trending 副业监控
-- **时间**：每天 22:00 | ✅ 运行中
-- **说明**：抓取 GitHub Trending，筛选可落地的副业项目
-- **最近产出**：[2026-05-08-GitHub趋势](file:///Users/mac/PROJECTS/任务中心/07-GitHub监控/2026-05-08-GitHub趋势.md)
-- 📂 [所有产出](file:///Users/mac/PROJECTS/任务中心/07-GitHub监控)
-- 📂 [项目文件](file:///Users/mac/PROJECTS/03_出海接单)
-
-### ④ 周一项目进度汇总
-- **时间**：每周一 09:00 | ✅ 运行中
-- **说明**：汇总各项目进展
-- **最近产出**：[2026-05-08-每日汇总报告](file:///Users/mac/PROJECTS/任务中心/汇总报告/2026-05-08-每日汇总报告.md)
-- 📂 [所有产出](file:///Users/mac/PROJECTS/任务中心/汇总报告)
-
-### ⑤ 记忆系统同步到Obsidian
-- **时间**：每周五 22:00 | ✅ 运行中
-- **说明**：压缩归档 Hermes 记忆并同步至 Obsidian
-- 📂 [同步脚本](file:///Users/mac/.hermes/scripts/memory-compressor.py)
-
----
-
-## 已暂停（6个）
-
-### ⑥ 每日EPC建筑行业热点视频
-- **时间**：每天 08:00 | ⚠️ 出错
-- **最近产出**：[2026-05-16-EPC视频记录](file:///Users/mac/PROJECTS/任务中心/02-EPC视频/2026-05-16-EPC视频记录.md)
-- 📂 [所有产出](file:///Users/mac/PROJECTS/任务中心/02-EPC视频)
-- 📂 [视频文件](file:///Users/mac/东盛工作/视频)
-
-### ⑦ 股票机器人-每日收盘复盘
-- **时间**：工作日 15:30 | ⏸️ 暂停
-- **最近产出**：[2026-05-08-收盘复盘](file:///Users/mac/PROJECTS/任务中心/06-股票复盘/2026-05-08-收盘复盘.md)
-- 📂 [所有产出](file:///Users/mac/PROJECTS/任务中心/06-股票复盘)
-- 📂 [项目文件](file:///Users/mac/PROJECTS/05_股票量化)
-
-### ⑧ 顾比交易大脑-每日早报
-- **时间**：工作日 07:30 | ⏸️ 暂停
-- **最近产出**：[2026-05-08-早报](file:///Users/mac/PROJECTS/任务中心/01-顾比早报/2026-05-08-早报.md)
-- 📂 [所有产出](file:///Users/mac/PROJECTS/任务中心/01-顾比早报)
-- 📂 [项目文件](file:///Users/mac/PROJECTS/05_股票量化)
-
-### ⑨ 鑫球汇台球每日视频
-- **时间**：每天 10:30 | ⏸️ 暂停
-- **最近产出**：[2026-05-14-视频记录](file:///Users/mac/PROJECTS/任务中心/04-鑫球汇视频/2026-05-14-视频记录.md)
-- 📂 [所有产出](file:///Users/mac/PROJECTS/任务中心/04-鑫球汇视频)
-- 📂 [项目文件](file:///Users/mac/PROJECTS/01_鑫球汇台球)
-
-### ⑩ 甘肃投资项目每日抓取
-- **时间**：每天 11:00 | ⏸️ 暂停
-- **最近产出**：[2026-05-07-匹配项目](file:///Users/mac/PROJECTS/任务中心/05-甘肃项目/2026-05-07-匹配项目.md)
-- 📂 [所有产出](file:///Users/mac/PROJECTS/任务中心/05-甘肃项目)
-- 📂 [项目文件](file:///Users/mac/PROJECTS/06_甘肃项目)
-
-### ⑪ AI副业研究所-每日变现内容
-- **时间**：每天 10:00 | ⏸️ 暂停
-- 📂 [项目文件](file:///Users/mac/PROJECTS/03_出海接单)
-
----
-
-## 📂 项目管理总目录
-
-| 项目 | Obsidian 笔记 | 文件存储 |
-|------|-------------|---------|
-| 🏗️ 东盛工作 | [01东盛工作](file:///Users/mac/Documents/Obsidian%20Vault/01东盛工作) | [📁 东盛工作](file:///Users/mac/东盛工作) |
-| 🎱 鑫球汇台球 | [鑫球汇台球](file:///Users/mac/Documents/Obsidian%20Vault/鑫球汇台球) | [📁 01_鑫球汇台球](file:///Users/mac/PROJECTS/01_鑫球汇台球) |
-| 🤖 Hermes系统 | [Hermes系统](file:///Users/mac/Documents/Obsidian%20Vault/Hermes系统) | [📁 02_Hermes系统](file:///Users/mac/PROJECTS/02_Hermes系统) |
-| 🌊 出海接单 | [出海接单](file:///Users/mac/Documents/Obsidian%20Vault/出海接单) | [📁 03_出海接单](file:///Users/mac/PROJECTS/03_出海接单) |
-| 📕 小红书 | [小红书](file:///Users/mac/Documents/Obsidian%20Vault/小红书) | [📁 04_小红书](file:///Users/mac/PROJECTS/04_小红书) |
-| 📈 股票量化 | [股票量化](file:///Users/mac/Documents/Obsidian%20Vault/股票量化) | [📁 05_股票量化](file:///Users/mac/PROJECTS/05_股票量化) |
-| 🏔️ 甘肃项目 | [甘肃项目](file:///Users/mac/Documents/Obsidian%20Vault/甘肃项目) | [📁 06_甘肃项目](file:///Users/mac/PROJECTS/06_甘肃项目) |
-| 👤 个人文档 | [个人文档](file:///Users/mac/Documents/Obsidian%20Vault/个人文档) | [📁 07_个人文档](file:///Users/mac/PROJECTS/07_个人文档) |
-| 📋 日志归档 | [LOG](file:///Users/mac/Documents/Obsidian%20Vault/LOG) | [📁 LOG文件] |
-| 📊 技能笔记 | [技能学院](file:///Users/mac/Documents/Obsidian%20Vault/技能学院) | — |
-| 🔄 Cron任务 | [任务中心](file:///Users/mac/Documents/Obsidian%20Vault/任务中心) | [📁 任务产出](file:///Users/mac/PROJECTS/任务中心) |
+```
+任务中心/
+├── 01-股票投资.md        ← 📈 汇总页（自动同步）
+├── 02-建筑主业.md         ← 🏗️ 汇总页（自动同步）
+├── 03-副业增收.md         ← 💡 汇总页（自动同步）
+├── 04-汇总复盘.md         ← 📋 汇总页（自动同步）
+├── README.md
+├── 产出/
+│   ├── 01-股票投资/       ← 每日顾比早报、收盘复盘、UZI验证
+│   ├── 02-建筑主业/       ← 每日EPC视频记录、甘肃项目
+│   ├── 03-副业增收/       ← 每日GitHub监控、AI工具、鑫球汇
+│   └── 04-汇总复盘/       ← 每周进度、每日汇总
+└── toolsets/
+    └── 任务模板/
+```
