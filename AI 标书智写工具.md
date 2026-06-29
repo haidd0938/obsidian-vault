@@ -459,3 +459,37 @@ v2.16.2最新的
 - [接触](https://support.github.com/?tags=dotcom-footer)
 - 管理 Cookie
 - 请勿泄露我的个人信息
+
+
+
+
+Windows 打包失败是因为我们在 Mac 上，`electronDist` 指向的是 macOS 版 Electron，没有 `electron.exe`。
+
+**方案一：在 Windows 上打包**
+
+把 `client/` 目录复制到 Windows 电脑，然后：
+
+```
+cd client
+npm ci
+npm run build
+npm run dist:win
+```
+
+**方案二：用已有的旧版 Win 包 + 替换 app.asar**
+
+```
+cd /Users/mac/Desktop/HuiBiao/易标源码-慧标改版/client
+
+# 1. 构建前端
+npm run build
+
+# 2. 创建 app.asar
+npx asar pack dist /tmp/hb.asar
+npx asar pack electron /tmp/hb_electron.asar
+
+# 3. 替换旧版 win 包里的 app.asar
+# 旧包在 /Users/mac/Desktop/HuiBiao/release/慧标-1.0.0-win-x64.zip
+```
+
+不过最简单还是方案一，Windows 上直接打包最干净
