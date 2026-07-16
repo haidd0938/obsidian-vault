@@ -604,3 +604,8 @@ npx asar pack electron /tmp/hb_electron.asar
        下载密钥工具：https://opendocs.alipay.com/common/02kipk
        生成密钥后，把「应用公钥」粘贴到开放平台
        复制「支付宝公钥」保存备用
+
+
+
+
+天眼查重/ai评标功能要只能补全，这个功能很实用
