@@ -720,3 +720,119 @@ App 里加个按钮很简单，点击后调用 `window.yibiao.openExternal('mail
 6️⃣ 有 Bug 或建议？
   App 左侧底部点 💬 直接提交反馈
 ```
+
+
+# 标书写起来太费劲？这个开源工具直接帮你省80%的标书内容
+
+原创 时之m 时之AI测评
+
+ _2026年7月20日 19:44_ 听全文
+
+时之本来也想做一个标书制作工具，但是一个月才一两个标，也就没浪费那时间去开发，每次都是把标书里面的评分表和需求文档部分丢给Agent让他帮我把标书里面需要写的技术标部分给我整理出来，剩下其他的企业资质都是直接往里面套模板。
+
+最近也是在github上看到一个开源免费的AI标书助手，对标上千元付费工具，支持深度求索、国内的Deepseek、Qwen、GPT等主流模型，所以拿出来给大家分享一下。
+
+![](https://mmbiz.qpic.cn/sz_mmbiz_png/Hh5Siciby9YNmGR3GAGfzM1r2BBUkB4WibpjSUwx1nQVSZ9SJDE6UuA1M6WnclZlpZQopcQaJwMtPQML7OcH7hpZvmXZhK97tcfwrrqX53mibII/640?wx_fmt=png&from=appmsg)
+
+#AI#开源#标书#投标#生产力工具
+
+做标书的都知道，一份十万字的投标文件，光排版、查重、凑常用的企业介绍，项目人员配置等固定资料就能把人熬秃。市面上AI写标书的付费工具不少，但价格一个比一个夸张：生成一份就要几十甚至上百块，中小企业和个人投标者根本用不起。免费的工具倒是有人推，质量却一塌糊涂，生成的东西完全不能看。
+
+直到我翻到“OpenBidKit_Yibiao”这个开源项目，才感觉终于有人把这事做对了七七八八。
+
+## 一个真正“用得起”的AI标书生成器
+
+这个叫 OpenBidKit的项目（中文名“易标”），是一套完全开源的桌面客户端。它最大的卖点就四个字：省钱、可控。项目README里直接算了一笔账：用DeepSeek V4 Flash模型生成一份十万字的投标标书，成本仅仅1块钱。对比外面几十上百的收费，这几乎是白送。
+
+它不是那种套壳的粗糙产品。整个项目用 Electron + Vite + React + TypeScript搭建，底层集成了OpenCode Agent和Pi Agent两套智能体运行时，支持OpenAI兼容格式的所有API，并且已经深度适配了GPT、DeepSeek、火山方舟三个主流平台。如果你愿意折腾，也能接Ollama、LM Studio这种本地模型，完全不需要联网付费。
+
+![](https://mmbiz.qpic.cn/mmbiz_png/Hh5Siciby9YNme0x8lypDqgGJmWOqouOESSSZyVVP6SYTNvlRXk7CBYcpCHkOlg8hlN5LjzmSSTy2OUiaxkd6MRIauDDs7OVHnRj8px1EW1KH4/640?wx_fmt=png&from=appmsg)
+
+## 不只能写，还能整份标书一条龙
+
+这个工具不是简单把prompt扔给大模型就跑。它围绕投标场景设计了一整套工作流：
+
+- AI生成技术方案
+    
+    ：输入招标要求，自动生成结构完整的技术标书初稿，图文并茂。如果你有历史方案素材，还能通过内置的企业知识库让AI更贴合自己的业务——把公司的资质、过往案例、常用方案沉淀进去，生成的内容直接复用。
+    
+- 图文与图表
+    
+    ：支持 Mermaid预览、正文配图和图表转Word，标书中那些流程图、架构图不再需要手动画。
+    
+- 风险检查
+    
+    ：预留了标书查重和废标项检查两个工作区。虽然还在开发中，但已经能针对重复表达、响应完整性做初步扫描。对投标人来说，这功能简直救命——多少标书因为格式错误或偏离响应要求被废，有了AI辅助至少能规避明显雷区。
+    
+- 后台任务恢复
+    
+    ：解析文件、生成长篇内容时，即使切到别的页面，任务也不会丢失。全部落盘到本地，回来继续编辑。
+    
+    ![](https://mmbiz.qpic.cn/sz_mmbiz_png/Hh5Siciby9YNkktAu5o56r1WjSM3tNspW9chuB9GeEdhYH6V1KSLOGqTib9HpH9ZtxZ81ibZjgX1hChvrcfa4PMZmEOuu11Nf0aKyRqeGuB7BhE/640?wx_fmt=png&from=appmsg)
+    
+
+## 本地存储，数据完全你自己说了算
+
+市面上很多标书AI工具都是纯在线服务，你的标书文件、公司信息都上传到别人的服务器。易标把配置、缓存和生成结果全部保存在本机的 `userData`目录，完全离线可控。对于涉密性较高的投标项目，这层保障很关键。
+
+客户端基于Electron，Windows和macOS都有安装包。下载之后解压就能用，不需要配置复杂的Python环境或Docker。如果你乐意，甚至可以自行修改代码，二次开发适配团队内部的标书模板和流程——开源许可AGPL-3.0允许这样做，只要遵守同样的开源义务。
+
+## 这个工具适合谁来用？
+
+如果你是企业投标专员、标书代写从业者、中小企业的老板或运营，经常需要处理几十上百页的招标文件，那么易标绝对是当下最值得一试的开源方案。它不像其他付费工具那样按次收费，也不像某些简陋的免费工具那样只能生成厕所读物——生成质量取决于你选的模型，用DeepSeek v4或者GPT-4o，效果完全能商用。
+
+## 开源的力量
+
+这个项目目前在GitHub上有接近2000颗星，社区反馈非常活跃。按项目组的说法，他们要做“投标领域的OpenClaw”——免费、好用、持续迭代。从功能规划来看，标书查重、废标项检查这两块一旦完善，几乎可以覆盖投标全流程的半自动化了。
+
+如果你正好被标书折磨，不妨去官方仓库看一眼。反正免费，试试也不亏。如果觉得有用，顺手点个星，让更多人知道还有这种开源好物存在。
+
+  
+
+持续分享优质 AI 开源项目与源码实战，一个人摸索很容易踩坑。
+
+对 Agent、智能体感兴趣的朋友，无论新手还是大佬，都欢迎一起交流。私信「时之」拉你进群。
+
+想拿到仓库地址，直接动手试试？
+
+GITHUB: https://github.com/FB208/OpenBidKit_Yibiao
+
+  
+
+每日GitHub 项目推荐（持续更新） · 目录
+
+上一篇让手绘故事动起来：一个开源工具，把7幅手绘图变成40秒填色动画
+
+阅读 69
+
+OpenBidKit_Yibiao
+
+​
+
+**留言**
+
+写留言
+
+[](javacript:;)
+
+![](https://mmbiz.qpic.cn/mmbiz_png/Fg0mqMdVh6GA3KYZjMoriakGxcNHDpcFfIqlBdAmOdVtuicen36BiccjrXwMpFvtDrticI1CRHlke8hwmI4ZgZnTtQ/300?wx_fmt=png&wxfrom=18)
+
+时之AI测评
+
+关注
+
+1
+
+10
+
+推荐
+
+写留言
+
+![](https://wx.qlogo.cn/mmopen/dx4Y70y9XctDQ9ic1FUQS7aZicIjnacN1LZlupujKf6rxaD5cXoE2yZXVvuS6dMlsYBNYZ60aoBibZho6IMib0zDJvuUCVPqVKDy/96)
+
+复制搜一搜
+
+复制搜一搜
+
+暂无评论
