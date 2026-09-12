@@ -15,3 +15,16 @@ Thumbs.db
 # Obsidian 本地缓存
 .obsidian/cache/
 .obsidian/plugins/*/data.json
+
+# 大文件不进 git（Obsidian 备份只记笔记，不记媒体/工作文档）
+*.mp4
+*.zip
+*.webarchive
+*.dmg
+*.pkg
+*.tar.gz
+*.tgz
+*.docx
+*.pdf
+node_modules/
+hermes全量备份_*/
