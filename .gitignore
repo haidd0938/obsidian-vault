@@ -28,3 +28,6 @@ Thumbs.db
 *.pdf
 node_modules/
 hermes全量备份_*/
+
+# 设计素材大图不入备份
+素材库/设计素材/
